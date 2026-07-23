@@ -1,0 +1,125 @@
+import * as process from 'node:process';
+
+/**
+ * Ensures extracted environment variable is a string
+ *
+ * @param value - extracted environment variable
+ * @returns environment variable as string
+ */
+function asString(value: string | undefined): string {
+    if (value === undefined) {
+        const message = 'The environment variable cannot be "undefined".';
+        throw new Error(message);
+    }
+
+    return value;
+}
+
+/**
+ * Ensures extracted environment variable is a number
+ *
+ * @param value - extracted environment variable
+ * @returns environment variable as integer
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function asNumber(value: string | undefined): number {
+    const stringValue = asString(value);
+    const numberValue = Number.parseFloat(stringValue);
+
+    if (Number.isNaN(numberValue)) {
+        const message = `The environment variable has to hold a stringified number value - not ${stringValue}`;
+        throw new Error(message);
+    }
+
+    return numberValue;
+}
+
+/**
+ * Ensures extracted environment variable is a boolean
+ *
+ * @param value - extracted environment variable
+ * @returns environment variable as boolean
+ */
+function asBoolean(value: string | undefined): boolean {
+    const stringVariable = asString(value);
+    if (!(stringVariable === 'true' || stringVariable === 'false')) {
+        const message = `The environment variable has to hold a stringified boolean value - not ${stringVariable}`;
+        throw new Error(message);
+    }
+    return stringVariable === 'true';
+}
+
+/**
+ * Ensures extracted environment variable is one of the provided values
+ *
+ * @param value - extracted environment variable
+ * @param valueList - list of possible values
+ * @returns environment variable
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function asOneOf<T extends string | number>(value: T, valueList: T[]): T {
+    if (!valueList.includes(value)) {
+        const message = `The environment variable must be one of the following: ${valueList.join(
+            ',',
+        )} - not ${value.toString()}`;
+        throw new Error(message);
+    }
+    return value;
+}
+
+export default {
+    /**
+     * @returns Url of graphql backend endpoint
+     * @example http://localhost:3000/graphql
+     */
+    get BACKEND_URL(): string {
+        return asString(
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            import.meta.env.BACKEND_URL ?? 'http://localhost:3000',
+        );
+    },
+
+    get VERSION(): string {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        return asString(import.meta.env.VITE_QUASAR_VERSION ?? '0.0.0');
+    },
+
+    /**
+     * @returns whether this build is a production build
+     */
+    get VUE_APP_PRODUCTION(): boolean {
+        return asBoolean(process.env.VUE_APP_PRODUCTION);
+    },
+    /**
+     * @returns whether application is in DEV mode
+     */
+    get DEV(): boolean {
+        return asBoolean(process.env.DEV);
+    },
+
+    get USE_FAKE_OAUTH_FOR_DEVELOPMENT(): boolean {
+        return asBoolean(
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            import.meta.env.VITE_USE_FAKE_OAUTH_FOR_DEVELOPMENT ?? 'false',
+        );
+    },
+
+    get DOCS_URL(): string {
+        return asString(
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            import.meta.env.VITE_DOCS_URL ?? 'https://kleinkram.io/docs',
+        );
+    },
+    get S3_ENDPOINT(): string {
+        const endpoint = import.meta.env.VITE_S3_ENDPOINT as string | undefined;
+        if (endpoint) {
+            return asString(endpoint);
+        }
+
+        if (this.BACKEND_URL.includes('localhost')) {
+            return asString('http://localhost:9000');
+        } else {
+            throw new Error('S3_ENDPOINT environment variable is missing.');
+        }
+    },
+};

@@ -1,0 +1,7 @@
+black
+flake8
+mypy
+pre-commit
+pytest
+rosbags
+types-boto3

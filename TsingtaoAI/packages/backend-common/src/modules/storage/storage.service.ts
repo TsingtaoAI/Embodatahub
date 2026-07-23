@@ -1,0 +1,278 @@
+import {
+    DeleteObjectCommand,
+    DeleteObjectTaggingCommand,
+    GetObjectCommand,
+    GetObjectTaggingCommand,
+    HeadObjectCommand,
+    ListObjectsV2Command,
+    PutBucketCorsCommand,
+    PutObjectTaggingCommand,
+} from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import environment from '@backend-common/environment';
+import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Readable } from 'node:stream';
+import { S3StorageBucket } from './s3-storage-bucket';
+import { StorageAuthService } from './storage-auth.service';
+import { S3ClientContainer } from './storage-config.factory';
+import { StorageMetricsService } from './storage-metrics.service';
+import {
+    StorageCredentials,
+    StorageItem,
+    StorageItemStat,
+    StorageSystemMetrics,
+} from './types';
+
+@Injectable()
+export class StorageService implements OnModuleInit {
+    constructor(
+        @Inject('S3_CLIENTS')
+        private readonly clients: S3ClientContainer,
+        private readonly metricsService: StorageMetricsService,
+        private readonly authService: StorageAuthService,
+    ) {}
+
+    async onModuleInit(): Promise<void> {
+        const buckets = [
+            environment.S3_DATA_BUCKET_NAME,
+            environment.S3_ARTIFACTS_BUCKET_NAME,
+            environment.S3_DB_BUCKET_NAME,
+        ];
+
+        for (const bucketName of buckets) {
+            try {
+                const command = new PutBucketCorsCommand({
+                    Bucket: bucketName,
+                    CORSConfiguration: {
+                        CORSRules: [
+                            {
+                                AllowedHeaders: ['*'],
+                                AllowedMethods: [
+                                    'GET',
+                                    'PUT',
+                                    'POST',
+                                    'DELETE',
+                                    'HEAD',
+                                ],
+                                AllowedOrigins: ['*'],
+                                ExposeHeaders: [
+                                    'Content-Range',
+                                    'Content-Length',
+                                    'ETag',
+                                    'Accept-Ranges',
+                                    'Content-Disposition',
+                                ],
+                                MaxAgeSeconds: 3000,
+                            },
+                        ],
+                    },
+                });
+                await this.clients.internal.send(command);
+                Logger.debug(
+                    `Configured CORS for S3 bucket ${bucketName}`,
+                    'StorageService',
+                );
+            } catch (error) {
+                Logger.warn(
+                    `Failed to configure CORS for S3 bucket ${bucketName}: ${String(error)}`,
+                    'StorageService',
+                );
+            }
+        }
+    }
+
+    async getPresignedDownloadUrl(
+        bucketName: string,
+        objectName: string,
+        expirySeconds: number,
+        responseDisposition?: Record<string, string>,
+    ): Promise<string> {
+        const command = new GetObjectCommand({
+            Bucket: bucketName,
+            Key: objectName,
+            ResponseContentDisposition:
+                responseDisposition?.['response-content-disposition'],
+        });
+        return getSignedUrl(this.clients.external, command, {
+            expiresIn: expirySeconds,
+        });
+    }
+
+    async getInternalPresignedDownloadUrl(
+        bucketName: string,
+        objectName: string,
+        expirySeconds: number,
+        responseDisposition?: Record<string, string>,
+    ): Promise<string> {
+        const command = new GetObjectCommand({
+            Bucket: bucketName,
+            Key: objectName,
+            ResponseContentDisposition:
+                responseDisposition?.['response-content-disposition'],
+        });
+        return getSignedUrl(this.clients.internal, command, {
+            expiresIn: expirySeconds,
+        });
+    }
+
+    async downloadFile(
+        bucketName: string,
+        objectName: string,
+        destinationPath: string,
+    ): Promise<void> {
+        // We reuse S3StorageBucket logic here but create a transient instance
+        const bucket = new S3StorageBucket(
+            bucketName,
+            this.clients,
+            this.authService,
+        );
+        return bucket.downloadFile(objectName, destinationPath);
+    }
+
+    async getFileStream(
+        bucketName: string,
+        objectName: string,
+    ): Promise<Readable> {
+        const command = new GetObjectCommand({
+            Bucket: bucketName,
+            Key: objectName,
+        });
+        const response = await this.clients.internal.send(command);
+        if (response.Body instanceof Readable) {
+            return response.Body;
+        }
+        throw new TypeError('S3 body is not a readable stream');
+    }
+
+    async listFiles(bucketName: string): Promise<StorageItem[]> {
+        const command = new ListObjectsV2Command({
+            Bucket: bucketName,
+        });
+        const response = await this.clients.internal.send(command);
+        return (
+            response.Contents?.map((item) => ({
+                name: item.Key ?? '',
+                lastModified: item.LastModified ?? new Date(),
+                etag: item.ETag ?? '',
+                size: item.Size ?? 0,
+            })) ?? []
+        );
+    }
+
+    async getFileInfo(
+        bucketName: string,
+        objectName: string,
+    ): Promise<StorageItemStat | undefined> {
+        const command = new HeadObjectCommand({
+            Bucket: bucketName,
+            Key: objectName,
+        });
+        try {
+            const response = await this.clients.internal.send(command);
+            return {
+                size: response.ContentLength ?? 0,
+                etag: response.ETag ?? '',
+                lastModified: response.LastModified ?? new Date(),
+                metaData: response.Metadata ?? {},
+            };
+        } catch (error: unknown) {
+            if (
+                error instanceof Error &&
+                (error.name === 'NotFound' ||
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+                    (error as any).$metadata?.httpStatusCode === 404)
+            ) {
+                return undefined;
+            }
+            throw error;
+        }
+    }
+
+    async uploadFile(
+        bucketName: string,
+        objectName: string,
+        filePath: string,
+        metaData?: Record<string, string>,
+    ): Promise<void> {
+        const bucket = new S3StorageBucket(
+            bucketName,
+            this.clients,
+            this.authService,
+        );
+        return bucket.uploadFile(objectName, filePath, metaData);
+    }
+
+    async deleteFile(bucketName: string, objectName: string): Promise<void> {
+        const command = new DeleteObjectCommand({
+            Bucket: bucketName,
+            Key: objectName,
+        });
+        await this.clients.internal.send(command);
+    }
+
+    async getTags(
+        bucketName: string,
+        objectName: string,
+    ): Promise<Record<string, string>> {
+        const command = new GetObjectTaggingCommand({
+            Bucket: bucketName,
+            Key: objectName,
+        });
+        const response = await this.clients.internal.send(command);
+        const tags: Record<string, string> = {};
+        if (response.TagSet) {
+            for (const tag of response.TagSet) {
+                if (tag.Key && tag.Value) {
+                    tags[tag.Key] = tag.Value;
+                }
+            }
+        }
+        return tags;
+    }
+
+    async addTags(
+        bucketName: string,
+        objectName: string,
+        tags: Record<string, string>,
+    ): Promise<void> {
+        const command = new PutObjectTaggingCommand({
+            Bucket: bucketName,
+            Key: objectName,
+            Tagging: {
+                TagSet: Object.entries(tags).map(([key, value]) => ({
+                    Key: key,
+                    Value: value,
+                })),
+            },
+        });
+        await this.clients.internal.send(command);
+    }
+
+    async removeTags(bucketName: string, objectName: string): Promise<void> {
+        const command = new DeleteObjectTaggingCommand({
+            Bucket: bucketName,
+            Key: objectName,
+        });
+        await this.clients.internal.send(command);
+    }
+
+    async getSystemMetrics(): Promise<StorageSystemMetrics> {
+        const bucket = new S3StorageBucket(
+            'unused',
+            this.clients,
+            this.authService,
+            this.metricsService,
+        );
+        return bucket.getSystemMetrics();
+    }
+
+    async generateTemporaryCredential(
+        bucketName: string,
+        filename: string,
+    ): Promise<StorageCredentials> {
+        return this.authService.generateTemporaryCredential(
+            filename,
+            bucketName,
+        );
+    }
+}

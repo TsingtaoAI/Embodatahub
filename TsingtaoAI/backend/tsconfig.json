@@ -1,0 +1,48 @@
+{
+    "extends": "../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "dist",
+        "baseUrl": ".",
+        "rootDir": "..",
+        "paths": {
+            "@/*": ["src/*"],
+            "@kleinkram/backend-common/*": ["../packages/backend-common/src/*"],
+            "@kleinkram/shared": ["../packages/shared/src/index.ts"],
+            "@kleinkram/shared/*": ["../packages/shared/src/*"],
+            "@kleinkram/validation": ["../packages/validation/src/index.ts"],
+            "@kleinkram/validation/*": ["../packages/validation/src/*"],
+            "@kleinkram/api-dto": ["../packages/api-dto/src/index.ts"],
+            "@kleinkram/api-dto/*": ["../packages/api-dto/src/*"],
+            "@api-dto/*": ["../packages/api-dto/src/types/*"],
+            "@kleinkram/backend-common": [
+                "../packages/backend-common/src/index.ts"
+            ],
+            "@backend-common/*": ["../packages/backend-common/src/*"]
+        },
+        "resolveJsonModule": true
+    },
+    "include": [
+        "src/**/*",
+        "src/**/*.json",
+        "../packages/**/*",
+        "check-version.ts",
+        "migration/**/*.ts",
+        "tests/**/*.ts",
+        "scripts/**/*.ts"
+    ],
+    "exclude": ["node_modules", "dist"],
+    "references": [
+        {
+            "path": "../packages/api-dto"
+        },
+        {
+            "path": "../packages/backend-common"
+        },
+        {
+            "path": "../packages/shared"
+        },
+        {
+            "path": "../packages/validation"
+        }
+    ]
+}

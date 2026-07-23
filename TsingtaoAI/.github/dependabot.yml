@@ -1,0 +1,49 @@
+version: 2
+updates:
+    - package-ecosystem: 'npm'
+      directory: '/backend'
+      schedule:
+          interval: 'weekly'
+      target-branch: 'staging'
+
+      groups:
+          open-telemetry:
+              applies-to: version-updates
+              patterns:
+                  - '@opentelemetry*'
+
+    - package-ecosystem: 'npm'
+      directory: '/common'
+      schedule:
+          interval: 'weekly'
+      target-branch: 'staging'
+
+    - package-ecosystem: 'npm'
+      directory: '/docs'
+      schedule:
+          interval: 'weekly'
+      target-branch: 'staging'
+
+    - package-ecosystem: 'npm'
+      directory: '/queueConsumer'
+      schedule:
+          interval: 'weekly'
+      target-branch: 'staging'
+
+      groups:
+          open-telemetry:
+              applies-to: version-updates
+              patterns:
+                  - '@opentelemetry*'
+
+    - package-ecosystem: 'npm'
+      directory: '/frontend'
+      schedule:
+          interval: 'weekly'
+      target-branch: 'staging'
+
+    - package-ecosystem: 'github-actions'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+      target-branch: 'staging'
