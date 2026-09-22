@@ -33,18 +33,18 @@ docker compose rm -sf api-server queue-consumer frontend docs \
 && docker compose up -d --build api-server queue-consumer frontend docs  
 ## **📋 项目结构（中文说明）**  
 tsingtaoai/  
-├── backend          # 后端服务（中文错误提示适配）  
-├── frontend         # 前端界面（全中文汉化、Logo 定制）  
-├── docker           # Docker 部署配置（中文注释）  
-├── docs             # 中文使用文档（待完善）  
-├── queueConsumer    # 任务队列服务（功能不变，中文日志适配）  
+├── backend          # 后端服务（中文错误提示适配）  
+├── frontend         # 前端界面（全中文汉化、Logo 定制）  
+├── docker           # Docker 部署配置（中文注释）  
+├── docs             # 中文使用文档（待完善）  
+├── queueConsumer    # 任务队列服务（功能不变，中文日志适配）  
 └── docker-compose.yml # 一键部署配置（无需修改，直接使用）  
 ## **🔧 开发与更新**  
 ### **本地开发**  
 # 进入前端目录，启动开发模式  
 cd frontend  
 pnpm dev  
-   
+   
 # 进入后端目录，启动开发模式  
 cd backend  
 pnpm start:dev  
@@ -63,4 +63,3 @@ git push origin TsingtaoAI
 ## **📄 许可证**  
 继承原版 Kleinkram 的 LICENSE，保留 ETH 开源许可，详见项目根目录 LICENSE 文件。  
 1. ✨ TsingtaoAI 中文定制版 | 基于 Kleinkram 开发，专为中文用户而生 ✨  
-
