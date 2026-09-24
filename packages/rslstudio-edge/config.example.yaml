@@ -1,0 +1,32 @@
+# RSLStudio Edge Agent 配置示例
+# 复制为 config.yaml 并修改
+
+# ── 采集任务 ──
+mission: "robot-cam0"
+
+# ── MinIO 存储 ──
+minio:
+  endpoint: "192.168.1.107:9000"
+  access_key: "pMEKIOCnYJhmssiKZDGU"
+  secret_key: "ECnXGyUR5ZrPsxeD5JEWxtI1CMZFMJ8kTJMMAQ5B"
+  bucket: "data"
+  secure: false
+
+# ── 视频源 ──
+video:
+  source: "/dev/video0"           # 或 rtsp://192.168.1.50:554/stream
+  resolution: "1280x720"
+  fps: 30
+  segment_seconds: 10
+
+# ── 平台集成（可选）──
+# backend:
+#   enabled: true
+#   url: "http://192.168.1.107:3000"
+#   api_key: "your-api-key"
+#   project: "my-project"
+
+# ── 健康检查 ──
+health:
+  port: 9091
+  bind: "0.0.0.0"

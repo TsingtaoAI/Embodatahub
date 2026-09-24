@@ -1,0 +1,195 @@
+import { appVersion } from '@/app-version';
+import { AuthFlowException } from '@/types/auth-flow-exception';
+import env from '@rslstudio/backend-common/environment';
+import {
+    ArgumentsHost,
+    BadRequestException,
+    Catch,
+    ConflictException,
+    ExceptionFilter,
+    ForbiddenException,
+    UnauthorizedException,
+} from '@nestjs/common';
+import { HttpException } from '@nestjs/common/exceptions/http.exception';
+import { Response } from 'express';
+import { EntityNotFoundError } from 'typeorm';
+import logger from '../../logger';
+
+/**
+ * A global error filter that catches all errors and logs them.
+ *
+ * This filter is used to catch all errors that are not caught by other filters,
+ * formats them and sends them to the client with an associated status code.
+ *
+ */
+@Catch()
+export class GlobalErrorFilter implements ExceptionFilter {
+    public catch(exception: Error, host: ArgumentsHost): void {
+        const response: Response = host.switchToHttp().getResponse();
+        response.header('rslstudio-version', appVersion);
+        response.header('Access-Control-Expose-Headers', 'rslstudio-version');
+
+        //////////////////////////////
+        // Errors that don't get logged
+        //////////////////////////////
+        if (exception.name === 'InvalidJwtTokenException') {
+            response.status(401).json({
+                statusCode: 401,
+                message: '无效的 JWT 令牌。您是否已登录？',
+            });
+            return;
+        }
+
+        if (
+            exception instanceof ForbiddenException ||
+            exception instanceof UnauthorizedException
+        ) {
+            response.status(exception.getStatus()).json({
+                statusCode: exception.getStatus(),
+                message: exception.message,
+            });
+            return;
+        }
+
+        if (exception instanceof AuthFlowException) {
+            // If the exception is an AuthFlowException, redirect to the frontend login page
+            const authFlowException: AuthFlowException = exception;
+
+            logger.debug(
+                `Redirecting to login with error: ${authFlowException.message}`,
+            );
+
+            response
+                .status(302)
+                .redirect(
+                    `${env.FRONTEND_URL}/login?error_state=auth_flow_failed&error_msg=${encodeURIComponent(
+                        authFlowException.message,
+                    )}`,
+                );
+            return;
+        }
+
+        if (
+            exception.name === 'TokenError' ||
+            exception.message === 'Failed to obtain access token'
+        ) {
+            // redirect to frontend login page
+            response
+                .status(302)
+                .redirect(
+                    `${env.FRONTEND_URL}/login?error_state=auth_flow_failed&error_msg=${encodeURIComponent(
+                        '获取访问令牌失败，请重试。',
+                    )}`,
+                );
+
+            return;
+        }
+
+        if (exception instanceof BadRequestException) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const resp: any = exception.getResponse();
+
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+            if (typeof resp === 'object' && resp.hasOwnProperty('message')) {
+                response.status(400).json({
+                    statusCode: 400,
+                    ...resp,
+
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+                    message: resp.message.toString(),
+                });
+                return;
+            }
+            response.status(400).json({
+                statusCode: 400,
+                message: exception.getResponse(),
+            });
+            return;
+        }
+
+        //////////////////////////////
+        // Errors that get logged
+        //////////////////////////////
+
+        const request: Request = host.switchToHttp().getRequest();
+
+        if (exception instanceof ConflictException) {
+            const resp: unknown = exception.getResponse();
+            const rawUser = (
+                request as unknown as { user?: Record<string, unknown> }
+            ).user;
+            const userLabel: string =
+                (rawUser?.uuid as string | undefined) ??
+                (rawUser?.email as string | undefined) ??
+                'unauthenticated';
+            const details =
+                resp !== null && typeof resp === 'object' && 'errors' in resp
+                    ? (resp as { errors: unknown }).errors
+                    : exception.message;
+            logger.warn(
+                `ConflictException: user="${userLabel}" endpoint="${request.method} ${request.url}" reason=${JSON.stringify(details)}`,
+            );
+            response.status(409).json({
+                statusCode: 409,
+                ...(typeof resp === 'object' && resp !== null
+                    ? resp
+                    : { message: exception.message }),
+            });
+            return;
+        }
+
+        logger.error(
+            `GlobalErrorFilter: ${exception.name} on rslstudio-version ${appVersion} on endpoint ${request.url} with method ${request.method}`,
+        );
+        logger.error(exception.message);
+        logger.error(exception);
+        logger.error(exception.stack);
+
+        if (exception instanceof EntityNotFoundError) {
+            response.status(400).json({
+                statusCode: 400,
+                message: '请求错误',
+            });
+            return;
+        }
+
+        if (exception instanceof HttpException) {
+            response.status(exception.getStatus()).json({
+                statusCode: exception.getStatus(),
+                message: exception.message,
+            });
+            return;
+        }
+
+        if (exception.name === 'PayloadTooLargeError') {
+            response.status(413).json({
+                statusCode: 413,
+                message: '请求体过大',
+            });
+            return;
+        }
+
+        if (
+            exception.name === 'QueryFailedError' &&
+            exception.message.includes('invalid input syntax for type uuid')
+        ) {
+            response.status(400).json({
+                statusCode: 400,
+                message: '无效的 UUID',
+            });
+            return;
+        }
+
+        const route: { url: string } = host.getArgByIndex(0);
+        logger.error(`An error occurred on route ${route.url}!`);
+
+        logger.error(`exception of type ${exception.name}`);
+        logger.error(exception.message);
+        logger.error(exception.stack);
+
+        response.status(500).json({
+            statusCode: 500,
+            message: '服务器内部错误',
+        });
+    }
+}

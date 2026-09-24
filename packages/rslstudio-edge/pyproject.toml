@@ -1,0 +1,42 @@
+[project]
+name = "rslstudio-edge"
+version = "1.0.0"
+description = "RSLStudio 边缘采集代理 — 实时视频流采集 → MinIO 直传"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "TsingtaoAI" }]
+keywords = ["robotics", "video-streaming", "edge-computing", "minio", "data-collection"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "boto3>=1.35",
+    "httpx>=0.27",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0",
+    "prometheus-client>=0.21",
+    "psutil>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.9"]
+
+[project.scripts]
+rslstudio-edge = "rslstudio_edge.cli:main"
+
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

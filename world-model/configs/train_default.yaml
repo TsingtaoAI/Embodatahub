@@ -1,0 +1,45 @@
+# 3DGS 训练默认配置
+training:
+  # 迭代次数
+  iterations: 30000
+  # 每 N 步保存 checkpoint
+  save_interval: 5000
+  # 每 N 步渲染评估图像
+  eval_interval: 1000
+
+  # 批处理设置
+  batch_size: 1
+  num_workers: 4
+
+  # 学习率
+  lr:
+    position: 0.00016
+    feature: 0.0025
+    opacity: 0.05
+    scaling: 0.005
+    rotation: 0.001
+
+  # 高斯球参数
+  gaussian:
+    max_sh_degree: 3
+    percent_dense: 0.01
+    densification_interval: 100
+    opacity_reset_interval: 3000
+    densify_grad_threshold: 0.0002
+    densify_size_threshold: 0.01
+
+data:
+  # 图像分辨率限制（-1 为原始分辨率）
+  resolution: -1
+  # 随机初始化点云数量（无 COLMAP 时使用）
+  random_points: 100000
+  # 白背景
+  white_background: false
+
+logging:
+  # TensorBoard 日志目录
+  log_dir: "./outputs/logs"
+  # 模型保存目录
+  model_dir: "./outputs/models"
+  # 渲染结果目录
+  render_dir: "./outputs/renders"

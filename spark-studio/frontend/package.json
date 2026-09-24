@@ -1,0 +1,28 @@
+{
+    "name": "@rslstudio/spark-studio",
+    "version": "0.1.0",
+    "description": "Spark 2.0 3D Gaussian Splatting 可视化模块 — TsingtaoAI 具身智能数据平台",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite --port 5174",
+        "build": "vue-tsc --noEmit && vue-tsc --noEmit -p tsconfig.node.json && vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@sparkjsdev/spark": "^2.1.0",
+        "three": "^0.185.0",
+        "vue": "^3.5.13"
+    },
+    "devDependencies": {
+        "@types/node": "^26.6.2",
+        "@types/three": "^0.185.4",
+        "@vitejs/plugin-vue": "^6.0.7",
+        "typescript": "^5.9.3",
+        "vite": "^7.3.1",
+        "vue-tsc": "^3.2.2"
+    },
+    "engines": {
+        "node": "^22 || ^24"
+    }
+}

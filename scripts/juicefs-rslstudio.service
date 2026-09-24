@@ -1,0 +1,18 @@
+[Unit]
+Description=JuiceFS RSLStudio Data Mount
+Documentation=https://juicefs.com/docs/community
+After=network-online.target redis.service docker.service
+Wants=network-online.target
+Requires=redis.service
+
+[Service]
+Type=forking
+Environment="JFS_NO_UPDATE_CHECK=1"
+ExecStart=/usr/local/bin/juicefs mount redis://127.0.0.1:6379/1 /mnt/rslstudio-data -o allow_other --enable-xattr
+ExecStop=/usr/local/bin/juicefs umount /mnt/rslstudio-data
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

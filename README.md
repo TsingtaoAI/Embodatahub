@@ -9,6 +9,10 @@
 
 Developed by **Ningbo TsingtaoAI Intelligent Technology Co., Ltd.** — *Forge Robotic Intelligence*
 
+**Try Embodatahub online:** [Public Demo](https://pub.embodatahub.tsingtaoai.com/) · [Embodied AI Data Platform](https://embodatahub.tsingtaoai.com/)
+
+The public demo is available at [pub.embodatahub.tsingtaoai.com](https://pub.embodatahub.tsingtaoai.com/). Visit [embodatahub.tsingtaoai.com](https://embodatahub.tsingtaoai.com/) for the platform entry point.
+
 ---
 
 ## The Problem: Your Robot Data Is Slowing Down Your Models
@@ -65,6 +69,10 @@ Embodatahub is a **data engineering foundation for embodied AI**. It takes the d
 
 **Spark Studio — 3D Scene Visualization** — Gaussian-splatting scene rendering and sensor trajectory replay, turning abstract data into a place you can actually see.
 
+![Spark Studio 3D scene visualization](docs/assets/embodatahub/spark-studio.png)
+
+*Spark Studio scene browser with interactive 3D asset visualization and scene navigation.*
+
 **Task Queue & Automated Pipelines** — Asynchronous scheduling, online worker registration, and format-conversion and content-extraction pipelines out of the box.
 
 **Data Management Platform** — Projects / missions / files organized in three tiers, with a permission system, API keys, search, and statistics.
@@ -72,6 +80,10 @@ Embodatahub is a **data engineering foundation for embodied AI**. It takes the d
 **Model Training Integration** — Connects to world models, OpenVLA, LeRobot, FluxVLA, and other mainstream training stacks.
 
 **Simulation Environment Integration** — Integrates Isaac Lab, Unitree RL Lab, and SurRoL, managing real and simulated data in one place.
+
+![Embodatahub dashboard](docs/assets/embodatahub/dashboard.png)
+
+*Embodied AI data management dashboard: projects, storage, devices, and running tasks in one view.*
 
 ---
 
@@ -88,6 +100,10 @@ Velocity, acceleration, and jerk computed after median filtering and Savitzky-Go
 **03 · Temporal Synchronization**
 Validates frame-interval deviation against nominal fps, actual-vs-nominal duration, and the start/end offset between video streams and the data stream.
 
+![Multimodal alignment](docs/assets/embodatahub/multimodal-alignment.png)
+
+*Multimodal alignment controls for timestamp synchronization, interpolation, and cross-modal matching.*
+
 **04 · Extreme-Value Detection**
 Physical bounds established from dataset-wide 1% / 99% quantiles and IQR, with automatic exemption for legitimate behaviors such as gripper saturation.
 
@@ -99,6 +115,10 @@ Aligns position and orientation data through a rotation-correction matrix, remov
 
 **07 · Metadata Completeness**
 Six health checks: task description, camera naming conventions, resolution consistency, multi-view coverage, action fields, and episode integrity.
+
+![Dataset QC Workbench](docs/assets/embodatahub/dataset-qc-workbench.png)
+
+*Dataset QC Workbench with episode selection, synchronized video, action curves, and Rerun replay.*
 
 ### Scoring and Decision
 
@@ -129,6 +149,10 @@ When the VLM judges an episode as failed, the system automatically upgrades its 
 **Tunable sampling** — extract 1–12 frames per episode to trade cost against precision.
 **Custom prompts** — the evaluation prompt is editable, with a `{task}` placeholder auto-filled from the task description.
 **Adjustable weighting** — VLM results carry an independently configurable weight, fused with the numerical filters.
+
+![VLM evaluation settings](docs/assets/embodatahub/vlm-settings.png)
+
+*Configurable VLM evaluation with OpenAI-compatible, Gemini, and local inference options.*
 
 ---
 

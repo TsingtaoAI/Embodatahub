@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "spark-studio-backend"
+version = "0.1.0"
+description = "Spark 2.0 3DGS 可视化后端 — 提供文件服务和格式转换 API"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "pydantic>=2.10,<3",
+  "uvicorn[standard]>=0.34,<1",
+  "aiofiles>=24,<25",
+  "python-multipart>=0.0.20,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["apps"]
+
+[project.optional-dependencies]
+dev = [
+  "httpx>=0.28,<1",
+  "pytest>=8.3,<9",
+  "ruff>=0.9,<1",
+]

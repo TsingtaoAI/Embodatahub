@@ -1,0 +1,79 @@
+graph TB
+    subgraph R240["🖥️ R240 (192.168.1.107)"]
+        subgraph Apps["应用层"]
+            BE["主后端 NestJS<br/>📡 :3000"]
+            FE["主前端 Vue3<br/>🖼️ :8003"]
+            QC["队列消费者<br/>⚙️ :queue"]
+            RDS["数据集质检 RDS<br/>🐍 FastAPI :8000"]
+            RDSP["RDS 前端 Vite<br/>🖼️ :5173"]
+            SPK["Spark Studio<br/>🐍 FastAPI :8004"]
+            SPKP["Spark 前端<br/>🖼️ :5174"]
+        end
+
+        subgraph Storage["存储层"]
+            MINIO["MinIO S3<br/>🗄️ :9000 :9001"]
+            PG[("PostgreSQL<br/>🐘 :5432")]
+            REDIS[("Redis<br/>⚡ :6379")]
+        end
+
+        subgraph FS["文件系统层"]
+            JUICE["JuiceFS FUSE<br/>🔗 /mnt/rslstudio-data"]
+            CACHE["本地缓存<br/>💾 /var/jfsCache"]
+        end
+
+        subgraph DockerContainers["Docker 容器"]
+            MINIOD["MinIO Server"]
+            PGD["PostgreSQL"]
+            REDISD["Redis"]
+            OAUTH["Fake OAuth"]
+        end
+    end
+
+    subgraph GPU["🖥️ GPU 工作站"]
+        WM["World Model 训练<br/>🎮 PyTorch + CUDA<br/>🎯 3DGS / gsplat"]
+        GPUJUICE["JuiceFS Client"]
+    end
+
+    subgraph Browser["🌐 浏览器"]
+        USER["用户访问<br/>https://192.168.1.105:8003"]
+    end
+
+    %% 数据流
+    FE -->|"REST API"| BE
+    RDS -->|"S3 API"| MINIO
+    BE -->|"S3 API"| MINIO
+    BE -->|"SQL"| PG
+    BE -->|"Cache"| REDIS
+    QC -->|"S3 API"| MINIO
+    QC -->|"SQL"| PG
+
+    RDS -->|"读写文件"| JUICE
+    BE -->|"读写文件"| JUICE
+    QC -->|"读写文件"| JUICE
+
+    JUICE -->|"分块存储"| MINIO
+    JUICE -->|"元数据"| REDIS
+    JUICE -.->|"热数据缓存"| CACHE
+
+    GPUJUICE -->|"元数据"| REDIS
+    GPUJUICE -->|"S3 读取"| MINIO
+    WM -->|"本地读写"| GPUJUICE
+
+    USER --> FE
+    USER --> RDSP
+    USER --> SPKP
+
+    MINIO -.- MINIOD
+    PG -.- PGD
+    REDIS -.- REDISD
+
+    style R240 fill:#e1f5fe,stroke:#0288d1
+    style GPU fill:#e8f5e9,stroke:#388e3c
+    style Browser fill:#fff3e0,stroke:#f57c00
+    style Storage fill:#fce4ec,stroke:#c62828
+    style FS fill:#f3e5f5,stroke:#7b1fa2
+    style MINIO fill:#ff9800,color:#fff
+    style JUICE fill:#9c27b0,color:#fff
+    style WM fill:#4caf50,color:#fff
+    style BE fill:#1976d2,color:#fff
+    style RDS fill:#1976d2,color:#fff

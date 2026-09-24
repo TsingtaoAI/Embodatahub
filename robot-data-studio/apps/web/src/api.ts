@@ -1,0 +1,647 @@
+export type DatasetMetadata = {
+  path: string;
+  format: string;
+  version: string;
+  robot_type: string;
+  total_episodes: number;
+  total_frames: number;
+  fps: number;
+  video_keys: string[];
+  scalar_keys: string[];
+  features: Record<string, unknown>;
+};
+
+export type Project = {
+  id: string;
+  dataset: DatasetMetadata;
+  filter_config?: FilterConfig | null;
+};
+
+export type FormatInfo = {
+  id: string;
+  label: string;
+  profile: string;
+  can_import: boolean;
+  can_export: boolean;
+  requires_extra?: boolean;
+};
+
+export type Episode = {
+  episode_index: number;
+  length: number;
+  duration_seconds: number;
+  tasks: string[];
+  subtasks?: EpisodeSubtask[];
+  data_file: string;
+  video_files: Record<string, string>;
+  video_start_seconds: Record<string, number>;
+  video_end_seconds: Record<string, number>;
+};
+
+export type EpisodeSubtask = {
+  start_frame: number;
+  end_frame: number;
+  start_seconds: number;
+  end_seconds: number;
+  prompt: string;
+  skill: string | null;
+  track: string | null;
+  is_mistake: boolean;
+};
+
+export type CleaningStatus = "passed" | "review" | "excluded" | "unscored";
+
+export type QualityFinding = {
+  code: string;
+  severity: "info" | "warn" | "error" | "critical";
+  message: string;
+};
+
+export type EpisodeQualityResult = {
+  episode_index: number;
+  score: number | null;
+  data_quality_score: number | null;
+  task_success_score: number | null;
+  status: CleaningStatus;
+  source: "auto" | "manual";
+  per_attribute_scores: Record<string, number>;
+  findings: QualityFinding[];
+  review_note: string | null;
+  updated_at: string;
+};
+
+export type CleaningSummary = {
+  total: number;
+  passed_count: number;
+  review_count: number;
+  excluded_count: number;
+  unscored_count: number;
+  results: EpisodeQualityResult[];
+  config: {
+    pass_threshold: number;
+    review_threshold: number;
+    overwrite_manual: boolean;
+    enabled_filter_stages: FilterStageId[];
+    quality_weights: Record<string, number>;
+  };
+  scorer_version: string;
+  requires_rerun: boolean;
+  previous_scorer_version: string | null;
+};
+
+export type CleaningRun = {
+  run_id: string;
+  status: "queued" | "running" | "succeeded" | "failed";
+  summary: CleaningSummary;
+};
+
+export type ExportResult = {
+  output_path: string;
+  report_path: string;
+  format: string;
+  episode_count: number;
+};
+
+export type ReportSignalPoint = {
+  timestamp: number;
+  value: number;
+};
+
+export type ReportGripperSeries = {
+  label: string;
+  dimension_index: number;
+  points: ReportSignalPoint[];
+};
+
+export type ReportSignals = {
+  episode_index: number;
+  gripper_series: ReportGripperSeries[];
+  episode_durations: Array<{
+    episode_index: number;
+    duration_seconds: number;
+  }>;
+  mean_episode_duration_seconds: number;
+  gripper_unavailable_reason: string | null;
+};
+
+export type VlmSettings = {
+  enabled: boolean;
+  provider: string;
+  model: string;
+  api_base_url: string | null;
+  api_key?: string | null;
+  api_key_configured?: boolean;
+  prompt: string;
+  sample_frames: number;
+};
+
+export type FilterStageId =
+  | "visual_quality"
+  | "sudden_change"
+  | "state_action_alignment"
+  | "extreme_value"
+  | "kinematic_consistency"
+  | "orientation_alignment"
+  | "metadata_completeness"
+  | "multimodal_alignment";
+
+export type FilterStatus = "passed" | "review" | "skipped";
+
+export type FilterFinding = {
+  code: string;
+  severity: "info" | "warn" | "error" | "critical";
+  message: string;
+};
+
+export type VisualQualityMetricSample = {
+  frame: number;
+  timestamp: number;
+  sharpness: number | null;
+  brightness: number | null;
+  contrast: number | null;
+};
+
+export type VisualQualityIncident = {
+  id: string;
+  camera: string;
+  issue: string;
+  start_frame: number;
+  end_frame: number;
+  start_timestamp: number;
+  end_timestamp: number;
+  sample_count: number;
+  worst_value: number | string;
+  threshold: number | string;
+  representative_frames: Array<{
+    frame: number;
+    timestamp: number;
+  }>;
+};
+
+export type VisualQualityDetail = {
+  sampled_frame_count: number;
+  camera_count: number;
+  issue_sample_count: number;
+  affected_camera_count: number;
+  episode_frame_count: number;
+  episode_duration_seconds: number;
+  incidents: VisualQualityIncident[];
+  metrics: Record<string, VisualQualityMetricSample[]>;
+};
+
+export type FilterDetail = {
+  stage_id: FilterStageId;
+  episode_index: number;
+  title: string;
+  status: FilterStatus;
+  series: Record<string, number[]>;
+  thresholds: Record<string, Record<string, number>>;
+  table_rows: Array<Record<string, unknown>>;
+  parameters: Record<string, unknown>;
+  findings: FilterFinding[];
+  skipped_reason: string | null;
+  visual_quality?: VisualQualityDetail | null;
+};
+
+export type FilterSummary = {
+  dataset_path: string;
+  total_episodes: number;
+  total_frames: number;
+  stages: Array<{
+    id: FilterStageId;
+    label: string;
+    count: number;
+    status: FilterStatus;
+    skipped_reason: string | null;
+  }>;
+  episodes: Array<{
+    episode_index: number;
+    stage_status: Record<
+      FilterStageId,
+      {
+        count: number;
+        status: FilterStatus;
+        score: number | null;
+        severity: "none" | "warning" | "critical";
+        skipped_reason: string | null;
+      }
+    >;
+    critical_findings: FilterFinding[];
+  }>;
+};
+
+export type FilterRun = {
+  run_id: string;
+  status: "succeeded" | "failed";
+  summary: FilterSummary;
+};
+
+export type FilterConfig = {
+  gripper_indices: number[];
+  enabled_filter_stages?: FilterStageId[];
+  visual_quality: {
+    sample_fps: number;
+    max_frames_per_video: number;
+    max_parallel_video_decodes: number;
+    sample_width: number;
+    sample_height: number;
+    blur_laplacian_threshold: number;
+    dark_mean_threshold: number;
+    bright_mean_threshold: number;
+    dark_global_mean_threshold: number;
+    dark_global_p75_threshold: number;
+    bright_global_mean_threshold: number;
+    bright_global_p75_threshold: number;
+    low_contrast_std_threshold: number;
+    freeze_mse_threshold: number;
+    freeze_min_run: number;
+  };
+  kinematics: {
+    urdf_path: string | null;
+    end_effector_link: string | null;
+    joint_names: string[];
+    joint_state_indices: number[];
+    eef_position_indices: number[];
+    position_tolerance: number;
+    resolve_tcp_offset: boolean;
+  };
+  time_sync: {
+    timestamp_jitter_seconds: number;
+    timestamp_jitter_ratio: number;
+    duration_tolerance_seconds: number;
+    video_boundary_tolerance_seconds: number;
+  };
+};
+
+export type CleaningRuleConfig = {
+  enabled_filter_stages: FilterStageId[];
+  quality_weights: Record<string, number>;
+};
+
+function normalizeFilesystemPath(path: string) {
+  return path.trim().replace(/^(['"])(.*)\1$/, "$2").trim();
+}
+
+/** 生产环境子应用挂在 /rds/ 下，API 要带同样前缀；dev 下 BASE_URL 为 "/" ⇒ 空前缀 */
+export const API_BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+export function apiUrl(path: string): string {
+  return `${API_BASE}${path}`;
+}
+
+let refreshInFlight: Promise<boolean> | null = null;
+
+/**
+ * 子应用的 fetch 不会自动续期:主站的 axios 拦截器只在父页面自己发请求时才刷新,
+ * 所以我们停在 iframe 里操作时,authtoken 一过期子应用就全线 401。
+ * 这里主动向主站换一次新 token。并发的 401 共用同一个请求,避免打出一串 refresh-token。
+ */
+function refreshSession(): Promise<boolean> {
+  if (!refreshInFlight) {
+    refreshInFlight = fetch("/auth/refresh-token", { method: "POST" })
+      .then((response) => response.ok)
+      .catch(() => false)
+      .finally(() => {
+        refreshInFlight = null;
+      });
+  }
+  return refreshInFlight;
+}
+
+/**
+ * 401 时续期一次并重试。"/auth/refresh-token" 是刻意用根绝对路径 ——
+ * 它就该命中主站 NestJS(不是 RDS 后端),这也正是本函数存在的理由。
+ * 其余所有后端调用仍必须走 apiUrl()。
+ */
+export async function fetchWithAuth(input: string, init?: RequestInit): Promise<Response> {
+  const response = await fetch(input, init);
+  if (response.status !== 401 || !(await refreshSession())) {
+    return response;
+  }
+  return fetch(input, init);
+}
+
+async function request<T>(url: string, options?: RequestInit): Promise<T> {
+  const response = await fetchWithAuth(apiUrl(url), {
+    headers: { "Content-Type": "application/json" },
+    ...options,
+  });
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({ detail: response.statusText }));
+    throw new Error(body.detail ?? "Request failed");
+  }
+  return response.json();
+}
+
+export function listFormats() {
+  return request<FormatInfo[]>("/api/formats");
+}
+
+export function listDatasetPaths() {
+  return request<string[]>("/api/dataset-paths");
+}
+
+export type DatasetUploadResult = {
+  path: string;
+  filename: string;
+  extracted: boolean;
+  format_hint: string | null;
+};
+
+export async function uploadDataset(
+  file: File,
+  onProgress?: (pct: number) => void,
+): Promise<DatasetUploadResult> {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", apiUrl("/api/datasets/upload"));
+    xhr.upload.addEventListener("progress", (event) => {
+      if (event.lengthComputable && onProgress) {
+        onProgress(Math.round((event.loaded / event.total) * 100));
+      }
+    });
+    xhr.addEventListener("load", () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(JSON.parse(xhr.responseText));
+      } else {
+        try {
+          const body = JSON.parse(xhr.responseText);
+          reject(new Error(body.detail ?? "上传失败"));
+        } catch {
+          reject(new Error(`上传失败 (${xhr.status})`));
+        }
+      }
+    });
+    xhr.addEventListener("error", () => reject(new Error("网络错误，上传失败")));
+    xhr.send(formData);
+  });
+}
+
+export type FolderUploadResult = {
+  path: string;
+  filename: string;
+  folder: boolean;
+  files_saved: number;
+  errors: string[] | null;
+};
+
+export async function uploadFolder(
+  files: File[],
+  folderName: string,
+  onProgress?: (pct: number) => void,
+): Promise<FolderUploadResult> {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    let totalSize = 0;
+    for (const file of files) {
+      totalSize += file.size;
+      // webkitRelativePath 形如 "topFolder/subdir/file.txt"
+      const relPath = file.webkitRelativePath || `${folderName}/${file.name}`;
+      formData.append("files", file, relPath);
+    }
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", apiUrl("/api/datasets/upload-folder"));
+    let uploaded = 0;
+    xhr.upload.addEventListener("progress", (event) => {
+      if (event.lengthComputable && onProgress) {
+        onProgress(Math.round((event.loaded / event.total) * 100));
+      }
+    });
+    xhr.addEventListener("load", () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(JSON.parse(xhr.responseText));
+      } else {
+        try {
+          const body = JSON.parse(xhr.responseText);
+          reject(new Error(body.detail ?? "上传失败"));
+        } catch {
+          reject(new Error(`上传失败 (${xhr.status})`));
+        }
+      }
+    });
+    xhr.addEventListener("error", () => reject(new Error("网络错误，上传失败")));
+    xhr.send(formData);
+  });
+}
+
+export function importDataset(path: string, formatHint?: string, projectUuid?: string) {
+  const normalizedPath = normalizeFilesystemPath(path);
+  const body = formatHint && formatHint !== "auto" ? { path: normalizedPath, format_hint: formatHint } : { path: normalizedPath };
+  const queryParams = projectUuid ? `?project_uuid=${encodeURIComponent(projectUuid)}` : "";
+  return request<Project>(`/api/projects${queryParams}`, {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export function listEpisodes(projectId: string) {
+  return request<Episode[]>(`/api/projects/${projectId}/episodes?limit=500`);
+}
+
+export function getReportSignals(projectId: string, episodeIndex: number) {
+  return request<ReportSignals>(
+    `/api/projects/${projectId}/report-signals?episode_index=${episodeIndex}`,
+  );
+}
+
+export function createRecording(projectId: string, episodeIndex: number) {
+  return request<{ recording_url: string }>(
+    `/api/projects/${projectId}/episodes/${episodeIndex}/recording`,
+    { method: "POST" },
+  );
+}
+
+export function warmRecording(projectId: string, episodeIndex: number) {
+  return request<{ status: "warmed" }>(
+    `/api/projects/${projectId}/episodes/${episodeIndex}/recording/warm`,
+    { method: "POST" },
+  );
+}
+
+export function exportDataset(projectId: string, episodeIndexes: number[], format: string, outputDir = "") {
+  const normalizedOutputDir = normalizeFilesystemPath(outputDir);
+  return request<ExportResult>(`/api/projects/${projectId}/exports`, {
+    method: "POST",
+    body: JSON.stringify({
+      episode_indexes: episodeIndexes,
+      format,
+      options: normalizedOutputDir ? { output_dir: normalizedOutputDir } : {},
+    }),
+  });
+}
+
+export function runCleaning(
+  projectId: string,
+  vlm?: VlmSettings,
+  episodeIndexes?: number[],
+  ruleConfig?: CleaningRuleConfig,
+) {
+  return request<CleaningRun>(`/api/projects/${projectId}/cleaning/runs`, {
+    method: "POST",
+    body: JSON.stringify({
+      pass_threshold: 0.8,
+      review_threshold: 0.6,
+      ...(ruleConfig ?? {}),
+      ...(vlm ? { vlm: writableVlmSettings(vlm) } : {}),
+      ...(episodeIndexes ? { episode_indexes: episodeIndexes } : {}),
+    }),
+  });
+}
+
+export function saveVlmSettings(projectId: string, settings: VlmSettings) {
+  return request<VlmSettings>(`/api/projects/${projectId}/vlm-settings`, {
+    method: "PATCH",
+    body: JSON.stringify(writableVlmSettings(settings)),
+  });
+}
+
+export function getVlmSettings(projectId: string) {
+  return request<VlmSettings>(`/api/projects/${projectId}/vlm-settings`);
+}
+
+function writableVlmSettings(settings: VlmSettings) {
+  const { api_key_configured: _apiKeyConfigured, ...writable } = settings;
+  return writable;
+}
+
+export function updateEpisodeDecision(
+  projectId: string,
+  episodeIndex: number,
+  status: Exclude<CleaningStatus, "unscored">,
+) {
+  return request<EpisodeQualityResult>(
+    `/api/projects/${projectId}/episodes/${episodeIndex}/decision`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({ status }),
+    },
+  );
+}
+
+export function runFilters(projectId: string) {
+  return request<FilterRun>(`/api/projects/${projectId}/filters/runs`, { method: "POST" });
+}
+
+export type PipelineProgress = {
+  phase: "cleaning" | "filters";
+  completed: number;
+  total: number;
+};
+
+export type PipelineRunResult = {
+  cleaning: CleaningRun;
+  filters: FilterRun;
+};
+
+export async function runPipelineStream(
+  projectId: string,
+  vlm: VlmSettings | undefined,
+  episodeIndexes: number[] | undefined,
+  ruleConfig: CleaningRuleConfig | undefined,
+  onProgress: (progress: PipelineProgress) => void,
+): Promise<PipelineRunResult> {
+  const response = await fetchWithAuth(apiUrl(`/api/projects/${projectId}/pipeline/runs/stream`), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      pass_threshold: 0.8,
+      review_threshold: 0.6,
+      ...(ruleConfig ?? {}),
+      ...(vlm ? { vlm: writableVlmSettings(vlm) } : {}),
+      ...(episodeIndexes ? { episode_indexes: episodeIndexes } : {}),
+    }),
+  });
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({ detail: response.statusText }));
+    throw new Error(body.detail ?? "Pipeline stream failed");
+  }
+  if (!response.body) {
+    return (await response.json()) as PipelineRunResult;
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+  let result: PipelineRunResult | null = null;
+  let errorMessage: string | null = null;
+
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    let frameEnd = buffer.indexOf("\n\n");
+    while (frameEnd !== -1) {
+      const frame = buffer.slice(0, frameEnd);
+      buffer = buffer.slice(frameEnd + 2);
+      const event = parseSseFrame(frame);
+      if (event) {
+        if (event.name === "progress") {
+          onProgress({
+            phase: event.data.phase as "cleaning" | "filters",
+            completed: Number(event.data.completed),
+            total: Number(event.data.total),
+          });
+        } else if (event.name === "done") {
+          result = {
+            cleaning: event.data.cleaning as CleaningRun,
+            filters: event.data.filters as FilterRun,
+          };
+        } else if (event.name === "error") {
+          errorMessage = String(event.data.message ?? "Pipeline failed");
+        }
+      }
+      frameEnd = buffer.indexOf("\n\n");
+    }
+  }
+
+  if (errorMessage) throw new Error(errorMessage);
+  if (!result) throw new Error("Pipeline stream ended without result");
+  return result;
+}
+
+function parseSseFrame(frame: string): { name: string; data: Record<string, unknown> } | null {
+  let name = "message";
+  let dataLine = "";
+  for (const line of frame.split("\n")) {
+    if (line.startsWith("event:")) {
+      name = line.slice(6).trim();
+    } else if (line.startsWith("data:")) {
+      dataLine += line.slice(5).trim();
+    }
+  }
+  if (!dataLine) return null;
+  try {
+    return { name, data: JSON.parse(dataLine) as Record<string, unknown> };
+  } catch {
+    return null;
+  }
+}
+
+export function getFilterDetail(projectId: string, stageId: FilterStageId, episodeIndex: number) {
+  return request<FilterDetail>(`/api/projects/${projectId}/filters/${stageId}/episodes/${episodeIndex}`);
+}
+
+export function saveFilterConfig(projectId: string, config: Partial<FilterConfig>) {
+  return request<FilterConfig>(`/api/projects/${projectId}/filters/config`, {
+    method: "PATCH",
+    body: JSON.stringify(config),
+  });
+}
+
+export async function uploadKinematicsUrdf(projectId: string, file: File) {
+  const response = await fetchWithAuth(
+    apiUrl(`/api/projects/${projectId}/filters/kinematics/urdf?filename=${encodeURIComponent(file.name)}`),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/octet-stream" },
+      body: await file.arrayBuffer(),
+    },
+  );
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({ detail: response.statusText }));
+    throw new Error(body.detail ?? "Request failed");
+  }
+  return response.json() as Promise<{ filename: string; path: string }>;
+}

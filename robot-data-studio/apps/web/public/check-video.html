@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>VideoDecoder Check</title></head>
+<body>
+<h2>WebCodecs API Check</h2>
+<div id="results"></div>
+<script>
+const results = document.getElementById('results');
+const check = (name, test) => {
+  const el = document.createElement('p');
+  try { el.textContent = `${name}: ${test() ? '✅' : '❌'}`; }
+  catch(e) { el.textContent = `${name}: ❌ ${e.message}`; }
+  results.appendChild(el);
+};
+
+check('Secure Context', () => window.isSecureContext);
+check('VideoDecoder', () => typeof VideoDecoder !== 'undefined');
+check('VideoEncoder', () => typeof VideoEncoder !== 'undefined');
+check('SharedArrayBuffer', () => typeof SharedArrayBuffer !== 'undefined');
+check('crossOriginIsolated', () => window.crossOriginIsolated);
+</script>
+</body>
+</html>

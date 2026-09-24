@@ -1,0 +1,47 @@
+<template>
+    <base-dialog ref="dialogRef">
+        <template #title> 将项目添加到访问组</template>
+
+        <template #content>
+            <AddProjectToAccessGroupDialog
+                ref="addProjectReference"
+                :access-group-uuid="accessGroupUuid"
+            />
+        </template>
+
+        <template #actions>
+            <q-btn
+                flat
+                label="确认"
+                class="bg-button-primary"
+                @click="addProjectToAccessGroupAction"
+            />
+        </template>
+    </base-dialog>
+    >
+</template>
+<script setup lang="ts">
+import AddProjectToAccessGroupDialog from 'components/add-project-access-group.vue';
+import { useDialogPluginComponent } from 'quasar';
+import BaseDialog from 'src/dialogs/base-dialog.vue';
+import { ref } from 'vue';
+
+const { dialogRef, onDialogOK } = useDialogPluginComponent();
+
+const addProjectReference = ref<
+    InstanceType<typeof AddProjectToAccessGroupDialog> | undefined
+>(undefined);
+
+const { accessGroupUuid } = defineProps<{
+    accessGroupUuid: string;
+}>();
+
+const addProjectToAccessGroupAction = (): void => {
+    if (addProjectReference.value) {
+        addProjectReference.value.mutate?.();
+    }
+    onDialogOK();
+};
+</script>
+
+<style scoped></style>

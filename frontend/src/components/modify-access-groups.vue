@@ -1,0 +1,146 @@
+<template>
+    <div>
+        <div class="row" style="padding-top: 12px">
+            <div class="col-10">
+                <app-search-bar
+                    v-model="search"
+                    placeholder="搜索用户/访问组"
+                />
+            </div>
+        </div>
+        <div class="row" style="margin-top: 15px">
+            <b>独立用户</b>
+        </div>
+        <q-table
+            v-if="foundUsers && foundUsers.count > 0"
+            :rows="(foundUsers as any) || ([] as any)"
+            :columns="columns as any"
+            hide-bottom
+            flat
+            bordered
+        >
+            <template #body-cell-name="_props">
+                <q-td :props="_props" style="width: 150px">
+                    {{ _props.row.name }}
+                </q-td>
+            </template>
+            <template #body-cell-rights="_props">
+                <q-td :props="_props" style="width: 150px">
+                    <q-select
+                        v-model="rights[_props.row.uuid]"
+                        :options="options"
+                        @update:model-value="
+                            () =>
+                                addUserToProject(
+                                    _props.row.uuid,
+                                    _props.row.name,
+                                )
+                        "
+                    />
+                </q-td>
+            </template>
+        </q-table>
+
+        <div class="row">
+            <b>访问权限组</b>
+        </div>
+        <q-table
+            v-if="foundAccessGroups && foundAccessGroups.length > 0"
+            :rows="foundAccessGroups || []"
+            :columns="columns as any"
+            hide-bottom
+            flat
+            bordered
+            binary-state-sort
+        >
+            <template #body-cell-name="_props">
+                <q-td :props="_props" style="width: 150px">
+                    {{ _props.row.name }}
+                </q-td>
+            </template>
+            <template #body-cell-rights="_props">
+                <q-td :props="_props" style="width: 150px">
+                    <q-select
+                        v-model="rights[_props.row.uuid]"
+                        :options="options"
+                        @update:model-value="
+                            () =>
+                                addAccessGroupToProject(
+                                    _props.row.uuid,
+                                    _props.row.name,
+                                )
+                        "
+                    />
+                </q-td>
+            </template>
+        </q-table>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { AccessGroupRights } from '@rslstudio/shared';
+import AppSearchBar from 'components/common/app-search-bar.vue';
+import { QTable } from 'quasar';
+import { useSearchAccessGroup, useUserSearch } from 'src/hooks/query-hooks';
+import { accessGroupRightsMap } from 'src/services/generic';
+import { computed, Ref, ref } from 'vue';
+
+import type { AccessGroupsDto } from '@rslstudio/api-dto/types/access-control/access-groups.dto';
+
+const properties = defineProps<{
+    existingRights: Record<string, { label: string; value: AccessGroupRights }>;
+}>();
+const emit = defineEmits(['addAccessGroupToProject', 'addUsersToProject']);
+
+const search = ref('');
+const options = Object.keys(accessGroupRightsMap).map((key) => ({
+    label: accessGroupRightsMap[Number.parseInt(key, 10) as AccessGroupRights],
+    value: Number.parseInt(key, 10),
+}));
+const rights: Ref<Record<string, { label: string; value: AccessGroupRights }>> =
+    ref({ ...properties.existingRights });
+
+const { data: foundUsers } = useUserSearch(search);
+
+const { data: _foundAccessGroups } = useSearchAccessGroup(search);
+const foundAccessGroups = computed(() =>
+    _foundAccessGroups.value
+        ? _foundAccessGroups.value.data
+        : ([] as AccessGroupsDto[]),
+);
+
+function addAccessGroupToProject(accessGroupUUID: string, name: string) {
+    emit('addAccessGroupToProject', {
+        accessGroupUUID,
+        rights: rights.value[accessGroupUUID]?.value,
+        name,
+    });
+}
+
+function addUserToProject(userUuid: string, name: string) {
+    emit('addUsersToProject', {
+        userUuid,
+        rights: rights.value[userUuid]?.value,
+        name,
+    });
+}
+
+const columns = [
+    {
+        name: 'name',
+        required: true,
+        label: '名称',
+        align: 'left',
+    },
+    {
+        name: 'rights',
+        required: true,
+        label: '权限',
+        align: 'left',
+        field: 'rights',
+        format: (value: string) => value,
+    },
+];
+</script>
+
+<style scoped></style>

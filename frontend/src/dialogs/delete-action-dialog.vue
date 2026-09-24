@@ -1,0 +1,54 @@
+<template>
+    <base-dialog ref="dialogRef">
+        <template #title> 删除操作</template>
+        <template #content>
+            <delete-action
+                v-if="action"
+                ref="deleteActionReference"
+                :action="action"
+            />
+            <q-skeleton v-else height="250px" />
+        </template>
+
+        <template #actions>
+            <q-btn
+                flat
+                :disable="
+                    deleteActionReference?.action_name_check !==
+                    action?.template.name
+                "
+                label="删除操作"
+                class="bg-button-primary"
+                @click="deleteActionAction"
+            />
+        </template>
+    </base-dialog>
+</template>
+
+<script setup lang="ts">
+import { useDialogPluginComponent } from 'quasar';
+import BaseDialog from 'src/dialogs/base-dialog.vue';
+import { ref } from 'vue';
+
+import type { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
+import DeleteAction from 'components/actions/delete-action.vue';
+
+const { dialogRef, onDialogOK } = useDialogPluginComponent();
+const deleteActionReference = ref<
+    InstanceType<typeof DeleteAction> | undefined
+>(undefined);
+
+const { action } = defineProps<{
+    action: ActionDto;
+}>();
+
+const deleteActionAction = (): void => {
+    if (deleteActionReference.value === undefined) return;
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (deleteActionReference.value) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        (deleteActionReference.value as any).deleteActionAction();
+    }
+    onDialogOK();
+};
+</script>

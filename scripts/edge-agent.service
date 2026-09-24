@@ -1,0 +1,29 @@
+[Unit]
+Description=RSLStudio Edge Capture Agent
+Documentation=https://github.com/rslethz/rslstudio
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=%u
+WorkingDirectory=/opt/rslstudio-edge
+EnvironmentFile=/opt/rslstudio-edge/edge-agent.env
+ExecStart=/usr/bin/python3 /opt/rslstudio-edge/edge-agent.py \
+    --source ${EDGE_SOURCE} \
+    --mission ${EDGE_MISSION} \
+    --segment ${SEGMENT_SECONDS:-10} \
+    --resolution ${RESOLUTION:-1280x720} \
+    --fps ${FPS:-30} \
+    --crf ${CRF:-23} \
+    --minio-endpoint ${MINIO_ENDPOINT} \
+    --bucket ${MINIO_BUCKET:-data} \
+    --backend ${BACKEND_URL:-http://localhost:3000}
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=15
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

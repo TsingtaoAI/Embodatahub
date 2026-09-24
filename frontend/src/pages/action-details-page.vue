@@ -1,0 +1,530 @@
+<template>
+    <title-section title="执行详情">
+        <template #tabs>
+            <q-tabs
+                v-model="tab"
+                dense
+                class="text-grey"
+                align="left"
+                active-color="primary"
+            >
+                <q-tab
+                    name="info"
+                    label="Execution Details"
+                    style="color: #222"
+                />
+                <q-tab
+                    name="template"
+                    label="Action Template"
+                    style="color: #222"
+                />
+                <q-tab
+                    name="resources"
+                    label="Resource Consumption"
+                    style="color: #222"
+                    :disable="!action?.resourceUsage"
+                >
+                    <q-tooltip v-if="!action?.resourceUsage">
+                        <span>No resource data available</span>
+                    </q-tooltip>
+                </q-tab>
+                <q-tab
+                    name="logs"
+                    label="Logs"
+                    style="color: #222"
+                    :disable="!logs?.data || logs?.data.length === 0"
+                >
+                    <q-tooltip v-if="!logs?.data || logs?.data.length === 0">
+                        <span>No logs available</span>
+                    </q-tooltip>
+                </q-tab>
+                <q-tab
+                    name="auditLogs"
+                    label="Audit Logs"
+                    style="color: #222"
+                    :disable="
+                        !action?.auditLogs || action?.auditLogs.length === 0
+                    "
+                >
+                    <q-tooltip
+                        v-if="
+                            !action?.auditLogs || action?.auditLogs.length === 0
+                        "
+                    >
+                        <span>No audit logs available</span>
+                    </q-tooltip>
+                </q-tab>
+            </q-tabs>
+        </template>
+
+        <template #buttons>
+            <button-group>
+                <q-btn
+                    class="button-border"
+                    flat
+                    icon="sym_o_arrow_back"
+                    label="Back to Actions"
+                    @click="navigateBackToActions"
+                />
+                <q-btn
+                    class="button-border"
+                    flat
+                    color="primary"
+                    icon="sym_o_link"
+                    label="Mission"
+                    @click="openMission"
+                >
+                    <q-tooltip> Analyze Actions</q-tooltip>
+                </q-btn>
+                <q-btn
+                    class="button-border"
+                    flat
+                    color="primary"
+                    icon="sym_o_play_arrow"
+                    label="Restart"
+                    @click="restartAction"
+                >
+                    <q-tooltip>Restart Action</q-tooltip>
+                </q-btn>
+            </button-group>
+        </template>
+    </title-section>
+
+    <div v-if="isLoading" class="flex flex-center q-pa-lg">
+        <q-spinner color="primary" size="3em" />
+    </div>
+
+    <div v-else-if="!action" class="flex flex-center column q-pa-lg text-grey">
+        <q-icon name="sym_o_error" size="4em" class="q-mb-md" />
+        <div class="text-h6">Action not found</div>
+        <div class="q-mt-md">
+            <q-btn
+                color="primary"
+                label="Reload"
+                icon="sym_o_refresh"
+                unelevated
+                @click="handleRefetch"
+            />
+        </div>
+        <div v-if="error" class="text-caption text-negative q-mt-sm">
+            {{ error.message }}
+        </div>
+    </div>
+
+    <q-tab-panels
+        v-else
+        v-model="tab"
+        class="q-mt-lg"
+        style="background: transparent"
+    >
+        <q-tab-panel name="info">
+            <div v-if="activeHints.length > 0" class="q-mb-md">
+                <InfoBanner
+                    v-for="hint in activeHints"
+                    :key="hint.id"
+                    :text="hint.text"
+                    :button-label="hint.buttonLabel || 'View'"
+                    color="orange-1"
+                    text-color="orange-9"
+                    @click="() => executeHint(hint)"
+                />
+            </div>
+            <ActionDetailsExecutionTab v-if="action" :action="action" />
+        </q-tab-panel>
+
+        <q-tab-panel name="template">
+            <ActionDetailsTemplateTab
+                v-if="action"
+                :template="action.template"
+            />
+        </q-tab-panel>
+
+        <q-tab-panel name="resources">
+            <ActionDetailsResourcesTab v-if="action" :action="action" />
+        </q-tab-panel>
+
+        <q-tab-panel name="logs">
+            <p style="max-width: 650px; color: #525252; font-size: 0.8em">
+                We capture the stdout and stderr of the action execution. In the
+                following we list all the logs generated by the action container
+                during the execution of the action.
+            </p>
+
+            <div
+                v-if="isRetentionExpired && logs?.count === 0"
+                class="q-mb-md text-warning flex items-center"
+            >
+                <q-icon name="sym_o_warning" size="sm" class="q-mr-sm" />
+                <span
+                    >Logs for this action may have expired (retention limit: 90
+                    days).</span
+                >
+            </div>
+
+            <div class="row justify-between items-center q-mb-md">
+                <div class="row q-gutter-x-md items-center">
+                    <q-input
+                        v-model="logsSearch"
+                        dense
+                        outlined
+                        placeholder="Search logs..."
+                        debounce="300"
+                        style="width: 200px"
+                    >
+                        <template #append>
+                            <q-icon name="sym_o_search" />
+                        </template>
+                    </q-input>
+
+                    <q-select
+                        v-model="logsLevel"
+                        :options="['all', 'stdout', 'stderr']"
+                        dense
+                        outlined
+                        label="Level"
+                        style="width: 120px"
+                        emit-value
+                        map-options
+                    />
+
+                    <div v-if="logs?.count" class="text-caption q-ml-md">
+                        Showing {{ logs.data.length }} of {{ logs.count }} lines
+                    </div>
+                </div>
+
+                <div class="q-gutter-x-sm">
+                    <q-btn
+                        v-if="(logs?.count || 0) > (logs?.data.length || 0)"
+                        flat
+                        label="Load More"
+                        color="primary"
+                        @click="loadMoreLogs"
+                    />
+                    <q-btn
+                        flat
+                        label="Download Logs"
+                        color="primary"
+                        icon="sym_o_download"
+                        @click="downloadLogs"
+                    />
+                </div>
+            </div>
+
+            <q-card
+                class="q-pa-lg"
+                style="background-color: #f4f4f4"
+                flat
+                bordered
+            >
+                <q-card-section class="flex column q-pa-none">
+                    <div
+                        v-for="(log, index) in logs?.data"
+                        :id="`log-line-${index}`"
+                        :key="log.timestamp"
+                        class="flex justify-start q-pb-xs"
+                        :class="{
+                            'bg-orange-1': index === highlightedLogIndex,
+                        }"
+                        style="
+                            font-family: monospace;
+                            color: #222222;
+                            font-size: 0.8em;
+                            transition: background-color 3s ease-out;
+                        "
+                    >
+                        <template v-if="log.type == 'stdout'">
+                            <span
+                                class="q-pr-sm"
+                                style="user-select: none; color: #525252"
+                                >{{
+                                    formatDate(new Date(log.timestamp), true)
+                                }}</span
+                            >
+                            <span
+                                class="q-pr-sm"
+                                style="user-select: none; color: #525252"
+                            >
+                                [{{ log.type }}]
+                            </span>
+
+                            <span
+                                style="margin-left: -250px; padding-left: 250px"
+                            >
+                                {{ log.message.replaceAll(' ', '\u00a0') }}
+                            </span>
+                        </template>
+
+                        <template v-else>
+                            <span
+                                class="q-pr-sm"
+                                style="user-select: none; color: #fd7c7cff"
+                                >{{
+                                    formatDate(new Date(log.timestamp), true)
+                                }}</span
+                            >
+                            <span
+                                class="q-pr-sm"
+                                style="user-select: none; color: #fd7c7cff"
+                            >
+                                [{{ log.type }}]
+                            </span>
+
+                            <span
+                                style="
+                                    margin-left: -250px;
+                                    padding-left: 250px;
+                                    color: #ff3c3c;
+                                "
+                            >
+                                {{ log.message.replaceAll(' ', '\u00a0') }}
+                            </span>
+                        </template>
+                    </div>
+                </q-card-section>
+            </q-card>
+        </q-tab-panel>
+
+        <q-tab-panel name="auditLogs">
+            <p style="max-width: 650px; color: #525252; font-size: 0.8em">
+                Audit log help to understand which elements are being accessed
+                by the action. This is useful for debugging and security
+                purposes. In the following we list all endpoints called by the
+                RSL Studio CLI during the execution of the action.
+            </p>
+
+            <FileHistory
+                v-if="fileEvents"
+                :events="fileEvents"
+                class="q-mb-md"
+                hide-action-attribution
+            />
+
+            <h2 class="text-h5 q-mb-sm text-grey-9">Called Endpoints</h2>
+            <q-card
+                class="q-pa-lg"
+                style="background-color: #f4f4f4"
+                flat
+                bordered
+            >
+                <div
+                    v-for="log in action?.auditLogs"
+                    :key="log.url"
+                    class="flex justify-start q-pb-xs"
+                    style="
+                        font-family: monospace;
+                        color: #222222;
+                        font-size: 0.8em;
+                    "
+                >
+                    <span
+                        class="q-pr-sm"
+                        style="user-select: none; color: #525252"
+                        >{{ log.method }}</span
+                    >
+
+                    <span>
+                        {{ log.url }}
+                    </span>
+                </div>
+            </q-card>
+        </q-tab-panel>
+    </q-tab-panels>
+</template>
+
+<script setup lang="ts">
+import ActionDetailsExecutionTab from 'components/actions/action-details-execution-tab.vue';
+import ActionDetailsResourcesTab from 'components/actions/action-details-resources-tab.vue';
+import ActionDetailsTemplateTab from 'components/actions/action-details-template-tab.vue';
+import ButtonGroup from 'components/buttons/button-group.vue';
+import InfoBanner from 'components/info-banner.vue';
+import FileHistory from 'components/inspect-file/file-history.vue';
+import TitleSection from 'components/title-section.vue';
+import { useQuasar } from 'quasar';
+import { ActionService } from 'src/api/services/action.service';
+import { useActionErrorHints } from 'src/composables/use-action-error-hints';
+import {
+    useActionDetails,
+    useActionFileEvents,
+    useActionLogs,
+} from 'src/composables/use-actions-queries';
+import ROUTES from 'src/router/routes';
+import { formatDate } from 'src/services/date-formating';
+import { computed, ref, watch } from 'vue';
+import 'vue-json-pretty/lib/styles.css';
+import { useRoute, useRouter } from 'vue-router';
+
+const tab = ref('info');
+
+const $route = useRoute();
+const $router = useRouter();
+const $q = useQuasar();
+
+const {
+    data: action,
+    isLoading,
+    error,
+    refetch,
+} = useActionDetails(computed(() => $route.params.id as string));
+
+const handleRefetch = () => {
+    void refetch();
+};
+
+const logsLimit = ref(100);
+const totalLogsCount = ref(0);
+const highlightedLogIndex = ref<number | null>(null);
+const logsSearch = ref('');
+const logsLevel = ref('all');
+
+const logsSkip = computed(() => {
+    if (totalLogsCount.value === 0) return 0;
+    return Math.max(0, totalLogsCount.value - logsLimit.value);
+});
+
+const { data: logs, refetch: refetchLogs } = useActionLogs(
+    computed(() => $route.params.id as string),
+    logsSkip,
+    logsLimit,
+    computed(() => logsSearch.value || undefined),
+    computed(() => (logsLevel.value === 'all' ? undefined : logsLevel.value)),
+);
+
+const isRetentionExpired = computed(() => {
+    if (!action.value?.createdAt) return false;
+    const retentionLimit = 90 * 24 * 60 * 60 * 1000; // 90 days
+    return (
+        Date.now() - new Date(action.value.createdAt).getTime() > retentionLimit
+    );
+});
+
+watch(logs, (newLogs) => {
+    if (newLogs) {
+        totalLogsCount.value = newLogs.count;
+    }
+});
+
+const { activeHints, executeHint } = useActionErrorHints(
+    action,
+    logs,
+    $router,
+    { tab, highlightedLogIndex },
+);
+
+const downloadLogs = async () => {
+    if (!action.value) return;
+    try {
+        const allLogs = await ActionService.getLogs(
+            action.value.uuid,
+            0,
+            totalLogsCount.value || 50_000,
+            logsSearch.value || undefined,
+            logsLevel.value === 'all' ? undefined : logsLevel.value,
+        );
+        const logContent = allLogs.data
+            .map(
+                (l) =>
+                    `[${formatDate(new Date(l.timestamp), true)}] [${l.type}] ${l.message}`,
+            )
+            .join('\n');
+        const blob = new Blob([logContent], { type: 'text/plain' });
+        const url = globalThis.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `action-${action.value.uuid}.log`;
+        a.click();
+        globalThis.URL.revokeObjectURL(url);
+    } catch {
+        $q.notify({
+            type: 'negative',
+            message: 'Failed to download logs',
+        });
+    }
+};
+
+const { data: fileEvents, refetch: refetchFileEvents } = useActionFileEvents(
+    computed(() => $route.params.id as string),
+);
+
+// Refetch file events when action state changes (e.g. from PROCESSING to COMPLETED)
+watch(
+    () => action.value?.state,
+    () => {
+        void refetchFileEvents();
+        void refetchLogs();
+    },
+);
+
+const loadMoreLogs = () => {
+    logsLimit.value += 100;
+};
+
+const openMission = async (): Promise<void> => {
+    if (action.value === undefined) return;
+
+    await $router.push({
+        name: ROUTES.FILES.routeName,
+        params: {
+            projectUuid: action.value.mission.project.uuid,
+            missionUuid: action.value.mission.uuid,
+        },
+    });
+};
+
+const restartAction = async (): Promise<void> => {
+    if (!action.value) return;
+
+    try {
+        const response = await ActionService.createAnalysis({
+            missionUUID: action.value.mission.uuid,
+            templateUUID: action.value.template.uuid,
+        });
+
+        $q.notify({
+            type: 'positive',
+            message: 'Action restarted successfully',
+        });
+
+        const routeData = $router.resolve({
+            name: ROUTES.ANALYSIS_DETAILS.name,
+            params: { id: response.actionUUID },
+        });
+        globalThis.location.assign(routeData.href);
+    } catch {
+        $q.notify({
+            type: 'negative',
+            message: 'Failed to restart action',
+        });
+    }
+};
+
+const navigateBackToActions = async (): Promise<void> => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const previousPath = globalThis.history.state?.back as string | undefined;
+
+    // If we came from the actions list (any tab), go back to preserve filters/state
+    if (previousPath?.includes('/actions')) {
+        $router.back();
+        return;
+    }
+
+    // Fallback: Go to Executions tab with current action's scope
+    await $router.push(
+        action.value
+            ? {
+                  name: ROUTES.ACTION.name,
+                  params: { tab: 'runs' },
+                  query: {
+                      projectUuid: action.value.mission.project.uuid,
+                      missionUuid: action.value.mission.uuid,
+                      sortBy: 'createdAt',
+                      descending: 'true',
+                  },
+              }
+            : { name: ROUTES.ACTION.name },
+    );
+};
+</script>
+
+<style>
+/* Styles removed as table is no longer used */
+</style>

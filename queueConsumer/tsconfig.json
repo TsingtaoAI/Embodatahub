@@ -1,0 +1,39 @@
+{
+    "extends": "../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "dist",
+        "baseUrl": ".",
+        "rootDir": "..",
+        "paths": {
+            "@/*": ["src/*"],
+            "@rslstudio/backend-common/*": ["../packages/backend-common/src/*"],
+            "@rslstudio/shared": ["../packages/shared/src/index.ts"],
+            "@rslstudio/shared/*": ["../packages/shared/src/*"],
+            "@rslstudio/validation": ["../packages/validation/src/index.ts"],
+            "@rslstudio/validation/*": ["../packages/validation/src/*"],
+            "@rslstudio/api-dto": ["../packages/api-dto/src/index.ts"],
+            "@rslstudio/api-dto/*": ["../packages/api-dto/src/*"],
+            "@api-dto/*": ["../packages/api-dto/src/types/*"],
+            "@rslstudio/backend-common": [
+                "../packages/backend-common/src/index.ts"
+            ],
+            "@backend-common/*": ["../packages/backend-common/src/*"]
+        }
+    },
+    "include": ["src/**/*", "../packages/**/*"],
+    "exclude": ["node_modules", "dist"],
+    "references": [
+        {
+            "path": "../packages/api-dto"
+        },
+        {
+            "path": "../packages/backend-common"
+        },
+        {
+            "path": "../packages/shared"
+        },
+        {
+            "path": "../packages/validation"
+        }
+    ]
+}

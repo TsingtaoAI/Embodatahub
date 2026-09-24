@@ -1,0 +1,26 @@
+**/node_modules
+**/dist
+**/.quasar
+**/.idea
+**/.venv
+**/.git
+**/.DS_Store
+**/yarn-error.log
+**/.vscode
+**/.vitepress
+**/__generated__endpoints.json
+**/.mypy_cache
+**/cli
+pnpm-lock.yaml
+**/.pnpm-store
+
+# ignore bag and mcap files
+**/*.mcap
+**/*.bag
+**/*.db3
+**/*.tum
+**/*.svo2
+**/*.yaml
+
+# ignore build info file
+frontend/src/build.ts

@@ -1,0 +1,100 @@
+<template>
+    <q-select
+        v-if="selected"
+        v-model="selected"
+        multiple
+        option-label="name"
+        option-value="uuid"
+        :options="categories"
+        placeholder="Select Categories"
+        clearable
+        dense
+        outlined
+        hide-bottom-space
+        use-input
+        input-debounce="300"
+        @clear="clear"
+        @input-value="onInputChange"
+    >
+        <template #selected-item="props">
+            <q-chip
+                v-if="props.opt"
+                removable
+                :color="hashUUIDtoColor(props.opt.uuid)"
+                style="color: white; font-size: smaller"
+                @remove="() => props.removeAtIndex(props.index)"
+            >
+                {{ props.opt.name }}
+            </q-chip>
+        </template>
+        <template #option="props">
+            <q-item
+                v-ripple
+                clickable
+                v-bind="props.itemProps"
+                dense
+                @click="() => props.toggleOption(props.opt)"
+            >
+                <q-item-section>
+                    <div>
+                        <q-chip
+                            dense
+                            :color="hashUUIDtoColor(props.opt.uuid)"
+                            :style="`color: white `"
+                        >
+                            {{ props.opt.name }}
+                        </q-chip>
+                    </div>
+                </q-item-section>
+            </q-item>
+        </template>
+    </q-select>
+</template>
+<script setup lang="ts">
+import type { CategoryDto } from '@rslstudio/api-dto/types/category.dto';
+import { useCategories } from 'src/hooks/query-hooks';
+import { hashUUIDtoColor } from 'src/services/generic';
+import { computed, ref, Ref } from 'vue';
+
+const properties = defineProps<{
+    selected: CategoryDto[];
+    projectUuid: string;
+}>();
+
+const emit = defineEmits(['update:selected']);
+
+const filter = ref('');
+const selected = computed({
+    get: () => properties.selected,
+    set: (value: CategoryDto[]) => {
+        emit('update:selected', value);
+    },
+});
+
+const clear = () => {
+    selected.value = [];
+};
+
+const { data: _categories } = useCategories(properties.projectUuid, filter);
+
+const categories: Ref<CategoryDto[]> = computed(() =>
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    _categories.value ? _categories.value.data || [] : [],
+);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const onInputChange = ($event: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    filter.value = $event;
+};
+</script>
+
+<style scoped>
+:deep(.q-field__control),
+:deep(.q-field__marginal) {
+    height: 36px !important;
+    min-height: 36px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+</style>

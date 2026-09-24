@@ -1,0 +1,15 @@
+import 'tsconfig-paths/register';
+import { DataSource } from 'typeorm';
+import { getConfig } from './development-datasource.config';
+
+const datasource = new DataSource(getConfig());
+
+datasource
+    .initialize()
+    // eslint-disable-next-line no-console
+    .then(console.log)
+    // eslint-disable-next-line unicorn/prefer-top-level-await
+    .catch((error: unknown) => {
+        console.error(error);
+    });
+export default datasource;
