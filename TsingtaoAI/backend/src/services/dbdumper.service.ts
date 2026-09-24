@@ -1,4 +1,4 @@
-import { IStorageBucket } from '@kleinkram/backend-common/modules/storage/types';
+import { IStorageBucket } from '@rslstudio/backend-common/modules/storage/types';
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Cron, CronExpression } from '@nestjs/schedule';

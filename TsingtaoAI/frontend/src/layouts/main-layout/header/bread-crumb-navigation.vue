@@ -70,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { AccessGroupType } from '@kleinkram/shared';
+import { AccessGroupType } from '@rslstudio/shared';
 import { useQuasar } from 'quasar';
 import { useCrumbs } from 'src/hooks/crumbs';
 import {
@@ -105,8 +105,8 @@ const { data: accessGroup } = useAccessGroup(genericUuid);
 
 const resolvedCrumbs = computed(() => {
     const tab = route.params.tab as string | undefined;
-    const tabName = tab === 'runs' ? 'Executions' : 'Templates';
-    const accessGroupsTab = route.query.tab === 'users' ? 'Users' : 'Groups';
+    const tabName = tab === 'runs' ? '执行记录' : '模板';
+    const accessGroupsTab = route.query.tab === 'users' ? '用户' : '用户组';
 
     let _crumbs = crumbs.value.map((crumb: PageBreadCrumb) => {
         return {
@@ -128,8 +128,8 @@ const resolvedCrumbs = computed(() => {
                 .replace(
                     ':group_type',
                     accessGroup.value?.type === AccessGroupType.PRIMARY
-                        ? 'Users'
-                        : 'Groups',
+                        ? '用户'
+                        : '用户组',
                 )
                 .replace(':access_group_name', accessGroup.value?.name ?? '')
                 .replace(':tab_name', tabName),

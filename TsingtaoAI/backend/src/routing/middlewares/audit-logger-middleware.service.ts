@@ -1,5 +1,5 @@
 import { ActionService } from '@/services/action.service';
-import { CookieNames } from '@kleinkram/shared';
+import { CookieNames } from '@rslstudio/shared';
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import logger from '../../logger';

@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Add Metadata</template>
+        <template #title> 添加元数据</template>
 
         <template #content>
             <AddTag :mission-uuid="missionUuid" />
@@ -9,7 +9,7 @@
         <template #actions>
             <q-btn
                 flat
-                label="Add Metadata"
+                label="添加元数据"
                 class="bg-button-primary"
                 @click="onDialogOK"
             />

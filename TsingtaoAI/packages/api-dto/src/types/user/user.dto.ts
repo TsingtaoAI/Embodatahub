@@ -1,4 +1,4 @@
-import { IsNotUndefined } from '@kleinkram/validation';
+import { IsNotUndefined } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { IsEmail, IsOptional, IsString, IsUUID } from 'class-validator';

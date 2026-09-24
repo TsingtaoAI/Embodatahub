@@ -1,10 +1,10 @@
 import { ProjectGuardService } from '@/services/project-guard.service';
-import { ApiKeyEntity } from '@kleinkram/backend-common';
-import { MetadataEntity } from '@kleinkram/backend-common/entities/metadata/metadata.entity';
-import { MissionEntity } from '@kleinkram/backend-common/entities/mission/mission.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import { MissionAccessViewEntity } from '@kleinkram/backend-common/viewEntities/mission-access-view.entity';
-import { AccessGroupRights, UserRole } from '@kleinkram/shared';
+import { ApiKeyEntity } from '@rslstudio/backend-common';
+import { MetadataEntity } from '@rslstudio/backend-common/entities/metadata/metadata.entity';
+import { MissionEntity } from '@rslstudio/backend-common/entities/mission/mission.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import { MissionAccessViewEntity } from '@rslstudio/backend-common/viewEntities/mission-access-view.entity';
+import { AccessGroupRights, UserRole } from '@rslstudio/shared';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { isUUID } from 'class-validator';

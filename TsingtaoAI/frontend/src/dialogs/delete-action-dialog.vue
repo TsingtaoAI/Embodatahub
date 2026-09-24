@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Delete Action</template>
+        <template #title> 删除操作</template>
         <template #content>
             <delete-action
                 v-if="action"
@@ -17,7 +17,7 @@
                     deleteActionReference?.action_name_check !==
                     action?.template.name
                 "
-                label="Delete Action"
+                label="删除操作"
                 class="bg-button-primary"
                 @click="deleteActionAction"
             />
@@ -30,7 +30,7 @@ import { useDialogPluginComponent } from 'quasar';
 import BaseDialog from 'src/dialogs/base-dialog.vue';
 import { ref } from 'vue';
 
-import type { ActionDto } from '@kleinkram/api-dto/types/actions/action.dto';
+import type { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
 import DeleteAction from 'components/actions/delete-action.vue';
 
 const { dialogRef, onDialogOK } = useDialogPluginComponent();

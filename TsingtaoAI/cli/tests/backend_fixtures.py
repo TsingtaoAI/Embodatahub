@@ -8,12 +8,12 @@ from secrets import token_hex
 
 import pytest
 
-from kleinkram import create_mission
-from kleinkram import create_project
-from kleinkram import delete_project
-from kleinkram import list_missions
-from kleinkram import list_projects
-from kleinkram import upload
+from rslstudio import create_mission
+from rslstudio import create_project
+from rslstudio import delete_project
+from rslstudio import list_missions
+from rslstudio import list_projects
+from rslstudio import upload
 
 # we expect the mission files to be in this folder that is not commited to the repo
 DATA_PATH = Path(__file__).parent / "data"
@@ -73,9 +73,9 @@ def auto_login():
     Automatically logs in using the CLI before running any tests.
     """
     try:
-        # Run: python3 -m kleinkram login --user 1
+        # Run: python3 -m rslstudio login --user 1
         result = subprocess.run(
-            [sys.executable, "-m", "kleinkram", "login", "--user", "1"],
+            [sys.executable, "-m", "rslstudio", "login", "--user", "1"],
             cwd=str(Path(__file__).parent.parent),  # Run from cli root
             capture_output=True,
             text=True,

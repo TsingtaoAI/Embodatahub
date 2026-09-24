@@ -1,4 +1,4 @@
-import { AccessGroupRights } from '@kleinkram/shared';
+import { AccessGroupRights } from '@rslstudio/shared';
 
 export const accessGroupRightsList: AccessGroupRights[] = Object.values(
     AccessGroupRights,

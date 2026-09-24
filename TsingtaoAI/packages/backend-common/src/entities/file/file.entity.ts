@@ -3,7 +3,7 @@ import { CategoryEntity } from '@backend-common/entities/category/category.entit
 import { MissionEntity } from '@backend-common/entities/mission/mission.entity';
 import { TopicEntity } from '@backend-common/entities/topic/topic.entity';
 import { UserEntity } from '@backend-common/entities/user/user.entity';
-import { FileOrigin, FileState, FileType } from '@kleinkram/shared';
+import { FileOrigin, FileState, FileType } from '@rslstudio/shared';
 import {
     Column,
     Entity,

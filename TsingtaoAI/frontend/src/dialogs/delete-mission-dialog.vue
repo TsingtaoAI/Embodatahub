@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Delete Mission</template>
+        <template #title> 删除任务</template>
         <template #content>
             <delete-mission
                 v-if="mission"
@@ -16,7 +16,7 @@
                 :disable="
                     deleteMissionReference?.mission_name_check !== mission?.name
                 "
-                label="Delete Mission"
+                label="删除任务"
                 class="bg-button-danger"
                 @click="deleteMissionAction"
             />

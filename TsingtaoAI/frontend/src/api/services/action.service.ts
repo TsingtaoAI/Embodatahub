@@ -1,23 +1,23 @@
-import type { ActionLogsDto } from '@kleinkram/api-dto/types/actions/action-logs.dto';
-import type { ActionTemplateAvailabilityDto } from '@kleinkram/api-dto/types/actions/action-template-availability.dto';
-import type { ActionTemplateDto } from '@kleinkram/api-dto/types/actions/action-template.dto';
-import type { ActionTemplatesDto } from '@kleinkram/api-dto/types/actions/action-templates.dto';
-import type { ActionTriggerDto } from '@kleinkram/api-dto/types/actions/action-trigger.dto';
-import type { ActionDto } from '@kleinkram/api-dto/types/actions/action.dto';
-import type { ActionsDto } from '@kleinkram/api-dto/types/actions/actions.dto';
-import type { CreateActionTriggerDto } from '@kleinkram/api-dto/types/actions/create-action-trigger.dto';
-import type { CreateTemplateDto } from '@kleinkram/api-dto/types/actions/create-template.dto';
-import type { UpdateActionTriggerDto } from '@kleinkram/api-dto/types/actions/update-action-trigger.dto';
-import type { UpdateTemplateDto } from '@kleinkram/api-dto/types/actions/update-template.dto';
-import type { FileEventsDto } from '@kleinkram/api-dto/types/file/file-event.dto';
+import type { ActionLogsDto } from '@rslstudio/api-dto/types/actions/action-logs.dto';
+import type { ActionTemplateAvailabilityDto } from '@rslstudio/api-dto/types/actions/action-template-availability.dto';
+import type { ActionTemplateDto } from '@rslstudio/api-dto/types/actions/action-template.dto';
+import type { ActionTemplatesDto } from '@rslstudio/api-dto/types/actions/action-templates.dto';
+import type { ActionTriggerDto } from '@rslstudio/api-dto/types/actions/action-trigger.dto';
+import type { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
+import type { ActionsDto } from '@rslstudio/api-dto/types/actions/actions.dto';
+import type { CreateActionTriggerDto } from '@rslstudio/api-dto/types/actions/create-action-trigger.dto';
+import type { CreateTemplateDto } from '@rslstudio/api-dto/types/actions/create-template.dto';
+import type { UpdateActionTriggerDto } from '@rslstudio/api-dto/types/actions/update-action-trigger.dto';
+import type { UpdateTemplateDto } from '@rslstudio/api-dto/types/actions/update-template.dto';
+import type { FileEventsDto } from '@rslstudio/api-dto/types/file/file-event.dto';
 import type {
     ActionSubmitResponseDto,
     SubmitActionDto,
-} from '@kleinkram/api-dto/types/submit-action-response.dto';
+} from '@rslstudio/api-dto/types/submit-action-response.dto';
 import type {
     ActionQuery,
     SubmitActionMulti,
-} from '@kleinkram/api-dto/types/submit-action.dto';
+} from '@rslstudio/api-dto/types/submit-action.dto';
 import axios from 'src/api/axios';
 
 export const ActionService = {

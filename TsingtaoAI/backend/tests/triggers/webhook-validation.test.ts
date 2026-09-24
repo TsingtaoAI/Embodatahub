@@ -1,7 +1,7 @@
 import { appVersion } from '@/app-version';
-import { UserEntity, WorkerEntity } from '@kleinkram/backend-common';
-import { systemUser } from '@kleinkram/backend-common/consts';
-import { AccessGroupRights, TriggerType } from '@kleinkram/shared';
+import { UserEntity, WorkerEntity } from '@rslstudio/backend-common';
+import { systemUser } from '@rslstudio/backend-common/consts';
+import { AccessGroupRights, TriggerType } from '@rslstudio/shared';
 import { DEFAULT_URL, generateAndFetchDatabaseUser } from '../auth/utilities';
 import {
     createActionUsingPost,
@@ -126,7 +126,7 @@ describe('Webhook Validation Tests', () => {
                     // eslint-disable-next-line @typescript-eslint/naming-convention
                     'Content-Type': 'application/json',
                     // eslint-disable-next-line @typescript-eslint/naming-convention
-                    'kleinkram-client-version': appVersion,
+                    'rslstudio-client-version': appVersion,
                 },
                 body: JSON.stringify({ key: 'value' }),
             },
@@ -153,7 +153,7 @@ describe('Webhook Validation Tests', () => {
                     // eslint-disable-next-line @typescript-eslint/naming-convention
                     'Content-Type': 'application/json',
                     // eslint-disable-next-line @typescript-eslint/naming-convention
-                    'kleinkram-client-version': appVersion,
+                    'rslstudio-client-version': appVersion,
                 },
                 body: JSON.stringify(['not', 'an', 'object']),
             },
@@ -186,7 +186,7 @@ describe('Webhook Validation Tests', () => {
                     // eslint-disable-next-line @typescript-eslint/naming-convention
                     'Content-Type': 'application/json',
                     // eslint-disable-next-line @typescript-eslint/naming-convention
-                    'kleinkram-client-version': appVersion,
+                    'rslstudio-client-version': appVersion,
                 },
                 body: JSON.stringify(payload),
             },

@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef" title="New Mission">
-        <template #title> Upload Folder</template>
+        <template #title> 上传文件夹</template>
 
         <template #tabs>
             <q-tabs
@@ -12,18 +12,13 @@
             >
                 <q-tab
                     name="meta_data"
-                    label="Mission Details*"
+                    label="任务详情*"
                     style="color: #222"
                     :disable="missionCreated"
                 />
                 <q-tab
                     name="tags"
-                    :label="
-                        'Tags' +
-                        (!!project && project.requiredTags.length > 0
-                            ? '*'
-                            : '')
-                    "
+                    label="标签*"
                     style="color: #222"
                     :disable="missionCreated"
                 />
@@ -38,7 +33,7 @@
                         }}</b>
                     </p>
 
-                    <label for="missionName">Mission Name *</label>
+                    <label for="missionName">任务名称 *</label>
                     <q-input
                         ref="missionNameInput"
                         v-model="missionName"
@@ -48,7 +43,7 @@
                         clearable
                         autofocus
                         dense
-                        placeholder="Name...."
+                        placeholder="名称..."
                         style="padding-bottom: 30px"
                         :error="isInErrorState"
                         :error-message="errorMessage"
@@ -90,7 +85,7 @@
             <q-btn
                 v-if="tab_selection === 'meta_data'"
                 flat
-                label="Next"
+                label="下一步"
                 :disable="missionName.length < 3"
                 class="bg-button-primary"
                 @click="goToTagTab"
@@ -98,7 +93,7 @@
             <q-btn
                 v-if="tab_selection === 'tags'"
                 flat
-                label="Create Mission"
+                label="创建任务"
                 class="bg-button-primary"
                 :disable="!allRequiredTagsSet"
                 @click="submitNewMission"
@@ -108,8 +103,8 @@
 </template>
 
 <script setup lang="ts">
-import type { FlatMissionDto } from '@kleinkram/api-dto/types/mission/mission.dto';
-import type { FileUploadDto } from '@kleinkram/api-dto/types/upload.dto';
+import type { FlatMissionDto } from '@rslstudio/api-dto/types/mission/mission.dto';
+import type { FileUploadDto } from '@rslstudio/api-dto/types/upload.dto';
 import { useQueryClient } from '@tanstack/vue-query';
 import SelectMissionTags from 'components/select-mission-tags.vue';
 import { Notify, QInput, useDialogPluginComponent } from 'quasar';
@@ -219,7 +214,7 @@ const submitNewMission = async () => {
         }),
     );
     Notify.create({
-        message: `Mission ${missionName.value} created`,
+        message: `任务 ${missionName.value} 创建成功`,
         color: 'positive',
         spinner: false,
         timeout: 4000,

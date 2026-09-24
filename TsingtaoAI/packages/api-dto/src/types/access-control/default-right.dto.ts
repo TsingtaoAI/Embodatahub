@@ -1,4 +1,4 @@
-import { AccessGroupRights, AccessGroupType } from '@kleinkram/shared';
+import { AccessGroupRights, AccessGroupType } from '@rslstudio/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNumber, IsString, IsUUID } from 'class-validator';
 

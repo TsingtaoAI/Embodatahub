@@ -10,7 +10,7 @@ import {
     ActionTriggerSource,
     ArtifactState,
     ResourceUsage,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {

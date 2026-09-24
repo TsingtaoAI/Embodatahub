@@ -1,7 +1,7 @@
-import { SortOrder } from '@kleinkram/api-dto';
-import { FileEntity as File } from '@kleinkram/backend-common/entities/file/file.entity';
-import { MissionEntity } from '@kleinkram/backend-common/entities/mission/mission.entity';
-import { ProjectEntity } from '@kleinkram/backend-common/entities/project/project.entity';
+import { SortOrder } from '@rslstudio/api-dto';
+import { FileEntity as File } from '@rslstudio/backend-common/entities/file/file.entity';
+import { MissionEntity } from '@rslstudio/backend-common/entities/mission/mission.entity';
+import { ProjectEntity } from '@rslstudio/backend-common/entities/project/project.entity';
 import { MethodNotAllowedException } from '@nestjs/common';
 import { isValid, parseISO } from 'date-fns';
 import {

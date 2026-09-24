@@ -1,4 +1,4 @@
-import { RuntimeDescription } from '@kleinkram/backend-common/types';
+import { RuntimeDescription } from '@rslstudio/backend-common/types';
 
 export class HardwareDependencyError extends Error {
     constructor(

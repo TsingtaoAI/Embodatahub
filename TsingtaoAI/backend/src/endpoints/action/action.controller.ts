@@ -12,7 +12,7 @@ import {
     PaginatedQueryDto,
     SubmitActionDto,
     SubmitActionMulti,
-} from '@kleinkram/api-dto';
+} from '@rslstudio/api-dto';
 import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AddUser, AuthHeader } from '../auth/parameter-decorator';

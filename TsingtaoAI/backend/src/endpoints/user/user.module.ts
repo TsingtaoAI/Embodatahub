@@ -4,7 +4,7 @@ import {
     ApiKeyEntity,
     ProjectAccessViewEntity,
     UserEntity,
-} from '@kleinkram/backend-common';
+} from '@rslstudio/backend-common';
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user.controller';

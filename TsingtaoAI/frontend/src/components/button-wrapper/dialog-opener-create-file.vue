@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission-with-files.dto';
-import type { FileUploadDto } from '@kleinkram/api-dto/types/upload.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission-with-files.dto';
+import type { FileUploadDto } from '@rslstudio/api-dto/types/upload.dto';
 import { DialogChainObject, useQuasar } from 'quasar';
 import CreateFileDialog from 'src/dialogs/create-file-dialog.vue';
 import { inject, Ref } from 'vue';

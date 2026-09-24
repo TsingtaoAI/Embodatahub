@@ -2,7 +2,7 @@ import { Paginated } from '@api-dto/pagination';
 import { ProjectDto } from '@api-dto/project/base-project.dto';
 import { TagDto } from '@api-dto/tags/tags.dto';
 import { UserDto } from '@api-dto/user/user.dto';
-import { IsSkip, IsTake } from '@kleinkram/validation';
+import { IsSkip, IsTake } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
 import {

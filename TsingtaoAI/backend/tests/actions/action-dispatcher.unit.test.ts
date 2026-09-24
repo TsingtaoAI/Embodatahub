@@ -5,16 +5,16 @@ import {
     MissionEntity,
     UserEntity,
     WorkerEntity,
-} from '@kleinkram/backend-common';
-import { ActionDispatcherService } from '@kleinkram/backend-common/modules/action-dispatcher/action-dispatcher.service';
-import * as schedulingLogic from '@kleinkram/backend-common/scheduling-logic';
-import { ActionState, ActionTriggerSource, UserRole } from '@kleinkram/shared';
+} from '@rslstudio/backend-common';
+import { ActionDispatcherService } from '@rslstudio/backend-common/modules/action-dispatcher/action-dispatcher.service';
+import * as schedulingLogic from '@rslstudio/backend-common/scheduling-logic';
+import { ActionState, ActionTriggerSource, UserRole } from '@rslstudio/shared';
 import { ConflictException } from '@nestjs/common';
 import { Gauge } from 'prom-client';
 import { Repository } from 'typeorm';
 
 // Mock scheduling logic
-jest.mock('@kleinkram/backend-common/scheduling-logic', () => ({
+jest.mock('@rslstudio/backend-common/scheduling-logic', () => ({
     addActionQueue: jest.fn(),
 }));
 

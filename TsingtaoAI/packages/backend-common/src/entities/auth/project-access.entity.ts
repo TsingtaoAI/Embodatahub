@@ -3,7 +3,7 @@ import { ProjectEntity } from '@backend-common/entities/project/project.entity';
 import { Column, Entity, ManyToOne, Unique } from 'typeorm';
 import { AccessGroupEntity } from './access-group.entity';
 
-import { AccessGroupRights } from '@kleinkram/shared';
+import { AccessGroupRights } from '@rslstudio/shared';
 
 @Unique('no_duplicated_access_groups_per_project', ['accessGroup', 'project'])
 @Entity({ name: 'project_access' })

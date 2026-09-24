@@ -80,8 +80,8 @@
 </template>
 
 <script setup lang="ts">
-import type { DefaultRightDto } from '@kleinkram/api-dto/types/access-control/default-right.dto';
-import { AccessGroupRights, AccessGroupType } from '@kleinkram/shared';
+import type { DefaultRightDto } from '@rslstudio/api-dto/types/access-control/default-right.dto';
+import { AccessGroupRights, AccessGroupType } from '@rslstudio/shared';
 import AccessGroupAvatar from 'components/configure-access-rights/access-group-avatar.vue';
 import { QTableColumn } from 'quasar';
 import { accessGroupRightsList } from 'src/enums/access-group-rights-list';
@@ -109,14 +109,14 @@ const columns: QTableColumn<{
     {
         name: 'name',
         required: true,
-        label: 'Name',
+        label: '名称',
         align: 'left',
         field: 'name',
     },
     {
         name: 'rights',
         required: true,
-        label: 'Rights',
+        label: '权限',
         align: 'left',
         field: 'rights',
     },

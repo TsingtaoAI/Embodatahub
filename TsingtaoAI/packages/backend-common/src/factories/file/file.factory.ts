@@ -4,7 +4,7 @@ import { MissionEntity } from '@backend-common/entities/mission/mission.entity';
 import { UserEntity } from '@backend-common/entities/user/user.entity';
 import { extendedFaker } from '@backend-common/faker-extended';
 import { type Faker } from '@faker-js/faker';
-import { FileOrigin, FileState, FileType } from '@kleinkram/shared';
+import { FileOrigin, FileState, FileType } from '@rslstudio/shared';
 import { setSeederFactory } from 'typeorm-extension';
 
 export interface FileContext {

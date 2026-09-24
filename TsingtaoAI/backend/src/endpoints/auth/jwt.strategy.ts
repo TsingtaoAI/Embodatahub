@@ -1,5 +1,5 @@
-import env from '@kleinkram/backend-common/environment';
-import { CookieNames } from '@kleinkram/shared';
+import env from '@rslstudio/backend-common/environment';
+import { CookieNames } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
@@ -8,7 +8,7 @@ import { UserService } from '../../services/user.service';
 
 export class InvalidJwtTokenException extends Error {
     constructor() {
-        super('Invalid JWT token');
+        super('无效的 JWT 令牌');
     }
 }
 

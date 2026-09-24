@@ -3,7 +3,7 @@ import {
     AuthenticatedUser,
 } from '@/endpoints/auth/auth.types';
 import { UserService } from '@/services/user.service';
-import { UserRole } from '@kleinkram/shared';
+import { UserRole } from '@rslstudio/shared';
 import {
     CanActivate,
     ExecutionContext,

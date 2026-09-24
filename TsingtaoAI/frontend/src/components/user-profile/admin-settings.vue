@@ -2,65 +2,58 @@
     <div class="row">
         <div style="width: 300px">
             <q-btn
-                label="Reset S3 Tagging"
+                label="重置 S3 标签"
                 class="button-border bg-button-primary full-width"
                 icon="sym_o_sell"
                 flat
                 @click="resetS3Tagging"
             />
             <div class="help-text q-pt-sm">
-                This will delete the S3 tags for all files in the system and
-                then regenerate them based on the current DB state. This action
-                cannot be undone. There is no confirmation!
+                此操作将删除系统中所有文件的 S3 标签，并根据当前数据库状态重新生成。此操作不可撤销，且没有确认提示！
             </div>
         </div>
         <div style="width: 300px; margin-left: 20px">
             <q-btn
-                label="Recompute File Sizes"
+                label="重新计算文件大小"
                 class="button-border bg-button-primary full-width"
                 icon="sym_o_expand"
                 flat
                 @click="resetFileSizes"
             />
             <div class="help-text q-pt-sm">
-                This will recompute the file sizes in the database by asking S3
-                for the size of each file. This action cannot be undone. There
-                is no confirmation!
+                此操作将通过向 S3 查询每个文件的大小来重新计算数据库中的文件大小。此操作不可撤销，且没有确认提示！
             </div>
         </div>
 
         <div style="width: 300px; margin-left: 20px">
             <q-btn
-                label="Recalculate Hashes"
+                label="重新计算哈希"
                 class="button-border bg-button-primary full-width"
                 icon="sym_o_fingerprint"
                 flat
                 @click="recalculateHashes"
             />
             <div class="help-text q-pt-sm">
-                This will extract the MD5 hash from the file (from S3) and store
-                it in the database. This action cannot be undone. There is no
-                confirmation!
+                此操作将从 S3 中提取文件的 MD5 哈希并存储到数据库。此操作不可撤销，且没有确认提示！
             </div>
         </div>
 
         <div style="width: 300px; margin-left: 20px">
             <q-btn
-                label="Fix Missing Topics"
+                label="修复缺失主题"
                 class="button-border bg-button-primary full-width"
                 icon="sym_o_topic"
                 flat
                 @click="reextractTopics"
             />
             <div class="help-text q-pt-sm">
-                Finds all healthy .bag files that have 0 topics and re-runs
-                metadata extraction (without conversion).
+                查找所有健康但主题数为 0 的 .bag 文件，并重新运行元数据提取（不进行转换）。
             </div>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import type { RecalculateHashesResponseDto } from '@kleinkram/api-dto';
+import type { RecalculateHashesResponseDto } from '@rslstudio/api-dto';
 import { useQuasar } from 'quasar';
 import axios from 'src/api/axios';
 
@@ -70,7 +63,7 @@ async function resetS3Tagging(): Promise<void> {
     await axios.post('file/resetS3Tags');
 
     $q.notify({
-        message: 'Resetting S3 tagging started',
+        message: '已开始重置 S3 标签',
         color: 'positive',
         position: 'bottom',
         timeout: 2000,
@@ -81,7 +74,7 @@ async function resetFileSizes(): Promise<void> {
     await axios.post('file/recomputeFileSizes');
 
     $q.notify({
-        message: 'Recomputing file sizes started',
+        message: '已开始重新计算文件大小',
         color: 'positive',
         position: 'bottom',
         timeout: 2000,
@@ -94,7 +87,7 @@ async function recalculateHashes(): Promise<void> {
     );
 
     $q.notify({
-        message: `Recalculating hashes started. ${String(data.fileCount)} files to process`,
+        message: `已开始重新计算哈希，待处理 ${String(data.fileCount)} 个文件`,
         color: 'positive',
         position: 'bottom',
         timeout: 2000,
@@ -107,7 +100,7 @@ async function reextractTopics(): Promise<void> {
 
     $q.notify({
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions
-        message: `Topic extraction started. ${data.count} files queued.`,
+        message: `已开始主题提取，已加入队列 ${data.count} 个文件`,
         color: 'positive',
         position: 'bottom',
         timeout: 3000,

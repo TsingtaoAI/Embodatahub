@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { DataType } from '@kleinkram/shared';
+import { DataType } from '@rslstudio/shared';
 import { icon } from 'src/services/generic';
 import { ref, watch } from 'vue';
 

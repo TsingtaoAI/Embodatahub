@@ -13,12 +13,12 @@
         <!-- Flexbox row with two columns (online and offline) -->
         <div class="row-container q-mt-xs">
             <q-card flat class="flex-card q-my-lg">
-                <div class="q-pa-md">{{ online.length }} Online</div>
+                <div class="q-pa-md">{{ online.length }} 在线</div>
             </q-card>
             <q-separator vertical />
 
             <q-card flat class="flex-card q-my-lg">
-                <div class="q-pa-md">{{ offline.length }} Offline</div>
+                <div class="q-pa-md">{{ offline.length }} 离线</div>
             </q-card>
         </div>
 
@@ -68,8 +68,8 @@
                             <q-tooltip>
                                 {{
                                     singleWorker.gpuMemory > 0
-                                        ? 'Has GPU'
-                                        : 'No GPU'
+                                        ? '有 GPU'
+                                        : '无 GPU'
                                 }}
                             </q-tooltip>
                         </q-icon>
@@ -82,7 +82,7 @@
                                     : 'color: red'
                             "
                             >{{
-                                singleWorker.reachable ? 'Online' : 'Offline'
+                                singleWorker.reachable ? '在线' : '离线'
                             }}</span
                         >
                     </div>
@@ -105,7 +105,7 @@
                             <div class="q-mt-md col-3">
                                 <q-icon name="sym_o_hub" size="20px" />
                                 <span class="worker-name"
-                                    >{{ singleWorker.cpuCores }} Cores</span
+                                    >{{ singleWorker.cpuCores }} 核</span
                                 >
                             </div>
                             <div class="q-mt-md col-3">
@@ -129,7 +129,7 @@
                                         size="20px"
                                     />
                                     <span class="worker-name">{{
-                                        singleWorker.gpuModel || 'No GPU'
+                                        singleWorker.gpuModel || '无 GPU'
                                     }}</span>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ActionWorkerDto } from '@kleinkram/api-dto/types/action-workers.dto';
+import type { ActionWorkerDto } from '@rslstudio/api-dto/types/action-workers.dto';
 import { useWorkers } from 'src/hooks/query-hooks';
 import { computed, ComputedRef, ref, watch } from 'vue';
 

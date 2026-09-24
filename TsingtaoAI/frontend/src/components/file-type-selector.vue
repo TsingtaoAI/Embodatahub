@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { FileType } from '@kleinkram/shared';
+import { FileType } from '@rslstudio/shared';
 import SelectionButtonGroup from 'components/common/selection-button-group.vue';
 import { FileTypeOption } from 'src/types/file-type-option';
 import { computed, ref, watch } from 'vue';

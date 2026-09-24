@@ -131,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-import { FileState, FileType } from '@kleinkram/shared';
+import { FileState, FileType } from '@rslstudio/shared';
 import { copyToClipboard, Notify } from 'quasar';
 import { useRosmsgPreview } from 'src/composables/use-rosmsg-preview';
 import {

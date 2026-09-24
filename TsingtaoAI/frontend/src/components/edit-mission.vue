@@ -25,8 +25,8 @@
     </div>
 </template>
 <script setup lang="ts">
-import type { TagDto } from '@kleinkram/api-dto/types/tags/tags.dto';
-import { DataType } from '@kleinkram/shared';
+import type { TagDto } from '@rslstudio/api-dto/types/tags/tags.dto';
+import { DataType } from '@rslstudio/shared';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { Notify, useQuasar } from 'quasar';
 import AddTagDialog from 'src/dialogs/add-tag-dialog.vue';
@@ -72,7 +72,7 @@ const { mutate: removeTagCallback } = useMutation({
     mutationFn: (tag: TagDto) => removeTag(tag.uuid),
     async onSuccess() {
         Notify.create({
-            message: 'Tag 已移除',
+            message: '标签已移除',
             color: 'positive',
             position: 'bottom',
         });

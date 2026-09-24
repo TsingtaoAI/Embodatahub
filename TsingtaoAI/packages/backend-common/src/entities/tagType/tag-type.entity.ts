@@ -1,7 +1,7 @@
 import { BaseEntity } from '@backend-common/entities/base-entity.entity';
 import { MetadataEntity } from '@backend-common/entities/metadata/metadata.entity';
 import { ProjectEntity } from '@backend-common/entities/project/project.entity';
-import { DataType } from '@kleinkram/shared';
+import { DataType } from '@rslstudio/shared';
 import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
 @Entity({ name: 'tag_type' })

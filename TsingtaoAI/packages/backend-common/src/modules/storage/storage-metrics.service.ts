@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
 
 // 1. Define interfaces to describe the shape of the data
@@ -11,18 +11,22 @@ export type PrometheusMetrics = Record<string, MetricPoint[]>;
 
 @Injectable()
 export class StorageMetricsService {
-    private readonly METRICS_ENDPOINT = 'http://seaweedfs:9324/metrics';
+    private readonly METRICS_ENDPOINT =
+        process.env.S3_METRICS_ENDPOINT ?? 'http://seaweedfs:9324/metrics';
 
     async getSystemMetrics(): Promise<PrometheusMetrics> {
         try {
-            const response = await axios.get(this.METRICS_ENDPOINT);
+            const response = await axios.get(this.METRICS_ENDPOINT, {
+                timeout: 3000,
+            });
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             return this.parsePrometheusMetrics(response.data);
         } catch (error) {
-            throw new InternalServerErrorException(
-                'Failed to fetch storage metrics',
-                { cause: error as Error },
+            Logger.warn(
+                `Failed to fetch storage metrics from ${this.METRICS_ENDPOINT}: ${(error as Error).message}`,
+                'StorageMetricsService',
             );
+            return {};
         }
     }
 

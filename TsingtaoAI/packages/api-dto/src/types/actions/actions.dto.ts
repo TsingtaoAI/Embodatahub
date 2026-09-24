@@ -1,6 +1,6 @@
 import { ActionDto } from '@api-dto/actions/action.dto';
 import { Paginated } from '@api-dto/pagination';
-import { IsSkip, IsTake } from '@kleinkram/validation';
+import { IsSkip, IsTake } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsNumber, ValidateNested } from 'class-validator';

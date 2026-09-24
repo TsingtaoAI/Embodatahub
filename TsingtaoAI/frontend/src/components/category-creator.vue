@@ -6,13 +6,13 @@
             style="width: 80%; padding-right: 10px"
             outlined
             dense
-            placeholder="Add new category"
+            placeholder="添加新分类"
             @keyup.enter="addCategory"
         />
         <q-btn
             class="bg-button-primary q-my-md"
             flat
-            label="Add"
+            label="添加"
             icon="sym_o_add"
             style="width: 20%"
             :disable="!newCategory || newCategory.length < 2"

@@ -41,16 +41,16 @@ const axiosInstance = axios.create({
     timeout: 1000 * 60 * 30,
 });
 
-export const kleinkramVersion = ref('0.0.0');
+export const rslstudioVersion = ref('0.0.0');
 const validVersion = /^\d+\.\d+\.\d+$/;
 
 const setVersion = (headers: RawAxiosResponseHeaders): void => {
     if (
-        headers['kleinkram-version'] !== undefined &&
-        validVersion.test(kleinkramVersion.value) &&
-        kleinkramVersion.value !== headers['kleinkram-version']
+        headers["rslstudio-version"] !== undefined &&
+        validVersion.test(rslstudioVersion.value) &&
+        rslstudioVersion.value !== headers["rslstudio-version"]
     ) {
-        kleinkramVersion.value = headers['kleinkram-version'] as string;
+        rslstudioVersion.value = headers["rslstudio-version"] as string;
     }
 };
 
@@ -123,7 +123,7 @@ axiosInstance.interceptors.response.use(
 );
 
 axiosInstance.interceptors.request.use((config) => {
-    config.headers['Kleinkram-Client-Version'] = BUILD_INFO.version;
+    config.headers['RslStudio-Client-Version'] = BUILD_INFO.version;
     return config;
 });
 

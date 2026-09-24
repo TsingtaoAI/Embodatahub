@@ -1,5 +1,5 @@
-import { MetadataEntity, TagTypeEntity } from '@kleinkram/backend-common';
-import { AccessGroupRights, DataType } from '@kleinkram/shared';
+import { MetadataEntity, TagTypeEntity } from '@rslstudio/backend-common';
+import { AccessGroupRights, DataType } from '@rslstudio/shared';
 import {
     createMetadataUsingPost,
     createMissionUsingPost,

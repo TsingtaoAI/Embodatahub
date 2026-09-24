@@ -17,7 +17,7 @@ import {
     FileEventType,
     FileOrigin,
     FileType,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { execSync } from 'node:child_process';
 import * as crypto from 'node:crypto';
 import * as fs from 'node:fs';

@@ -1,7 +1,7 @@
 <template>
     <div class="q-pa-sm">
         <p style="font-size: medium; margin-bottom: 0" class="q-pa-sm">
-            Kleinkram CLI:
+            RSL Studio CLI:
         </p>
         <div class="button-border">
             <div class="q-ml-sm row items-center no-wrap">
@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission-with-files.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission-with-files.dto';
 
 const { mission } = defineProps<{
     mission: MissionWithFilesDto;

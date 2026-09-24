@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title>Add User to Access Group</template>
+        <template #title>将用户添加到访问组</template>
 
         <template #content>
             <AddUserToAccessGroup
@@ -12,7 +12,7 @@
         <template #actions>
             <q-btn
                 flat
-                label="Confirm"
+                label="确认"
                 class="bg-button-primary"
                 @click="addUserToAccessGroupAction"
             />

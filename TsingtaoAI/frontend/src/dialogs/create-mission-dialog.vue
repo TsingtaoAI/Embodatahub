@@ -1,6 +1,6 @@
 <template>
-    <base-dialog ref="dialogRef" title="New Mission">
-        <template #title> New Mission </template>
+    <base-dialog ref="dialogRef" title="新建任务">
+        <template #title> 新建任务 </template>
 
         <template #tabs>
             <q-tabs
@@ -12,7 +12,7 @@
             >
                 <q-tab
                     name="meta_data"
-                    label="Mission Details*"
+                    label="任务详情*"
                     style="color: #222"
                     :disable="missionCreated"
                 />
@@ -29,7 +29,7 @@
                 />
                 <q-tab
                     name="upload"
-                    label="Upload Data"
+                    label="上传数据"
                     style="color: #222"
                     :disable="!missionCreated"
                 />
@@ -46,8 +46,7 @@
                         class="text-grey"
                     >
                         <q-icon name="sym_o_info" size="sm" class="q-mr-sm" />
-                        You do not have permission to create missions, or no
-                        projects exist yet.
+                        您没有创建任务的权限，或暂无可用项目。
                     </div>
                     <div v-else>
                         <ScopeSelector
@@ -59,7 +58,7 @@
                         />
 
                         <template v-if="projectUuid">
-                            <label for="missionName">Mission Name *</label>
+                            <label for="missionName">任务名称 *</label>
                             <q-input
                                 ref="missionNameInput"
                                 v-model="missionName"
@@ -68,7 +67,7 @@
                                 required
                                 autofocus
                                 dense
-                                placeholder="Name...."
+                                placeholder="名称..."
                                 style="padding-bottom: 30px"
                                 :error="!isValidMissionName"
                                 :rules="MISSION_NAME_INPUT_VALIDATION"
@@ -88,7 +87,7 @@
                             </q-input>
                         </template>
                         <div v-else class="text-grey">
-                            Please select a project to create a mission.
+                            请先选择一个项目来创建任务。
                         </div>
                     </div>
                 </q-tab-panel>
@@ -116,7 +115,7 @@
             <q-btn
                 v-if="tab_selection === 'meta_data'"
                 flat
-                label="Next"
+                label="下一步"
                 :disable="
                     !project ||
                     missionName.length < MIN_MISSION_NAME_LENGTH ||
@@ -128,7 +127,7 @@
             <q-btn
                 v-if="tab_selection === 'tags'"
                 flat
-                label="Create Mission"
+                label="创建任务"
                 class="bg-button-primary"
                 :disable="!allRequiredTagsSet"
                 @click="submitNewMission"
@@ -136,7 +135,7 @@
             <q-btn
                 v-if="tab_selection === 'upload'"
                 flat
-                label="Upload & Exit"
+                label="上传并退出"
                 class="bg-button-primary"
                 @click="uploadEventHandler"
             />
@@ -145,9 +144,9 @@
 </template>
 
 <script setup lang="ts">
-import type { FlatMissionDto } from '@kleinkram/api-dto/types/mission/mission.dto';
-import type { ProjectsDto } from '@kleinkram/api-dto/types/project/projects.dto';
-import type { FileUploadDto } from '@kleinkram/api-dto/types/upload.dto';
+import type { FlatMissionDto } from '@rslstudio/api-dto/types/mission/mission.dto';
+import type { ProjectsDto } from '@rslstudio/api-dto/types/project/projects.dto';
+import type { FileUploadDto } from '@rslstudio/api-dto/types/upload.dto';
 import { useQuery, useQueryClient } from '@tanstack/vue-query';
 import ScopeSelector from 'components/common/scope-selector.vue';
 import CreateFile from 'components/create-file.vue';
@@ -163,16 +162,16 @@ import { computed, ref, Ref } from 'vue';
 const MIN_MISSION_NAME_LENGTH = 3;
 const MAX_MISSION_NAME_LENGTH = 50;
 const MISSION_NAME_INPUT_VALIDATION: ((value: string) => boolean | string)[] = [
-    (value): boolean | string => !!value || 'Field is required',
+    (value): boolean | string => !!value || '此项必填',
     (value): boolean | string =>
         value.length >= MIN_MISSION_NAME_LENGTH ||
-        `Name must be at least ${MIN_MISSION_NAME_LENGTH.toString()} characters`,
+        `名称至少${MIN_MISSION_NAME_LENGTH.toString()}个字符`,
     (value): boolean | string =>
         value.length <= MAX_MISSION_NAME_LENGTH ||
-        `Name must be at most ${MAX_MISSION_NAME_LENGTH.toString()} characters`,
+        `名称最多${MAX_MISSION_NAME_LENGTH.toString()}个字符`,
     (value): boolean | string =>
         /^[\w\-_]+$/g.test(value) ||
-        'Name must be alphanumeric and contain only - and _',
+        '名称只能包含字母、数字、- 和 _',
 ];
 
 const { dialogRef, onDialogOK } = useDialogPluginComponent();
@@ -268,7 +267,7 @@ const submitNewMission = async (): Promise<void> => {
         }),
     );
     Notify.create({
-        message: `Mission ${missionName.value} created`,
+        message: `任务 ${missionName.value} 创建成功`,
         color: 'positive',
         spinner: false,
         timeout: 4000,

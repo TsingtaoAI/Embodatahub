@@ -3,7 +3,7 @@ import { MissionEntity } from '@backend-common/entities/mission/mission.entity';
 import { Column, Entity, ManyToOne, Unique } from 'typeorm';
 import { AccessGroupEntity } from './access-group.entity';
 
-import { AccessGroupRights } from '@kleinkram/shared';
+import { AccessGroupRights } from '@rslstudio/shared';
 
 @Entity({ name: 'mission_access' })
 @Unique('no_duplicated_access_groups_per_mission', ['accessGroup', 'mission'])

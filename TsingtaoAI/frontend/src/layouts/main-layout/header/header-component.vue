@@ -6,7 +6,7 @@
                 class="q-pa-none"
                 @click="navigateBackToHome"
             >
-                <kleinkram-logo class="q-pr-lg" />
+                <rslstudio-logo class="q-pr-lg" />
             </q-toolbar-title>
 
             <q-separator vertical />
@@ -24,51 +24,95 @@
 </template>
 
 <script setup lang="ts">
-import KleinkramLogo from 'src/components/images/kleinkram-logo.vue';
+import RslStudioLogo from 'src/components/images/rslstudio-logo.vue';
 import ROUTES from 'src/router/routes';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+import { computed } from 'vue';
 import BreadCrumbsNavigation from './bread-crumb-navigation.vue';
 import HeaderRightMenu from './header-right-menu.vue';
 import HeaderTabs, { MainMenu } from './header-tabs.vue';
 
 const $router = useRouter();
+const { t } = useI18n();
 
-const mainMenu: MainMenu[] = [
+const mainMenu = computed<MainMenu[]>(() => [
     {
-        title: '仪表盘',
+        title: t('header.dashboard'),
         icon: 'sym_o_dashboard',
         to: ROUTES.DASHBOARD.path,
         subpageNames: [],
     },
     {
-        title: '项目管理',
+        title: t('header.datasetQuality'),
+        icon: 'sym_o_checklist',
+        to: ROUTES.ROBOT_DATA_STUDIO.path,
+        subpageNames: [
+            ROUTES.ROBOT_DATA_STUDIO.name,
+            ROUTES.ROBOT_DATA_STUDIO_VLM.name,
+            ROUTES.ROBOT_DATA_STUDIO_IMPORT.name,
+        ],
+        children: [
+            {
+                title: t('header.datasetQuality'),
+                to: ROUTES.ROBOT_DATA_STUDIO.path,
+            },
+            {
+                title: t('header.vlmSettings'),
+                to: ROUTES.ROBOT_DATA_STUDIO_VLM.path,
+            },
+            {
+                title: t('header.importDataset'),
+                to: ROUTES.ROBOT_DATA_STUDIO_IMPORT.path,
+            },
+            {
+                title: t('header.streamMonitor'),
+                to: ROUTES.STREAM_MONITOR.path,
+            },
+        ],
+    },
+    {
+        title: t('header.sceneVisualization'),
+        icon: 'sym_o_3d_rotation',
+        to: ROUTES.SPARK_STUDIO.path,
+        subpageNames: [],
+    },
+    {
+        title: t('header.projectMgmt'),
         icon: 'sym_o_box',
         to: ROUTES.PROJECTS.path,
         subpageNames: [
             ROUTES.FILES.name,
             ROUTES.MISSIONS.name,
             ROUTES.FILE.name,
+            ROUTES.PROJECT_DATASETS.name,
         ],
     },
     {
-        title: '数据表',
+        title: t('header.dataTable'),
         icon: 'sym_o_database',
         to: ROUTES.DATATABLE.path,
         subpageNames: [],
     },
     {
-        title: '任务队列',
+        title: t('header.taskQueue'),
         icon: 'sym_o_analytics',
         to: '/actions',
         subpageNames: [ROUTES.ANALYSIS_DETAILS.name, ROUTES.ACTION.name],
     },
     {
-        title: '权限控制',
+        title: t('header.modelTraining'),
+        icon: 'sym_o_model_training',
+        to: ROUTES.WORLD_MODEL.path,
+        subpageNames: [],
+    },
+    {
+        title: t('header.accessControl'),
         icon: 'sym_o_lock',
         to: ROUTES.ACCESS_GROUPS.path,
         subpageNames: [ROUTES.ACCESS_GROUP.name],
     },
-];
+]);
 
 const navigateBackToHome = async (): Promise<void> => {
     await $router.push('/');

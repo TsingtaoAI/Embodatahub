@@ -1,5 +1,5 @@
-import { ActionEntity } from '@kleinkram/backend-common/entities/action/action.entity';
-import { ActionErrorHint, ActionState } from '@kleinkram/shared';
+import { ActionEntity } from '@rslstudio/backend-common/entities/action/action.entity';
+import { ActionErrorHint, ActionState } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';

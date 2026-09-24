@@ -1,4 +1,0 @@
-# Add your python dependencies here
-kleinkram
-numpy
-pandas

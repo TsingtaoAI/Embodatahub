@@ -86,7 +86,7 @@
                             dense
                             padding="6px"
                             class="button-border"
-                            label="Create Mission"
+                            label="创建任务"
                             icon="sym_o_add"
                         />
                     </create-mission-dialog-opener>
@@ -148,8 +148,8 @@
 </template>
 
 <script setup lang="ts">
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission-with-files.dto';
-import type { TagDto } from '@kleinkram/api-dto/types/tags/tags.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission-with-files.dto';
+import type { TagDto } from '@rslstudio/api-dto/types/tags/tags.dto';
 import { keepPreviousData, useQuery } from '@tanstack/vue-query';
 import { missionColumns } from 'components/explorer-page/explorer-page-table-columns';
 import { QTable } from 'quasar';

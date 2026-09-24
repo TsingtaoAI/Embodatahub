@@ -46,7 +46,7 @@
                             dense
                             padding="6px"
                             class="button-border"
-                            label="Create Project"
+                            label="创建项目"
                             icon="sym_o_add"
                         />
                     </dialog-opener-create-project>

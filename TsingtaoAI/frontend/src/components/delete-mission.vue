@@ -13,7 +13,7 @@
     </q-card-section>
 </template>
 <script setup lang="ts">
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission-with-files.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission-with-files.dto';
 import { useQueryClient } from '@tanstack/vue-query';
 import { AxiosError } from 'axios';
 import { Notify } from 'quasar';

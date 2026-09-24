@@ -1,4 +1,4 @@
-import { ContainerLog } from '@kleinkram/backend-common';
+import { ContainerLog } from '@rslstudio/backend-common';
 import { Injectable } from '@nestjs/common';
 import { bufferTime, lastValueFrom, Observable, tap } from 'rxjs';
 import logger from '../../logger';

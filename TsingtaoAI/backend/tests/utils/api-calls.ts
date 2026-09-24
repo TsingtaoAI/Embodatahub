@@ -1,15 +1,15 @@
 import { appVersion } from '@/app-version';
 import { S3Client } from '@aws-sdk/client-s3';
-import { CreateTemplateDto } from '@kleinkram/api-dto/types/actions/create-template.dto';
-import { CreateAccessGroupDto } from '@kleinkram/api-dto/types/create-access-group.dto';
-import { CreateMission } from '@kleinkram/api-dto/types/create-mission.dto';
-import { CreateProject } from '@kleinkram/api-dto/types/create-project.dto';
-import { CreateTagTypeDto } from '@kleinkram/api-dto/types/tags/create-tag-type.dto';
+import { CreateTemplateDto } from '@rslstudio/api-dto/types/actions/create-template.dto';
+import { CreateAccessGroupDto } from '@rslstudio/api-dto/types/create-access-group.dto';
+import { CreateMission } from '@rslstudio/api-dto/types/create-mission.dto';
+import { CreateProject } from '@rslstudio/api-dto/types/create-project.dto';
+import { CreateTagTypeDto } from '@rslstudio/api-dto/types/tags/create-tag-type.dto';
 import {
     AccessGroupEntity,
     GroupMembershipEntity,
-} from '@kleinkram/backend-common';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
+} from '@rslstudio/backend-common';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
 import crypto from 'node:crypto';
 import * as fs from 'node:fs';
 import { DEFAULT_URL } from '../auth/utilities';
@@ -19,7 +19,7 @@ import { uploadFileMultipart } from './multipart-upload';
 export const getAuthHeaders = (user?: UserEntity): Record<string, string> => {
     const headers: Record<string, string> = {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        'kleinkram-client-version': appVersion,
+        'rslstudio-client-version': appVersion,
     };
     if (user) {
         headers.cookie = `authtoken=${getJwtToken(user)}`;
@@ -41,8 +41,8 @@ export class HeaderCreator {
         if (user) {
             this.headers.append('cookie', `authtoken=${getJwtToken(user)}`);
         }
-        // used to avoid usage of older versions of kleinkram
-        this.headers.append('kleinkram-client-version', appVersion);
+        // used to avoid usage of older versions of rslstudio
+        this.headers.append('rslstudio-client-version', appVersion);
     }
 
     /**
@@ -152,7 +152,7 @@ export async function uploadFile(
             // eslint-disable-next-line @typescript-eslint/await-thenable
             cookie: `authtoken=${await getJwtToken(user)}`,
             // eslint-disable-next-line @typescript-eslint/naming-convention
-            'kleinkram-client-version': appVersion,
+            'rslstudio-client-version': appVersion,
         },
         body: JSON.stringify({
             filenames: [filename],
@@ -226,7 +226,7 @@ export async function uploadFile(
             // eslint-disable-next-line @typescript-eslint/await-thenable
             cookie: `authtoken=${await getJwtToken(user)}`,
             // eslint-disable-next-line @typescript-eslint/naming-convention
-            'kleinkram-client-version': appVersion,
+            'rslstudio-client-version': appVersion,
         },
         body: JSON.stringify({
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access

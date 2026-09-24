@@ -4,7 +4,7 @@
             class="q-pa-sm text-center"
             style="width: 80%; min-height: 100px; max-width: 500px"
         >
-            <h5>Move mission {{ mission?.name }} to another project</h5>
+            <h5>将任务 {{ mission?.name }} 移动到其他项目</h5>
 
             <div class="column q-gutter-y-md q-ma-md">
                 <ScopeSelector
@@ -15,13 +15,13 @@
 
                 <div class="row justify-end q-gutter-x-sm">
                     <q-btn
-                        label="Cancel"
+                        label="取消"
                         flat
                         class="button-border"
                         @click="onDialogOK"
                     />
                     <q-btn
-                        label="OK"
+                        label="确定"
                         color="primary"
                         unelevated
                         :disable="
@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission.dto';
 import { useQueryClient } from '@tanstack/vue-query';
 import ScopeSelector from 'components/common/scope-selector.vue';
 import { Notify, useDialogPluginComponent } from 'quasar';
@@ -86,8 +86,7 @@ async function onOk(): Promise<void> {
         await moveMission(properties.mission.uuid, selectedProjectUuid.value);
 
         creating({
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions
-            message: `Mission ${properties.mission.name} moved to project ${targetProjectName}`,
+            message: `任务 ${properties.mission.name} 已移动到项目 ${targetProjectName}`,
             color: 'positive',
             spinner: false,
             timeout: 4000,
@@ -113,8 +112,7 @@ async function onOk(): Promise<void> {
         onDialogOK(selectedProjectUuid.value);
     } catch (error: unknown) {
         creating({
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions
-            message: `Error moving mission ${properties.mission.name} to project ${targetProjectName}`,
+            message: `移动任务 ${properties.mission.name} 到项目 ${targetProjectName} 失败`,
             color: 'negative',
             spinner: false,
             timeout: 4000,

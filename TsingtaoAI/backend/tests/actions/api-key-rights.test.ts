@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../global.d.ts" />
-import { CreateTemplateDto } from '@kleinkram/api-dto/types/actions/create-template.dto';
+import { CreateTemplateDto } from '@rslstudio/api-dto/types/actions/create-template.dto';
 import {
     AccessGroupEntity,
     ActionEntity,
@@ -10,9 +10,9 @@ import {
     ProjectEntity,
     UserEntity,
     WorkerEntity,
-} from '@kleinkram/backend-common';
+} from '@rslstudio/backend-common';
 
-import { AccessGroupRights, ActionState, KeyTypes } from '@kleinkram/shared';
+import { AccessGroupRights, ActionState, KeyTypes } from '@rslstudio/shared';
 
 import { appVersion } from '@/app-version';
 import { DEFAULT_URL, generateAndFetchDatabaseUser } from '../auth/utilities';
@@ -192,7 +192,7 @@ describe('Verify Action Access Rights', () => {
                     // eslint-disable-next-line @typescript-eslint/naming-convention
                     'x-api-key': apiKey,
                     // eslint-disable-next-line @typescript-eslint/naming-convention
-                    'kleinkram-client-version': appVersion,
+                    'rslstudio-client-version': appVersion,
                 },
             },
         );
@@ -246,7 +246,7 @@ describe('Verify Action Access Rights', () => {
                     // eslint-disable-next-line @typescript-eslint/naming-convention
                     'x-api-key': apiKey,
                     // eslint-disable-next-line @typescript-eslint/naming-convention
-                    'kleinkram-client-version': appVersion,
+                    'rslstudio-client-version': appVersion,
                 },
             },
         );

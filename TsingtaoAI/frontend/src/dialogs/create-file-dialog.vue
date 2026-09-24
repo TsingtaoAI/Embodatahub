@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Create File</template>
+        <template #title> 创建文件</template>
 
         <template #content>
             <create-file
@@ -16,7 +16,7 @@
         <template #actions>
             <q-btn
                 flat
-                label="Create File"
+                label="创建文件"
                 class="bg-button-primary"
                 :disable="!ready"
                 @click="createFileAction"
@@ -26,8 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import type { FlatMissionDto } from '@kleinkram/api-dto/types/mission/mission.dto';
-import type { FileUploadDto } from '@kleinkram/api-dto/types/upload.dto';
+import type { FlatMissionDto } from '@rslstudio/api-dto/types/mission/mission.dto';
+import type { FileUploadDto } from '@rslstudio/api-dto/types/upload.dto';
 import CreateFile from 'components/create-file.vue';
 import { useDialogPluginComponent } from 'quasar';
 import BaseDialog from 'src/dialogs/base-dialog.vue';

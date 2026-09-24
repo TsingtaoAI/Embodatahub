@@ -1,10 +1,10 @@
-import { AccessControlModule, StorageModule } from '@kleinkram/backend-common';
-import { ActionRunnerEntity } from '@kleinkram/backend-common/entities/action/action-runner.entity';
-import { ActionTemplateEntity } from '@kleinkram/backend-common/entities/action/action-template.entity';
-import { ActionTriggerEntity } from '@kleinkram/backend-common/entities/action/action-trigger.entity';
-import { ActionEntity } from '@kleinkram/backend-common/entities/action/action.entity';
-import { ApiKeyEntity } from '@kleinkram/backend-common/entities/auth/api-key.entity';
-import { WorkerEntity } from '@kleinkram/backend-common/entities/worker/worker.entity';
+import { AccessControlModule, StorageModule } from '@rslstudio/backend-common';
+import { ActionRunnerEntity } from '@rslstudio/backend-common/entities/action/action-runner.entity';
+import { ActionTemplateEntity } from '@rslstudio/backend-common/entities/action/action-template.entity';
+import { ActionTriggerEntity } from '@rslstudio/backend-common/entities/action/action-trigger.entity';
+import { ActionEntity } from '@rslstudio/backend-common/entities/action/action.entity';
+import { ApiKeyEntity } from '@rslstudio/backend-common/entities/auth/api-key.entity';
+import { WorkerEntity } from '@rslstudio/backend-common/entities/worker/worker.entity';
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';

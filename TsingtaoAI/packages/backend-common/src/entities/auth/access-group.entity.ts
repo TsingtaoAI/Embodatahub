@@ -1,6 +1,6 @@
 import { BaseEntity } from '@backend-common/entities/base-entity.entity';
 import { UserEntity } from '@backend-common/entities/user/user.entity';
-import { AccessGroupType } from '@kleinkram/shared';
+import { AccessGroupType } from '@rslstudio/shared';
 import {
     Column,
     Entity,

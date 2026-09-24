@@ -5,7 +5,7 @@ import { MissionEntity } from '@backend-common/entities/mission/mission.entity';
 import { UserEntity } from '@backend-common/entities/user/user.entity';
 import { WorkerEntity } from '@backend-common/entities/worker/worker.entity';
 import { addActionQueue } from '@backend-common/scheduling-logic';
-import { ActionState, ActionTriggerSource, UserRole } from '@kleinkram/shared';
+import { ActionState, ActionTriggerSource, UserRole } from '@rslstudio/shared';
 import {
     ConflictException,
     Injectable,
@@ -234,7 +234,7 @@ export class ActionDispatcherService implements OnModuleInit {
         const workers = await this.workerRepository.find({
             where: {
                 reachable: true,
-                lastSeen: LessThan(new Date(Date.now() - 2 * 60 * 1000)),
+                lastSeen: LessThan(new Date(Date.now() - 5 * 60 * 1000)),
             },
         });
 

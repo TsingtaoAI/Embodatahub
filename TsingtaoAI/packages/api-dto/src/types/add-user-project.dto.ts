@@ -1,5 +1,5 @@
-import { AccessGroupRights } from '@kleinkram/shared';
-import { ApiUUIDProperty } from '@kleinkram/validation';
+import { AccessGroupRights } from '@rslstudio/shared';
+import { ApiUUIDProperty } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
 

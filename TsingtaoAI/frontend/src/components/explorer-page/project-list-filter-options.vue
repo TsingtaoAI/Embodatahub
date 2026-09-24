@@ -11,13 +11,13 @@
         <button-group>
             <app-search-bar
                 v-model="search"
-                placeholder="Search by Project Name"
+                placeholder="按项目名称搜索"
             />
 
             <app-refresh-button @click="resetCache" />
 
             <dialog-opener-create-project>
-                <app-create-button label="Create Project" />
+                <app-create-button label="创建项目" />
             </dialog-opener-create-project>
         </button-group>
     </div>

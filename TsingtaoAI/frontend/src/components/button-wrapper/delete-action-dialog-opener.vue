@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ActionState } from '@kleinkram/shared';
+import { ActionState } from '@rslstudio/shared';
 import { useQuasar } from 'quasar';
 import DeleteActionDialog from 'src/dialogs/delete-action-dialog.vue';
 import {
@@ -29,7 +29,7 @@ import {
 } from 'src/hooks/query-hooks';
 import { computed } from 'vue';
 
-import type { ActionDto } from '@kleinkram/api-dto/types/actions/action.dto';
+import type { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
 
 const $q = useQuasar();
 

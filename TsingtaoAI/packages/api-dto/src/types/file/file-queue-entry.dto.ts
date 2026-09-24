@@ -1,8 +1,8 @@
 import { MissionDto } from '@api-dto/mission/mission.dto';
 import { Paginated } from '@api-dto/pagination';
 import { UserDto } from '@api-dto/user/user.dto';
-import { FileLocation, QueueState } from '@kleinkram/shared';
-import { IsSkip, IsTake } from '@kleinkram/validation';
+import { FileLocation, QueueState } from '@rslstudio/shared';
+import { IsSkip, IsTake } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
 import {

@@ -41,9 +41,9 @@
                             style="height: 100%"
                             color="primary"
                             icon="sym_o_sell"
-                            label="Edit Metadata"
+                            label="编辑元数据"
                         >
-                            <q-tooltip> Manage Metadata</q-tooltip>
+                            <q-tooltip> 管理元数据</q-tooltip>
                         </q-btn>
                     </MissionMetadataOpener>
 
@@ -53,7 +53,7 @@
                         flat
                         style="height: 100%"
                     >
-                        <q-tooltip> More Actions</q-tooltip>
+                        <q-tooltip> 更多操作</q-tooltip>
 
                         <q-menu v-if="mission" auto-close style="width: 320px">
                             <q-list>
@@ -71,7 +71,7 @@
                                             <q-icon name="sym_o_move_down" />
                                         </q-item-section>
                                         <q-item-section>
-                                            Move Mission
+                                            移动任务
                                         </q-item-section>
                                     </q-item>
                                 </MoveMissionDialogOpener>
@@ -82,12 +82,11 @@
                                     </q-item-section>
                                     <q-item-section>
                                         <q-item-section>
-                                            Manage Access
+                                            管理权限
                                         </q-item-section>
                                     </q-item-section>
                                     <q-tooltip>
-                                        Manage Access on Mission Level is not
-                                        supported yet
+                                        任务级别的权限管理暂不支持
                                     </q-tooltip>
                                 </q-item>
 
@@ -101,7 +100,7 @@
                                         </q-item-section>
                                         <q-item-section>
                                             <q-item-section>
-                                                Edit Mission
+                                                编辑任务
                                             </q-item-section>
                                         </q-item-section>
                                     </q-item>
@@ -115,7 +114,7 @@
                                     <q-item-section avatar>
                                         <q-icon name="sym_o_fingerprint" />
                                     </q-item-section>
-                                    <q-item-section> Copy UUID</q-item-section>
+                                    <q-item-section> 复制 UUID</q-item-section>
                                 </q-item>
 
                                 <delete-mission-dialog-opener
@@ -132,7 +131,7 @@
                                         </q-item-section>
                                         <q-item-section>
                                             <q-item-section>
-                                                Delete Mission
+                                                删除任务
                                             </q-item-section>
                                         </q-item-section>
                                     </q-item>
@@ -151,10 +150,10 @@
                     dense
                     class="text-grey"
                 >
-                    <q-tab name="files" label="Files" style="color: #222" />
+                    <q-tab name="files" label="文件" style="color: #222" />
                     <q-tab
                         name="actions"
-                        label="Action Executions"
+                        label="执行记录"
                         style="color: #222"
                     />
                 </q-tabs>
@@ -178,8 +177,8 @@
 </template>
 
 <script setup lang="ts">
-import type { TagDto } from '@kleinkram/api-dto/types/tags/tags.dto';
-import { DataType } from '@kleinkram/shared';
+import type { TagDto } from '@rslstudio/api-dto/types/tags/tags.dto';
+import { DataType } from '@rslstudio/shared';
 import DeleteMissionDialogOpener from 'components/button-wrapper/delete-mission-dialog-opener.vue';
 import EditMissionDialogOpener from 'components/button-wrapper/edit-mission-dialog-opener.vue';
 import MissionMetadataOpener from 'components/button-wrapper/mission-metadata-opener.vue';
@@ -232,7 +231,7 @@ const {
                 ?.data?.message ?? 'Unknown error';
 
         Notify.create({
-            message: `Error fetching Mission: ${errorMessage}`,
+            message: `获取任务失败：${errorMessage}`,
             color: 'negative',
             timeout: 2000,
             position: 'bottom',

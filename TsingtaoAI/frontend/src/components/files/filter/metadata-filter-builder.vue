@@ -67,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TagTypeDto } from '@kleinkram/api-dto/types/tags/tags.dto';
+import type { TagTypeDto } from '@rslstudio/api-dto/types/tags/tags.dto';
 import MetadataFilterInput from 'components/metadata-filter-input.vue';
 import { useAllTags } from 'src/hooks/query-hooks';
 import { computed, ref, watch } from 'vue';

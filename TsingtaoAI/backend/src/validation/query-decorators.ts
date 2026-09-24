@@ -1,4 +1,4 @@
-import { AccessGroupType } from '@kleinkram/shared';
+import { AccessGroupType } from '@rslstudio/shared';
 import {
     BooleanValidate,
     DateStringValidate,
@@ -8,7 +8,7 @@ import {
     StringValidate,
     UUIDArrayValidate,
     UUIDValidate,
-} from '@kleinkram/validation';
+} from '@rslstudio/validation';
 import {
     BadRequestException,
     createParamDecorator,

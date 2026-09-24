@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { HealthStatus } from '@kleinkram/shared';
+import { HealthStatus } from '@rslstudio/shared';
 import { MissionFilterState } from 'src/composables/use-mission-file-filter';
 import { PropType, toRef } from 'vue';
 

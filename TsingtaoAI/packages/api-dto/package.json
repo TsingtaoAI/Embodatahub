@@ -1,5 +1,5 @@
 {
-    "name": "@kleinkram/api-dto",
+    "name": "@rslstudio/api-dto",
     "version": "0.59.0",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -21,8 +21,8 @@
         }
     },
     "dependencies": {
-        "@kleinkram/shared": "workspace:*",
-        "@kleinkram/validation": "workspace:*",
+        "@rslstudio/shared": "workspace:*",
+        "@rslstudio/validation": "workspace:*",
         "@mcap/core": "^2.1.7",
         "@nestjs/swagger": "^11.2.3",
         "class-transformer": "^0.5.1",

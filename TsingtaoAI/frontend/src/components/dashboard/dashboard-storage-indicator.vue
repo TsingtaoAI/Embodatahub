@@ -25,7 +25,6 @@ import { use } from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 import { useStorageOverview } from 'src/hooks/query-hooks';
 import {
-    formatGenericNumber,
     formatSize,
 } from 'src/services/general-formatting';
 
@@ -43,15 +42,118 @@ const { data: storage } = useStorageOverview();
 
 const usedBytes = computed(() => storage.value?.usedBytes ?? 0);
 const totalBytes = computed(() => storage.value?.totalBytes ?? 0);
-const freeBytes = computed(() => totalBytes.value - usedBytes.value);
-const usedInodes = computed(() => storage.value?.usedInodes ?? 0);
-const totalInodes = computed(() => storage.value?.totalInodes ?? 0);
-const freeInodes = computed(() => totalInodes.value - usedInodes.value);
+const freeBytes = computed(() => Math.max(0, totalBytes.value - usedBytes.value));
+const categories = computed(() => storage.value?.categories ?? []);
+
+const hasCategories = computed(() => categories.value.length > 0);
+const hasTotalCapacity = computed(() => totalBytes.value > 0);
 
 const option = computed(() => {
+    if (hasCategories.value) {
+        // ── 分类视图：按数据源显示环形图 ──
+        const seriesData = categories.value.map((cat) => ({
+            name: cat.name,
+            value: cat.usedBytes,
+            itemStyle: { color: cat.color },
+        }));
+
+        // Add free space if we know total capacity
+        if (hasTotalCapacity.value && freeBytes.value > 0) {
+            seriesData.push({
+                name: '剩余空间',
+                value: freeBytes.value,
+                itemStyle: { color: '#eee' },
+            });
+        }
+
+        return {
+            title: {
+                text: '存储空间',
+                left: 'left',
+                fontWeight: 'normal',
+                fontSize: 16,
+            },
+            tooltip: {
+                trigger: 'item',
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                formatter: (params: any) => {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                    const pct = params.percent != null ? ` (${params.percent}%)` : '';
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions
+                    return `${params.name}: ${formatSize(params.value)}${pct}`;
+                },
+            },
+            legend: {
+                show: true,
+                orient: 'vertical',
+                right: 0,
+                top: 'middle',
+                itemWidth: 12,
+                itemHeight: 12,
+                textStyle: {
+                    fontSize: 11,
+                },
+            },
+            series: [
+                {
+                    type: 'pie',
+                    radius: ['55%', '75%'],
+                    center: ['38%', '50%'],
+                    label: {
+                        show: false,
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            formatter: '{b}: {d}%',
+                        },
+                    },
+                    data: seriesData,
+                },
+            ],
+            graphic: hasTotalCapacity.value
+                ? {
+                      type: 'text',
+                      left: '32%',
+                      top: 'center',
+                      style: {
+                          text: `{top|${formatSize(usedBytes.value, 1000, 1)}}\n{bottom|/ ${formatSize(totalBytes.value, 1000, 1)}}`,
+                          textAlign: 'center',
+                          rich: {
+                              top: {
+                                  fontSize: 28,
+                                  fill: '#000',
+                              },
+                              bottom: {
+                                  fontSize: 14,
+                                  fontWeight: 'normal',
+                                  fill: '#888',
+                              },
+                          },
+                      },
+                  }
+                : {
+                      type: 'text',
+                      left: '32%',
+                      top: 'center',
+                      style: {
+                          text: `{top|${formatSize(usedBytes.value, 1000, 1)}}`,
+                          textAlign: 'center',
+                          rich: {
+                              top: {
+                                  fontSize: 28,
+                                  fill: '#000',
+                              },
+                          },
+                      },
+                  },
+        };
+    }
+
+    // ── 无分类数据时的回退视图 ──
     return {
         title: {
-            text: 'Storage',
+            text: '存储空间',
             left: 'left',
             fontWeight: 'normal',
             fontSize: 16,
@@ -59,16 +161,10 @@ const option = computed(() => {
         tooltip: {
             trigger: 'item',
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            formatter: (parameters: any) => {
+            formatter: (params: any) => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions
-                return `${parameters.name}: ${parameters.data.formatted}`;
+                return `${params.name}: ${params.data?.formatted ?? params.value}`;
             },
-        },
-        legend: {
-            show: true,
-            data: ['Storage', 'Inodes'],
-            bottom: 0,
-            left: 0,
         },
         series: [
             {
@@ -79,45 +175,16 @@ const option = computed(() => {
                 },
                 data: [
                     {
-                        name: 'Storage',
+                        name: '已用',
                         value: usedBytes.value,
                         formatted: formatSize(usedBytes.value),
-                        itemStyle: {
-                            color: '#0F62FE',
-                        },
+                        itemStyle: { color: '#0F62FE' },
                     },
                     {
-                        name: 'Free Storage',
+                        name: '剩余',
                         value: freeBytes.value,
                         formatted: formatSize(freeBytes.value),
-                        itemStyle: {
-                            color: '#eee', // Default color for free space
-                        },
-                    },
-                ],
-            },
-            {
-                type: 'pie',
-                radius: ['65%', '70%'],
-                label: {
-                    show: false,
-                },
-                data: [
-                    {
-                        name: 'Inodes',
-                        value: usedInodes.value,
-                        formatted: formatGenericNumber(usedInodes.value),
-                        itemStyle: {
-                            color: '#8A3FFC',
-                        },
-                    },
-                    {
-                        name: 'Free Inodes',
-                        value: freeInodes.value,
-                        formatted: formatGenericNumber(freeInodes.value),
-                        itemStyle: {
-                            color: '#eee', // Default color for free inodes
-                        },
+                        itemStyle: { color: '#eee' },
                     },
                 ],
             },
@@ -132,13 +199,12 @@ const option = computed(() => {
                 rich: {
                     top: {
                         fontSize: 32,
-                        fill: '#000', // Text color for the top line
-                        font: 'Arial',
+                        fill: '#000',
                     },
                     bottom: {
                         fontSize: 16,
                         fontWeight: 'normal',
-                        fill: '#000', // Text color for the bottom line
+                        fill: '#000',
                     },
                 },
             },

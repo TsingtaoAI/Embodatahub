@@ -1,8 +1,8 @@
 import type {
     TagsDto,
     TagTypeDto,
-} from '@kleinkram/api-dto/types/tags/tags.dto';
-import { DataType } from '@kleinkram/shared';
+} from '@rslstudio/api-dto/types/tags/tags.dto';
+import { DataType } from '@rslstudio/shared';
 import { AxiosResponse } from 'axios';
 import axios from 'src/api/axios';
 

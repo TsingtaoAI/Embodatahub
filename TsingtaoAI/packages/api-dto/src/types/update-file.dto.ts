@@ -1,4 +1,4 @@
-import { IsNoValidUUID, IsValidFileName } from '@kleinkram/validation';
+import { IsNoValidUUID, IsValidFileName } from '@rslstudio/validation';
 import { Type } from 'class-transformer';
 import { IsDate, IsOptional, IsString, IsUUID } from 'class-validator';
 

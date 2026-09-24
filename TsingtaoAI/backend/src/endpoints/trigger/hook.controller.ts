@@ -1,7 +1,7 @@
 import { TriggerService } from '@/services/trigger.service';
 import { ParameterUuid } from '@/validation/parameter-decorators';
-import { WebhookTriggerResponseDto } from '@kleinkram/api-dto';
-import { ActionState } from '@kleinkram/shared';
+import { WebhookTriggerResponseDto } from '@rslstudio/api-dto';
+import { ActionState } from '@rslstudio/shared';
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';

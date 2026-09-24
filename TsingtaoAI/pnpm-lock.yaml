@@ -107,18 +107,6 @@ importers:
       '@aws-sdk/client-sts':
         specifier: 3.1005.0
         version: 3.1005.0
-      '@kleinkram/api-dto':
-        specifier: workspace:*
-        version: link:../packages/api-dto
-      '@kleinkram/backend-common':
-        specifier: workspace:*
-        version: link:../packages/backend-common
-      '@kleinkram/shared':
-        specifier: workspace:*
-        version: link:../packages/shared
-      '@kleinkram/validation':
-        specifier: workspace:*
-        version: link:../packages/validation
       '@nest-lab/throttler-storage-redis':
         specifier: ^1.1.0
         version: 1.1.0(@nestjs/common@11.1.11(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.11)(@nestjs/throttler@6.5.0(@nestjs/common@11.1.11(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.11)(reflect-metadata@0.2.2))(ioredis@5.9.1)(reflect-metadata@0.2.2)
@@ -188,12 +176,27 @@ importers:
       '@opentelemetry/sdk-trace-base':
         specifier: ^2.5.0
         version: 2.6.0(@opentelemetry/api@1.9.0)
+      '@rslstudio/api-dto':
+        specifier: workspace:*
+        version: link:../packages/api-dto
+      '@rslstudio/backend-common':
+        specifier: workspace:*
+        version: link:../packages/backend-common
+      '@rslstudio/shared':
+        specifier: workspace:*
+        version: link:../packages/shared
+      '@rslstudio/validation':
+        specifier: workspace:*
+        version: link:../packages/validation
       '@willsoto/nestjs-prometheus':
         specifier: ^6.0.2
         version: 6.0.2(@nestjs/common@11.1.11(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(prom-client@15.1.3)
       axios:
         specifier: ^1.13.2
         version: 1.13.2
+      bcrypt:
+        specifier: ^6.0.0
+        version: 6.0.0
       bull:
         specifier: ^4.12.2
         version: 4.16.5
@@ -297,6 +300,9 @@ importers:
       '@swc/jest':
         specifier: ^0.2.39
         version: 0.2.39(@swc/core@1.15.8)
+      '@types/bcrypt':
+        specifier: ^6.0.0
+        version: 6.0.0
       '@types/cookie-parser':
         specifier: ^1.4.9
         version: 1.4.10(@types/express@5.0.6)
@@ -457,21 +463,21 @@ importers:
       '@foxglove/rosmsg2-serialization':
         specifier: ^3.0.3
         version: 3.0.3
-      '@kleinkram/api-dto':
-        specifier: workspace:*
-        version: link:../packages/api-dto
-      '@kleinkram/shared':
-        specifier: workspace:*
-        version: link:../packages/shared
-      '@kleinkram/validation':
-        specifier: workspace:*
-        version: link:../packages/validation
       '@mcap/core':
         specifier: ^2.1.7
         version: 2.1.7
       '@mdi/font':
         specifier: 7.4.47
         version: 7.4.47
+      '@rslstudio/api-dto':
+        specifier: workspace:*
+        version: link:../packages/api-dto
+      '@rslstudio/shared':
+        specifier: workspace:*
+        version: link:../packages/shared
+      '@rslstudio/validation':
+        specifier: workspace:*
+        version: link:../packages/validation
       '@tanstack/vue-query':
         specifier: ^5.92.9
         version: 5.92.9(vue@3.5.30(typescript@5.9.3))
@@ -538,6 +544,9 @@ importers:
       vue-echarts:
         specifier: ^8.0.1
         version: 8.0.1(echarts@6.0.0)(vue@3.5.30(typescript@5.9.3))
+      vue-i18n:
+        specifier: ^9.14.4
+        version: 9.14.4(vue@3.5.30(typescript@5.9.3))
       vue-json-pretty:
         specifier: ^2.6.0
         version: 2.6.0(vue@3.5.30(typescript@5.9.3))
@@ -581,18 +590,18 @@ importers:
 
   packages/api-dto:
     dependencies:
-      '@kleinkram/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@kleinkram/validation':
-        specifier: workspace:*
-        version: link:../validation
       '@mcap/core':
         specifier: ^2.1.7
         version: 2.1.7
       '@nestjs/swagger':
         specifier: ^11.2.3
         version: 11.2.4(@nestjs/common@11.1.15(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12)(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)
+      '@rslstudio/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@rslstudio/validation':
+        specifier: workspace:*
+        version: link:../validation
       class-transformer:
         specifier: ^0.5.1
         version: 0.5.1
@@ -627,18 +636,18 @@ importers:
       '@aws-sdk/s3-request-presigner':
         specifier: 3.967.0
         version: 3.967.0
-      '@kleinkram/api-dto':
-        specifier: workspace:*
-        version: link:../api-dto
-      '@kleinkram/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@kleinkram/validation':
-        specifier: workspace:*
-        version: link:../validation
       '@nestjs/schedule':
         specifier: ^5.0.1
         version: 5.0.1(@nestjs/common@11.1.11(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.11)
+      '@rslstudio/api-dto':
+        specifier: workspace:*
+        version: link:../api-dto
+      '@rslstudio/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@rslstudio/validation':
+        specifier: workspace:*
+        version: link:../validation
       '@willsoto/nestjs-prometheus':
         specifier: ^6.0.2
         version: 6.0.2(@nestjs/common@11.1.11(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(prom-client@15.1.3)
@@ -722,12 +731,12 @@ importers:
 
   packages/validation:
     dependencies:
-      '@kleinkram/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@nestjs/swagger':
         specifier: ^11.2.3
         version: 11.2.4(@nestjs/common@11.1.11(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12)(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)
+      '@rslstudio/shared':
+        specifier: workspace:*
+        version: link:../shared
       class-transformer:
         specifier: ^0.5.1
         version: 0.5.1
@@ -753,18 +762,6 @@ importers:
       '@foxglove/rosbag':
         specifier: ^0.4.1
         version: 0.4.1
-      '@kleinkram/api-dto':
-        specifier: workspace:*
-        version: link:../packages/api-dto
-      '@kleinkram/backend-common':
-        specifier: workspace:*
-        version: link:../packages/backend-common
-      '@kleinkram/shared':
-        specifier: workspace:*
-        version: link:../packages/shared
-      '@kleinkram/validation':
-        specifier: workspace:*
-        version: link:../packages/validation
       '@kubernetes/client-node':
         specifier: ^1.0.0
         version: 1.4.0
@@ -834,6 +831,18 @@ importers:
       '@opentelemetry/sdk-trace-base':
         specifier: ^2.5.0
         version: 2.6.0(@opentelemetry/api@1.9.0)
+      '@rslstudio/api-dto':
+        specifier: workspace:*
+        version: link:../packages/api-dto
+      '@rslstudio/backend-common':
+        specifier: workspace:*
+        version: link:../packages/backend-common
+      '@rslstudio/shared':
+        specifier: workspace:*
+        version: link:../packages/shared
+      '@rslstudio/validation':
+        specifier: workspace:*
+        version: link:../packages/validation
       '@types/better-sqlite3':
         specifier: ^7.6.13
         version: 7.6.13
@@ -2218,6 +2227,18 @@ packages:
     peerDependenciesMeta:
       '@types/node':
         optional: true
+
+  '@intlify/core-base@9.14.4':
+    resolution: {integrity: sha512-vtZCt7NqWhKEtHa3SD/322DlgP5uR9MqWxnE0y8Q0tjDs9H5Lxhss+b5wv8rmuXRoHKLESNgw9d+EN9ybBbj9g==}
+    engines: {node: '>= 16'}
+
+  '@intlify/message-compiler@9.14.4':
+    resolution: {integrity: sha512-vcyCLiVRN628U38c3PbahrhbbXrckrM9zpy0KZVlDk2Z0OnGwv8uQNNXP3twwGtfLsCf4gu3ci6FMIZnPaqZsw==}
+    engines: {node: '>= 16'}
+
+  '@intlify/shared@9.14.4':
+    resolution: {integrity: sha512-P9zv6i1WvMc9qDBWvIgKkymjY2ptIiQ065PjDv7z7fDqH3J/HBRBN5IoiR46r/ujRcU7hCuSIZWvCAFCyuOYZA==}
+    engines: {node: '>= 16'}
 
   '@ioredis/commands@1.5.0':
     resolution: {integrity: sha512-eUgLqrMf8nJkZxT24JvVRrQya1vZkQh8BBeYNwGDqa5I0VUi8ACx7uFvAaLxintokpTenkK6DASvo/bvNbBGow==}
@@ -4106,6 +4127,9 @@ packages:
   '@types/babel__traverse@7.28.0':
     resolution: {integrity: sha512-8PvcXf70gTDZBgt9ptxJ8elBeBjcLOAcOtoO/mPJjtji1+CdGbHgm77om1GrsPxsiE+uXIpNSK64UYaIwQXd4Q==}
 
+  '@types/bcrypt@6.0.0':
+    resolution: {integrity: sha512-/oJGukuH3D2+D+3H4JWLaAsJ/ji86dhRidzZ/Od7H/i8g+aCmvkeCc6Ni/f9uxGLSQVCRZkX2/lqEFG2BvWtlQ==}
+
   '@types/better-sqlite3@7.6.13':
     resolution: {integrity: sha512-NMv9ASNARoKksWtsq/SHakpYAYnhBrQgGD8zkLYk/jaK8jUGn08CfEdTRgYhMypUQAfzSP8W6gNLe0q19/t4VA==}
 
@@ -5194,6 +5218,10 @@ packages:
 
   bcrypt-pbkdf@1.0.2:
     resolution: {integrity: sha512-qeFIXtP4MSoi6NLqO12WfqARWWuCKi2Rn/9hJLEmtB5yTNr9DqFWkJRCf2qShWzPeAMRnOgCrq0sg/KLv5ES9w==}
+
+  bcrypt@6.0.0:
+    resolution: {integrity: sha512-cU8v/EGSrnH+HnxV2z0J7/blxH8gq7Xh2JFT6Aroax7UohdmiJJlxApMxtKfuI7z68NvvVcmR78k2LbT6efhRg==}
+    engines: {node: '>= 18'}
 
   better-sqlite3@12.5.0:
     resolution: {integrity: sha512-WwCZ/5Diz7rsF29o27o0Gcc1Du+l7Zsv7SYtVPG0X3G/uUI1LqdxrQI7c9Hs2FWpqXXERjW9hp6g3/tH7DlVKg==}
@@ -7776,6 +7804,10 @@ packages:
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
 
+  node-addon-api@8.9.0:
+    resolution: {integrity: sha512-ekZMeaaIzSQTSpr7X2X3iJM7lTzgnx8ahAG9pJfT/7+14mlEM8ZYQ9cgCDvSSRbReFK0oHli3WrZdCiRsgAT9Q==}
+    engines: {node: ^18 || ^20 || >= 21}
+
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
@@ -7803,6 +7835,10 @@ packages:
 
   node-gyp-build-optional-packages@5.2.2:
     resolution: {integrity: sha512-s+w+rBWnpTMwSFbaE0UXsRlg7hU4FjekKU4eyAih5T8nJuNZT1nNsskXpxmeqSK9UzkBl6UgRlnKc8hz8IEqOw==}
+    hasBin: true
+
+  node-gyp-build@4.8.4:
+    resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
     hasBin: true
 
   node-int64@0.4.0:
@@ -9606,6 +9642,12 @@ packages:
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
+
+  vue-i18n@9.14.4:
+    resolution: {integrity: sha512-B934C8yUyWLT0EMud3DySrwSUJI7ZNiWYsEEz2gknTthqKiG4dzWE/WSa8AzCuSQzwBEv4HtG1jZDhgzPfWSKQ==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      vue: ^3.0.0
 
   vue-json-pretty@2.6.0:
     resolution: {integrity: sha512-glz1aBVS35EO8+S9agIl3WOQaW2cJZW192UVKTuGmryx01ZvOVWc4pR3t+5UcyY4jdOfBUgVHjcpRpcnjRhCAg==}
@@ -11880,6 +11922,18 @@ snapshots:
   '@inquirer/type@3.0.10(@types/node@25.4.0)':
     optionalDependencies:
       '@types/node': 25.4.0
+
+  '@intlify/core-base@9.14.4':
+    dependencies:
+      '@intlify/message-compiler': 9.14.4
+      '@intlify/shared': 9.14.4
+
+  '@intlify/message-compiler@9.14.4':
+    dependencies:
+      '@intlify/shared': 9.14.4
+      source-map-js: 1.2.1
+
+  '@intlify/shared@9.14.4': {}
 
   '@ioredis/commands@1.5.0': {}
 
@@ -14356,6 +14410,10 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.5
 
+  '@types/bcrypt@6.0.0':
+    dependencies:
+      '@types/node': 25.4.0
+
   '@types/better-sqlite3@7.6.13':
     dependencies:
       '@types/node': 25.4.0
@@ -15661,6 +15719,11 @@ snapshots:
   bcrypt-pbkdf@1.0.2:
     dependencies:
       tweetnacl: 0.14.5
+
+  bcrypt@6.0.0:
+    dependencies:
+      node-addon-api: 8.9.0
+      node-gyp-build: 4.8.4
 
   better-sqlite3@12.5.0:
     dependencies:
@@ -18734,6 +18797,8 @@ snapshots:
   node-addon-api@7.1.1:
     optional: true
 
+  node-addon-api@8.9.0: {}
+
   node-domexception@1.0.0: {}
 
   node-emoji@1.11.0:
@@ -18756,6 +18821,8 @@ snapshots:
     dependencies:
       detect-libc: 2.1.2
     optional: true
+
+  node-gyp-build@4.8.4: {}
 
   node-int64@0.4.0: {}
 
@@ -20761,6 +20828,13 @@ snapshots:
       semver: 7.7.3
     transitivePeerDependencies:
       - supports-color
+
+  vue-i18n@9.14.4(vue@3.5.30(typescript@5.9.3)):
+    dependencies:
+      '@intlify/core-base': 9.14.4
+      '@intlify/shared': 9.14.4
+      '@vue/devtools-api': 6.6.4
+      vue: 3.5.30(typescript@5.9.3)
 
   vue-json-pretty@2.6.0(vue@3.5.29(typescript@5.9.3)):
     dependencies:

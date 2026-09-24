@@ -1,4 +1,4 @@
-import { FileType } from '@kleinkram/shared';
+import { FileType } from '@rslstudio/shared';
 import { useQuery } from '@tanstack/vue-query';
 import { useAllTags } from 'src/hooks/query-hooks';
 import { Filter } from 'src/services/filters/filter-interface';
@@ -24,7 +24,7 @@ import { computed, Ref } from 'vue';
 import { FilterParserContext } from './use-filter-parser';
 import { MissionFilterState } from './use-mission-file-filter';
 
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
 
 export interface MissionFileSearchContextData extends FilterParserContext {
     topics: string[];

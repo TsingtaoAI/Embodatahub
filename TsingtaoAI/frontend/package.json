@@ -1,5 +1,5 @@
 {
-    "name": "kleinkram-frontend",
+    "name": "rslstudio-frontend",
     "version": "0.59.0",
     "description": "Data storage of ROS bags",
     "productName": "TsingtaoAI具身智能数据平台",
@@ -7,7 +7,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "start:dev": "sh ./create_build_info.sh && quasar dev -p 8003 ",
+        "start:dev": "sh ./create_build_info.sh && quasar dev -p 8880 ",
         "test": "echo \"No test speciyafied\" && exit 0",
         "build": "sh ./create_build_info.sh && quasar build"
     },
@@ -17,11 +17,11 @@
         "@foxglove/rosmsg": "^5.0.5",
         "@foxglove/rosmsg-serialization": "^2.0.4",
         "@foxglove/rosmsg2-serialization": "^3.0.3",
-        "@kleinkram/api-dto": "workspace:*",
-        "@kleinkram/shared": "workspace:*",
-        "@kleinkram/validation": "workspace:*",
         "@mcap/core": "^2.1.7",
         "@mdi/font": "7.4.47",
+        "@rslstudio/api-dto": "workspace:*",
+        "@rslstudio/shared": "workspace:*",
+        "@rslstudio/validation": "workspace:*",
         "@tanstack/vue-query": "^5.92.9",
         "@types/js-yaml": "^4.0.9",
         "@types/lz4js": "^0.2.2",
@@ -44,6 +44,7 @@
         "vite-plugin-node-polyfills": "^0.25.0",
         "vue": "^3.5.30",
         "vue-echarts": "^8.0.1",
+        "vue-i18n": "^9.14.4",
         "vue-json-pretty": "^2.6.0",
         "vue-router": "^5.0.3"
     },

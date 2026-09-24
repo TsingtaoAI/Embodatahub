@@ -1,4 +1,4 @@
-import { UniversalHttpReader } from '@kleinkram/shared';
+import { UniversalHttpReader } from '@rslstudio/shared';
 import { LogMessage } from './utilities';
 
 export abstract class DecodingStrategy {

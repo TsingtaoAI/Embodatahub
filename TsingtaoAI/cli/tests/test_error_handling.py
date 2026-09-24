@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from kleinkram.cli.error_handling import display_error
+from rslstudio.cli.error_handling import display_error
 
 
 class MyException(Exception):

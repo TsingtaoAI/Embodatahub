@@ -39,8 +39,8 @@
 </template>
 
 <script setup lang="ts">
-import type { FileDto } from '@kleinkram/api-dto/types/file/file.dto';
-import { FileState } from '@kleinkram/shared';
+import type { FileDto } from '@rslstudio/api-dto/types/file/file.dto';
+import { FileState } from '@rslstudio/shared';
 import { computed } from 'vue';
 
 const props = defineProps<{

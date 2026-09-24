@@ -1,7 +1,7 @@
-import type { AccessGroupDto } from '@kleinkram/api-dto/types/access-control/access-group.dto';
-import type { AccessGroupsDto } from '@kleinkram/api-dto/types/access-control/access-groups.dto';
-import type { ProjectAccessListDto } from '@kleinkram/api-dto/types/access-control/project-access.dto';
-import { AccessGroupType } from '@kleinkram/shared';
+import type { AccessGroupDto } from '@rslstudio/api-dto/types/access-control/access-group.dto';
+import type { AccessGroupsDto } from '@rslstudio/api-dto/types/access-control/access-groups.dto';
+import type { ProjectAccessListDto } from '@rslstudio/api-dto/types/access-control/project-access.dto';
+import { AccessGroupType } from '@rslstudio/shared';
 import { AxiosResponse } from 'axios';
 import axios from 'src/api/axios';
 

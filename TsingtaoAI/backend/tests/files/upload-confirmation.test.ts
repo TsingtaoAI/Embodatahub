@@ -1,4 +1,4 @@
-import { ProjectEntity } from '@kleinkram/backend-common';
+import { ProjectEntity } from '@rslstudio/backend-common';
 
 jest.mock('uuid', () => ({
     v4: () => 'test-uuid',
@@ -9,15 +9,15 @@ import {
     IngestionJobEntity,
     MissionEntity,
     UserEntity,
-} from '@kleinkram/backend-common';
-import { FileAuditService } from '@kleinkram/backend-common/audit/file-audit.service';
-import { IStorageBucket } from '@kleinkram/backend-common/modules/storage/types';
+} from '@rslstudio/backend-common';
+import { FileAuditService } from '@rslstudio/backend-common/audit/file-audit.service';
+import { IStorageBucket } from '@rslstudio/backend-common/modules/storage/types';
 import {
     FileEventType,
     FileOrigin,
     FileState,
     FileType,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { Gauge } from 'prom-client';
 import { Repository } from 'typeorm';
 import QueueService from '../../src/services/queue.service';

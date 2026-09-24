@@ -2,7 +2,7 @@ import type {
     CancelProcessingResponseDto,
     DeleteMissionResponseDto,
     FileQueueEntriesDto,
-} from '@kleinkram/api-dto';
+} from '@rslstudio/api-dto';
 import {
     useMutation,
     UseMutationReturnType,

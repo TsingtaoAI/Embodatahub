@@ -1,9 +1,9 @@
 import { AccessService } from '@/services/access.service';
 import { ProjectService } from '@/services/project.service';
-import { AccessGroupEntity, ProjectEntity } from '@kleinkram/backend-common';
-import { AccountEntity } from '@kleinkram/backend-common/entities/auth/account.entity';
-import { ProjectAccessEntity } from '@kleinkram/backend-common/entities/auth/project-access.entity';
-import { TagTypeEntity } from '@kleinkram/backend-common/entities/tagType/tag-type.entity';
+import { AccessGroupEntity, ProjectEntity } from '@rslstudio/backend-common';
+import { AccountEntity } from '@rslstudio/backend-common/entities/auth/account.entity';
+import { ProjectAccessEntity } from '@rslstudio/backend-common/entities/auth/project-access.entity';
+import { TagTypeEntity } from '@rslstudio/backend-common/entities/tagType/tag-type.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OldProjectController, ProjectController } from './project.controller';

@@ -27,9 +27,9 @@
 </template>
 
 <script setup lang="ts">
-import type { AccessGroupDto } from '@kleinkram/api-dto/types/access-control/access-group.dto';
-import type { CurrentAPIUserDto } from '@kleinkram/api-dto/types/user/current-api-user.dto';
-import { AccessGroupType, UserRole } from '@kleinkram/shared';
+import type { AccessGroupDto } from '@rslstudio/api-dto/types/access-control/access-group.dto';
+import type { CurrentAPIUserDto } from '@rslstudio/api-dto/types/user/current-api-user.dto';
+import { AccessGroupType, UserRole } from '@rslstudio/shared';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { Notify } from 'quasar';
 import { getUser } from 'src/services/auth';

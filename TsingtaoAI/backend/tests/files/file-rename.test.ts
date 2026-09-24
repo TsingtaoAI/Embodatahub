@@ -1,5 +1,5 @@
-import { FileEntity } from '@kleinkram/backend-common';
-import { UserRole } from '@kleinkram/shared';
+import { FileEntity } from '@rslstudio/backend-common';
+import { UserRole } from '@rslstudio/shared';
 import { DEFAULT_URL } from '../auth/utilities';
 import { HeaderCreator, uploadFile } from '../utils/api-calls';
 import { database } from '../utils/database-utilities';
@@ -13,7 +13,7 @@ describe('File Rename Bug Verification', () => {
 
     test('should succeed to rename a .yaml file', async () => {
         const { user, missionUuid } = await setupTestEnvironment(
-            'test-rename-yaml@kleinkram.dev',
+            'test-rename-yaml@rslstudio.dev',
             'Rename User',
             UserRole.ADMIN,
         );
@@ -53,7 +53,7 @@ describe('File Rename Bug Verification', () => {
 
     test('should succeed to rename a .yml file', async () => {
         const { user, missionUuid } = await setupTestEnvironment(
-            'test-rename-yml@kleinkram.dev',
+            'test-rename-yml@rslstudio.dev',
             'Rename User',
             UserRole.ADMIN,
         );
@@ -90,7 +90,7 @@ describe('File Rename Bug Verification', () => {
 
     test('should fail if changing extension (e.g. .bag to .mcap)', async () => {
         const { user, missionUuid } = await setupTestEnvironment(
-            'test-rename-invalid@kleinkram.dev',
+            'test-rename-invalid@rslstudio.dev',
             'Rename User',
             UserRole.ADMIN,
         );
@@ -125,7 +125,7 @@ describe('File Rename Bug Verification', () => {
 
     test('should allow .yaml <-> .yml rename but fail for others', async () => {
         const { user, missionUuid } = await setupTestEnvironment(
-            'test-yaml-yml-swap@kleinkram.dev',
+            'test-yaml-yml-swap@rslstudio.dev',
             'Rename User',
             UserRole.ADMIN,
         );

@@ -186,8 +186,8 @@
 </template>
 
 <script setup lang="ts">
-import type { FileQueueEntryDto } from '@kleinkram/api-dto/types/file/file-queue-entry.dto';
-import { FileLocation, QueueState } from '@kleinkram/shared';
+import type { FileQueueEntryDto } from '@rslstudio/api-dto/types/file/file-queue-entry.dto';
+import { FileLocation, QueueState } from '@rslstudio/shared';
 import { useQueryClient } from '@tanstack/vue-query';
 import { QTable, useQuasar } from 'quasar';
 import ConfirmDeleteFile from 'src/dialogs/confirm-delete-file-dialog.vue';
@@ -203,7 +203,7 @@ import { findOneByNameAndMission } from 'src/services/queries/file';
 import { computed, ref, Ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
 import AppRefreshButton from 'components/common/app-refresh-button.vue';
 
 import {
@@ -381,7 +381,7 @@ const columns = [
         align: 'left',
         field: (row: FileQueueEntryDto): string => row.mission.name,
     },
-    { name: 'Status', label: 'Status', align: 'left', field: 'state' },
+    { name: 'Status', label: '状态', align: 'left', field: 'state' },
     {
         name: 'Location',
         required: true,
@@ -406,7 +406,7 @@ const columns = [
     {
         name: 'change',
         required: true,
-        label: '状态更新时间',
+	        label: '状态更新时间',
         align: 'left',
         field: (row: FileQueueEntryDto): string =>
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -415,7 +415,7 @@ const columns = [
     {
         name: 'Creator',
         required: true,
-        label: '创建人',
+	        label: '创建人',
         align: 'left',
         field: (row: FileQueueEntryDto): string => row.creator.name,
     },

@@ -3,8 +3,8 @@ import {
     MissionEntity,
     ProjectEntity,
     UserEntity,
-} from '@kleinkram/backend-common';
-import { AccessGroupRights } from '@kleinkram/shared';
+} from '@rslstudio/backend-common';
+import { AccessGroupRights } from '@rslstudio/shared';
 import { HeaderCreator } from '../../utils/api-calls';
 import { clearAllData, database } from '../../utils/database-utilities';
 import { DEFAULT_URL, generateAndFetchDatabaseUser } from '../utilities';

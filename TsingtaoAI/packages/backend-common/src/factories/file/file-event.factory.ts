@@ -3,7 +3,7 @@ import { FileEntity } from '@backend-common/entities/file/file.entity';
 import { MissionEntity } from '@backend-common/entities/mission/mission.entity';
 import { UserEntity } from '@backend-common/entities/user/user.entity';
 import { type Faker } from '@faker-js/faker';
-import { FileEventType } from '@kleinkram/shared';
+import { FileEventType } from '@rslstudio/shared';
 import { setSeederFactory } from 'typeorm-extension';
 
 export interface FileEventContext {

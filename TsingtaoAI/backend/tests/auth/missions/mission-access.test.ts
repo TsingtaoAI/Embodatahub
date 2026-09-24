@@ -1,5 +1,5 @@
-import { FileEntity, UserEntity } from '@kleinkram/backend-common';
-import { AccessGroupRights, DataType, FileType } from '@kleinkram/shared';
+import { FileEntity, UserEntity } from '@rslstudio/backend-common';
+import { AccessGroupRights, DataType, FileType } from '@rslstudio/shared';
 import {
     createMetadataUsingPost,
     createMissionUsingPost,

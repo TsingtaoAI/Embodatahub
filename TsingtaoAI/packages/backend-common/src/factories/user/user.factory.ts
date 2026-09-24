@@ -3,7 +3,7 @@ import { GroupMembershipEntity } from '@backend-common/entities/auth/group-membe
 import { UserEntity } from '@backend-common/entities/user/user.entity';
 import { extendedFaker } from '@backend-common/faker-extended';
 import { type Faker } from '@faker-js/faker';
-import { UserRole } from '@kleinkram/shared';
+import { UserRole } from '@rslstudio/shared';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { setSeederFactory } from 'typeorm-extension';

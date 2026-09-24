@@ -44,7 +44,7 @@ export class StringValidate {
     value: any;
 }
 
-import { FileSource } from '@kleinkram/shared';
+import { FileSource } from '@rslstudio/shared';
 
 export class OptionalStringValidate {
     @IsString()

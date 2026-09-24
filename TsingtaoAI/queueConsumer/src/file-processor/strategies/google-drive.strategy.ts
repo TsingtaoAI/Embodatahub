@@ -1,5 +1,5 @@
-import env from '@kleinkram/backend-common/environment';
-import { FileLocation } from '@kleinkram/shared';
+import env from '@rslstudio/backend-common/environment';
+import { FileLocation } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { drive_v3, google } from 'googleapis';

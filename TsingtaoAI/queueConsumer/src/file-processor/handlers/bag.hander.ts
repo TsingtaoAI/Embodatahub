@@ -5,19 +5,19 @@ import * as fsPromises from 'node:fs/promises';
 import path from 'node:path';
 import { Repository } from 'typeorm';
 
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { IngestionJobEntity } from '@kleinkram/backend-common/entities/file/ingestion-job.entity';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { IngestionJobEntity } from '@rslstudio/backend-common/entities/file/ingestion-job.entity';
 import {
     FileEventType,
     FileOrigin,
     FileState,
     FileType,
     QueueState,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import logger from '../../logger';
 
-import { FileEventEntity } from '@kleinkram/backend-common/entities/file/file-event.entity';
-import { IStorageBucket } from '@kleinkram/backend-common/modules/storage/types';
+import { FileEventEntity } from '@rslstudio/backend-common/entities/file/file-event.entity';
+import { IStorageBucket } from '@rslstudio/backend-common/modules/storage/types';
 import { calculateFileHash } from '../helper/hash-helper';
 import { FileHandler, FileProcessingContext } from './file-handler.interface';
 import { McapMetadataService } from './mcap-metadata.service';

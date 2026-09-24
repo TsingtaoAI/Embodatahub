@@ -12,19 +12,19 @@ module.exports = {
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
         '^@common/(.*)$': '<rootDir>/../common/$1',
-        '^@kleinkram/backend-common$':
+        '^@rslstudio/backend-common$':
             '<rootDir>/../packages/backend-common/src/index.ts',
-        '^@kleinkram/backend-common/(.*)$':
+        '^@rslstudio/backend-common/(.*)$':
             '<rootDir>/../packages/backend-common/src/$1',
         '^@backend-common/(.*)$': '<rootDir>/../packages/backend-common/src/$1',
-        '^@kleinkram/shared$': '<rootDir>/../packages/shared/src/index.ts',
-        '^@kleinkram/shared/(.*)$': '<rootDir>/../packages/shared/src/$1',
-        '^@kleinkram/validation$':
+        '^@rslstudio/shared$': '<rootDir>/../packages/shared/src/index.ts',
+        '^@rslstudio/shared/(.*)$': '<rootDir>/../packages/shared/src/$1',
+        '^@rslstudio/validation$':
             '<rootDir>/../packages/validation/src/index.ts',
-        '^@kleinkram/validation/(.*)$':
+        '^@rslstudio/validation/(.*)$':
             '<rootDir>/../packages/validation/src/$1',
-        '^@kleinkram/api-dto$': '<rootDir>/../packages/api-dto/src/index.ts',
-        '^@kleinkram/api-dto/(.*)$': '<rootDir>/../packages/api-dto/src/$1',
+        '^@rslstudio/api-dto$': '<rootDir>/../packages/api-dto/src/index.ts',
+        '^@rslstudio/api-dto/(.*)$': '<rootDir>/../packages/api-dto/src/$1',
         '^@api-dto/(.*)$': '<rootDir>/../packages/api-dto/src/types/$1',
     },
     preset: 'ts-jest',

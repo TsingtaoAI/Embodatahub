@@ -1,6 +1,6 @@
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { IStorageBucket } from '@kleinkram/backend-common/modules/storage/types';
-import { FileState } from '@kleinkram/shared';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { IStorageBucket } from '@rslstudio/backend-common/modules/storage/types';
+import { FileState } from '@rslstudio/shared';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

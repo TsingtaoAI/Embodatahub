@@ -1,10 +1,10 @@
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
-import type { FlatMissionDto } from '@kleinkram/api-dto/types/mission/mission.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
+import type { FlatMissionDto } from '@rslstudio/api-dto/types/mission/mission.dto';
 import { formatDate } from 'src/services/date-formating';
 import { formatSize } from 'src/services/general-formatting';
 
-import type { ProjectWithAccessRightsDto } from '@kleinkram/api-dto/types/project/project-access.dto';
-import type { ProjectWithMissionCountDto } from '@kleinkram/api-dto/types/project/project-with-mission-count.dto';
+import type { ProjectWithAccessRightsDto } from '@rslstudio/api-dto/types/project/project-access.dto';
+import type { ProjectWithMissionCountDto } from '@rslstudio/api-dto/types/project/project-with-mission-count.dto';
 
 export interface ProjectColumnType {
     name: string;
@@ -73,7 +73,7 @@ export const explorerPageTableColumns: ProjectColumnType[] = [
     {
         name: 'nrOfMissions',
         required: true,
-        label: '# Missions',
+        label: '# 任务数',
         align: 'right',
         style: 'min-width: 100px',
         field: (row: ProjectWithMissionCountDto) => row.missionCount,
@@ -82,7 +82,7 @@ export const explorerPageTableColumns: ProjectColumnType[] = [
     {
         name: 'size',
         required: true,
-        label: 'Size',
+        label: '大小',
         align: 'left',
         field: (row: ProjectWithMissionCountDto) => row.size,
         format: formatSize,
@@ -99,7 +99,7 @@ export const projectAccessColumns: ProjectColumnType[] = [
     {
         name: 'name',
         required: true,
-        label: 'Project Name',
+        label: '项目名称',
         align: 'left',
         field: (row: ProjectWithAccessRightsDto) => row.name,
         format: (value: string) => value,
@@ -109,7 +109,7 @@ export const projectAccessColumns: ProjectColumnType[] = [
     {
         name: 'description',
         required: true,
-        label: 'Description',
+        label: '描述',
         align: 'left',
         field: (row: ProjectWithAccessRightsDto) => row.description,
         format: (value: string) => value,
@@ -118,7 +118,7 @@ export const projectAccessColumns: ProjectColumnType[] = [
     {
         name: 'createdAt',
         required: true,
-        label: 'Created',
+        label: '创建时间',
         align: 'left',
         field: (row: ProjectWithAccessRightsDto) => row.createdAt,
         format: (value: string) => formatDate(new Date(value)),
@@ -136,7 +136,7 @@ export const missionColumns: ProjectColumnType[] = [
     {
         name: 'name',
         required: true,
-        label: 'Mission',
+        label: '任务',
         align: 'left',
         field: (row: FlatMissionDto) => row.name,
         format: (value: string) => value,
@@ -144,7 +144,7 @@ export const missionColumns: ProjectColumnType[] = [
     {
         name: 'NrOfFiles',
         required: true,
-        label: '# Files',
+        label: '# 文件数',
         align: 'left',
         field: (row: FlatMissionDto) => row.filesCount,
         format: (value: number) => value.toString(),
@@ -152,7 +152,7 @@ export const missionColumns: ProjectColumnType[] = [
     {
         name: 'creator',
         required: true,
-        label: 'Creator',
+        label: '创建者',
         align: 'left',
         field: (row: FlatMissionDto) => row.creator.name,
         format: (value: number) => value.toString(),
@@ -162,7 +162,7 @@ export const missionColumns: ProjectColumnType[] = [
     {
         name: 'Created',
         required: true,
-        label: 'Creation Date',
+        label: '创建日期',
         align: 'left',
         field: (row: FlatMissionDto) => row.createdAt,
         format: (value: string) => formatDate(new Date(value)),
@@ -170,7 +170,7 @@ export const missionColumns: ProjectColumnType[] = [
     {
         name: 'tagverification',
         required: true,
-        label: 'Metadata Verification',
+        label: '元数据验证',
         align: 'left',
         style: 'min-width: 180px',
     },
@@ -178,7 +178,7 @@ export const missionColumns: ProjectColumnType[] = [
     {
         name: 'Size',
         required: true,
-        label: 'Size',
+        label: '大小',
         align: 'left',
         field: (row: FlatMissionDto) => row.size,
         format: formatSize,
@@ -196,7 +196,7 @@ export const fileColumns: ProjectColumnType[] = [
     {
         name: 'state',
         required: true,
-        label: 'Health',
+        label: '状态',
         style: 'width: 100px',
         align: 'center',
         sortable: true,
@@ -204,7 +204,7 @@ export const fileColumns: ProjectColumnType[] = [
     {
         name: 'filename',
         required: true,
-        label: 'File',
+        label: '文件',
         align: 'left',
         field: (row: FileWithTopicDto) => row.filename,
         format: (value: string) => value,
@@ -213,7 +213,7 @@ export const fileColumns: ProjectColumnType[] = [
     {
         name: 'cats',
         required: false,
-        label: 'Categories',
+        label: '类别',
         align: 'right',
     },
     {
@@ -228,7 +228,7 @@ export const fileColumns: ProjectColumnType[] = [
     {
         name: 'size',
         required: true,
-        label: 'Size',
+        label: '大小',
         align: 'left',
         field: (row: FileWithTopicDto) => row.size,
         format: formatSize,

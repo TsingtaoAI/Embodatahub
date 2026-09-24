@@ -1,4 +1,4 @@
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission-with-files.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission-with-files.dto';
 import axios from 'src/api/axios';
 
 export const createMission = async (

@@ -1,16 +1,16 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Delete File </template>
+        <template #title> 删除文件 </template>
         <template #content>
             <q-card-section class="q-pa-md">
                 <p>
-                    Please confirm by entering the Filename:
+                    请输入文件名确认：
                     <b>{{ filename }}</b>
                 </p>
                 <q-input
                     v-model="fileNameCheck"
                     outlined
-                    placeholder="Confirm File Name"
+                    placeholder="确认文件名"
                     autofocus
                 />
             </q-card-section>
@@ -20,7 +20,7 @@
             <q-btn
                 flat
                 :disable="fileNameCheck !== filename"
-                label="Delete File"
+                label="删除文件"
                 class="bg-button-danger"
                 @click="onDialogOK"
             />

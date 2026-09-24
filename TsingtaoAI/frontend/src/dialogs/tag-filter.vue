@@ -6,10 +6,10 @@
         >
             <div class="q-mt-md row">
                 <div class="col-4">
-                    <q-input v-model="tagtype" label="Search Metadata" />
+                    <q-input v-model="tagtype" label="搜索元数据" />
                 </div>
                 <div class="col-2">
-                    <q-btn label="Search" color="primary" />
+                    <q-btn label="搜索" color="primary" />
                 </div>
             </div>
             <div class="q-mt-md row">
@@ -37,10 +37,10 @@
             <div class="q-mt-md row">
                 <div class="col-10" />
                 <div class="col-1">
-                    <q-btn label="Close" color="orange" @click="onDialogHide" />
+                    <q-btn label="关闭" color="orange" @click="onDialogHide" />
                 </div>
                 <div class="col-1">
-                    <q-btn label="Apply" color="primary" @click="applyAction" />
+                    <q-btn label="应用" color="primary" @click="applyAction" />
                 </div>
             </div>
         </q-card>
@@ -48,8 +48,8 @@
 </template>
 
 <script setup lang="ts">
-import type { TagTypeDto } from '@kleinkram/api-dto/types/tags/tags.dto';
-import { DataType } from '@kleinkram/shared';
+import type { TagTypeDto } from '@rslstudio/api-dto/types/tags/tags.dto';
+import { DataType } from '@rslstudio/shared';
 import MetadataFilterInput from 'components/metadata-filter-input.vue';
 import MetadataTypeTable from 'components/metadata-type-table.vue';
 import { useDialogPluginComponent } from 'quasar';

@@ -1,5 +1,5 @@
-import { AccessGroupRights } from '@kleinkram/shared';
-import { IsNoValidUUID, IsValidName } from '@kleinkram/validation';
+import { AccessGroupRights } from '@rslstudio/shared';
+import { IsNoValidUUID, IsValidName } from '@rslstudio/validation';
 import {
     IsArray,
     IsBoolean,

@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Configure Enforced Metadata</template>
+        <template #title> 配置强制元数据</template>
 
         <template #content>
             <ConfigureMetadata v-if="project" v-model:selected="selected" />
@@ -14,13 +14,13 @@
                         flat
                         color="primary"
                         icon="sym_o_sell"
-                        label="Create Metadata"
+                        label="创建元数据"
                     />
                 </CreateTagTypeDialogOpener>
 
                 <q-btn
                     flat
-                    label="Save Changes"
+                    label="保存更改"
                     class="bg-button-primary"
                     @click="saveAction"
                 />
@@ -29,7 +29,7 @@
     </base-dialog>
 </template>
 <script setup lang="ts">
-import type { TagTypeDto } from '@kleinkram/api-dto/types/tags/tags.dto';
+import type { TagTypeDto } from '@rslstudio/api-dto/types/tags/tags.dto';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import CreateTagTypeDialogOpener from 'components/button-wrapper/dialog-opener-create-tag-type.vue';
 import ButtonGroup from 'components/buttons/button-group.vue';
@@ -65,7 +65,7 @@ const { mutate } = useMutation({
     },
     async onSuccess() {
         Notify.create({
-            message: 'Enforced Metadata updated',
+            message: '强制元数据已更新',
             color: 'positive',
             position: 'bottom',
         });
@@ -77,7 +77,7 @@ const { mutate } = useMutation({
     },
     onError(error) {
         Notify.create({
-            message: `Error adding TagTypes: ${error.message}`,
+            message: `添加标签类型失败: ${error.message}`,
             color: 'negative',
             position: 'bottom',
         });

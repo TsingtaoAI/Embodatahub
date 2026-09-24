@@ -1,11 +1,11 @@
-import { ActionTriggerEntity, FileEntity } from '@kleinkram/backend-common';
-import { ActionDispatcherService } from '@kleinkram/backend-common/modules/action-dispatcher/action-dispatcher.service';
+import { ActionTriggerEntity, FileEntity } from '@rslstudio/backend-common';
+import { ActionDispatcherService } from '@rslstudio/backend-common/modules/action-dispatcher/action-dispatcher.service';
 import {
     ActionTriggerSource,
     TriggerEvent,
     TriggerType,
     isValidCron,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { Process, Processor } from '@nestjs/bull';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';

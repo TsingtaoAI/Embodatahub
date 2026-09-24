@@ -1,6 +1,6 @@
-import type { ActionLogsDto } from '@kleinkram/api-dto/types/actions/action-logs.dto';
-import type { ActionDto } from '@kleinkram/api-dto/types/actions/action.dto';
-import { ActionErrorHint, ActionState } from '@kleinkram/shared';
+import type { ActionLogsDto } from '@rslstudio/api-dto/types/actions/action-logs.dto';
+import type { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
+import { ActionErrorHint, ActionState } from '@rslstudio/shared';
 import ROUTES from 'src/router/routes';
 import { computed, nextTick, type Ref } from 'vue';
 import type { Router } from 'vue-router';
@@ -42,7 +42,7 @@ const ERROR_HINTS: ErrorHint[] = [
     },
     {
         id: 'cli-outdated',
-        text: 'This action likely failed due to an outdated Kleinkram CLI. Please rebuild it with a newer CLI version',
+        text: 'This action likely failed due to an outdated CLI. Please rebuild it with a newer CLI version',
         buttonLabel: 'View Logs',
         check: (act, logsData) => {
             if (act.errorHint === ActionErrorHint.CLI_OUTDATED) return true;

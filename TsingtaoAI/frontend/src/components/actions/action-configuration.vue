@@ -248,11 +248,11 @@
 
 <script setup lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import type { ActionTemplateDto } from '@kleinkram/api-dto/types/actions/action-template.dto';
-import type { CreateTemplateDto } from '@kleinkram/api-dto/types/actions/create-template.dto';
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission-with-files.dto';
-import type { ProjectDto } from '@kleinkram/api-dto/types/project/base-project.dto';
-import { AccessGroupRights } from '@kleinkram/shared';
+import type { ActionTemplateDto } from '@rslstudio/api-dto/types/actions/action-template.dto';
+import type { CreateTemplateDto } from '@rslstudio/api-dto/types/actions/create-template.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission-with-files.dto';
+import type { ProjectDto } from '@rslstudio/api-dto/types/project/base-project.dto';
+import { AccessGroupRights } from '@rslstudio/shared';
 import ActionSelector from 'components/action-selector.vue';
 import { Notify } from 'quasar';
 import {

@@ -14,8 +14,8 @@ import {
     PermissionsDto,
     UserDto,
     UsersDto,
-} from '@kleinkram/api-dto';
-import { SortOrder } from '@kleinkram/api-dto/types/pagination';
+} from '@rslstudio/api-dto';
+import { SortOrder } from '@rslstudio/api-dto/types/pagination';
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { AddUser, AuthHeader } from '../auth/parameter-decorator';

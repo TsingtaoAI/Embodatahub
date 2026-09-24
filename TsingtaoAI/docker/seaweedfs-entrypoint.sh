@@ -28,7 +28,7 @@ cat <<EOF > /etc/seaweedfs/s3.json
   ],
   "identities": [
     {
-      "name": "kleinkram-backend",
+      "name": "rslstudio-backend",
       "credentials": [
         {
           "accessKey": "${S3_ACCESS_KEY}",

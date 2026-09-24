@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Edit Project</template>
+        <template #title> 编辑项目</template>
 
         <template #content>
             <edit-project
@@ -12,7 +12,7 @@
         <template #actions>
             <q-btn
                 flat
-                label="Save Project"
+                label="保存项目"
                 class="bg-button-primary"
                 @click="saveProjects"
             />

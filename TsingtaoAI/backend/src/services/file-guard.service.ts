@@ -1,8 +1,8 @@
 import { MissionGuardService } from '@/endpoints/auth/mission-guard.service';
-import { ApiKeyEntity } from '@kleinkram/backend-common';
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import { AccessGroupRights, UserRole } from '@kleinkram/shared';
+import { ApiKeyEntity } from '@rslstudio/backend-common';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import { AccessGroupRights, UserRole } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

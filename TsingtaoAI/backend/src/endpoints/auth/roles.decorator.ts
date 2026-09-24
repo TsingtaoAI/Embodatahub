@@ -1,5 +1,5 @@
 import { ApiResponse } from '@/decorators';
-import { UnauthorizedExceptionDto } from '@kleinkram/api-dto';
+import { UnauthorizedExceptionDto } from '@rslstudio/api-dto';
 import {
     applyDecorators,
     ForbiddenException,

@@ -3,9 +3,9 @@ import {
     ActionWorkerDto,
     AuditLogDto,
     DockerImageDto,
-} from '@kleinkram/api-dto';
-import { ActionEntity } from '@kleinkram/backend-common/entities/action/action.entity';
-import { WorkerEntity } from '@kleinkram/backend-common/entities/worker/worker.entity';
+} from '@rslstudio/api-dto';
+import { ActionEntity } from '@rslstudio/backend-common/entities/action/action.entity';
+import { WorkerEntity } from '@rslstudio/backend-common/entities/worker/worker.entity';
 import { actionTemplateEntityToDto } from './action-template';
 import { missionEntityToDto, userEntityToDto } from './index';
 
@@ -62,7 +62,12 @@ export const actionEntityToDto = (action: ActionEntity): ActionDto => {
         createdAt: action.createdAt,
         creator: userEntityToDto(action.creator),
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        image: (action.image as DockerImageDto) ?? { repoDigests: [] },
+        image: {
+            ...((action.image as DockerImageDto) ?? {}),
+            // jsonb column can hold repoDigests: null even though the DTO type says string[]
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            repoDigests: (action.image as DockerImageDto)?.repoDigests ?? [],
+        },
         runtime,
 
         mission: missionEntityToDto(action.mission),

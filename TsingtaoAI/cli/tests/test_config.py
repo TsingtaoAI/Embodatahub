@@ -7,24 +7,24 @@ from unittest import mock
 
 import pytest
 
-import kleinkram.config
-from kleinkram.config import ACTION_API
-from kleinkram.config import ACTION_API_KEY
-from kleinkram.config import ACTION_S3
-from kleinkram.config import Config
-from kleinkram.config import Endpoint
-from kleinkram.config import _load_config
-from kleinkram.config import _load_config_if_compatible
-from kleinkram.config import add_endpoint
-from kleinkram.config import check_config_compatibility
-from kleinkram.config import endpoint_table
-from kleinkram.config import get_config
-from kleinkram.config import get_env
-from kleinkram.config import get_shared_state
-from kleinkram.config import save_config
-from kleinkram.config import select_endpoint
+import rslstudio.config
+from rslstudio.config import ACTION_API
+from rslstudio.config import ACTION_API_KEY
+from rslstudio.config import ACTION_S3
+from rslstudio.config import Config
+from rslstudio.config import Endpoint
+from rslstudio.config import _load_config
+from rslstudio.config import _load_config_if_compatible
+from rslstudio.config import add_endpoint
+from rslstudio.config import check_config_compatibility
+from rslstudio.config import endpoint_table
+from rslstudio.config import get_config
+from rslstudio.config import get_env
+from rslstudio.config import get_shared_state
+from rslstudio.config import save_config
+from rslstudio.config import select_endpoint
 
-CONFIG_FILENAME = ".kleinkram.json"
+CONFIG_FILENAME = ".rslstudio.json"
 
 
 TEST_API_KEY = "test_key"
@@ -99,7 +99,7 @@ def test_save_and_load_config(config_path):
     config = Config(version="foo")
 
     assert not config_path.exists()
-    with mock.patch.object(kleinkram.config.logger, "debug") as mock_debug:
+    with mock.patch.object(rslstudio.config.logger, "debug") as mock_debug:
         save_config(config, path=config_path)
         mock_debug.assert_not_called()
 
@@ -113,7 +113,7 @@ def test_save_and_load_config_when_tmpfile_fails(config_path):
 
     assert not config_path.exists()
     with mock.patch("tempfile.mkstemp", side_effect=Exception), mock.patch.object(
-        kleinkram.config.logger, "debug"
+        rslstudio.config.logger, "debug"
     ) as mock_debug:
         save_config(config, path=config_path)
         mock_debug.assert_called_once()

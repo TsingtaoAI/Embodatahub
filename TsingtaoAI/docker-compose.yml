@@ -1,17 +1,18 @@
-# This file describes the local dev environment for Kleinkram
+# This file describes the local dev environment for RSL Studio
 # It is intended to be run using docker compose up --build --watch
 services:
     base:
-        image: kleinkram-base
+        image: rslstudio-base
         build:
             context: .
             dockerfile: docker/base.Dockerfile
+            target: development
             args:
                 USER_ID: ${USER_ID:-1000}
                 GROUP_ID: ${GROUP_ID:-1000}
 
     api-server:
-        container_name: kleinkram-api-server
+        container_name: rslstudio-api-server
 
         build:
             context: .
@@ -21,7 +22,7 @@ services:
                 USER_ID: ${USER_ID:-1000}
                 GROUP_ID: ${GROUP_ID:-1000}
             additional_contexts:
-                kleinkram-base: service:base
+                tsintaorsl-base: service:base
 
         develop:
             watch:
@@ -83,7 +84,9 @@ services:
         environment:
             DEVBUILD: 'true'
             S3_ENDPOINT_INTERNAL: 'seaweedfs'
+            S3_METRICS_ENDPOINT: 'http://seaweedfs:9324/metrics'
             REDIS_HOST: redis
+            DB_HOST: 'database'
 
         depends_on:
             database:
@@ -111,12 +114,12 @@ services:
     database:
         image: postgres:17
 
-        container_name: kleinkram-postgres
+        container_name: rslstudio-postgres
 
         command: postgres -c log_min_messages=ERROR -c log_min_error_statement=ERROR
 
         ports:
-            - '5432:5432'
+            - '5433:5432'
 
         networks:
             - private-network
@@ -132,9 +135,9 @@ services:
     seaweedfs:
         image: chrislusf/seaweedfs:latest
 
-        container_name: kleinkram-seaweedfs
+        container_name: rslstudio-seaweedfs
 
-        command: server -dir=/data -s3 -s3.port=9000
+        command: server -dir=/data -s3 -s3.port=9000 -metricsPort=9324
 
         volumes:
             - seaweedfs_data:/data
@@ -152,6 +155,7 @@ services:
         ports:
             - '127.0.0.1:9000:9000'
             - '127.0.0.1:9333:9333'
+            - '127.0.0.1:9324:9324'
 
         healthcheck:
             test: ['CMD', 'curl', '-f', 'http://localhost:9333/cluster/status']
@@ -164,7 +168,7 @@ services:
             - private-network
 
     frontend:
-        container_name: kleinkram-frontend
+        container_name: rslstudio-frontend
 
         build:
             context: .
@@ -175,7 +179,7 @@ services:
                 - USER_ID=${USER_ID:-1000}
                 - GROUP_ID=${GROUP_ID:-1000}
             additional_contexts:
-                kleinkram-base: service:base
+                tsintaorsl-base: service:base
 
         ports:
             - '8003:8003'
@@ -244,7 +248,7 @@ services:
     redis:
         image: redis:latest
 
-        container_name: kleinkram-redis
+        container_name: rslstudio-redis
 
         command: redis-server --loglevel warning
 
@@ -255,7 +259,7 @@ services:
             - private-network
 
     queue-consumer:
-        container_name: kleinkram-queue-consumer
+        container_name: rslstudio-queue-consumer
 
         build:
             context: .
@@ -265,7 +269,7 @@ services:
                 USER_ID: ${USER_ID:-1000}
                 GROUP_ID: ${GROUP_ID:-1000}
             additional_contexts:
-                kleinkram-base: service:base
+                tsintaorsl-base: service:base
                 artifact-uploader: service:artifact-uploader
 
         volumes:
@@ -347,7 +351,7 @@ services:
 
     prometheus:
         image: prom/prometheus
-        container_name: kleinkram-prometheus
+        container_name: rslstudio-prometheus
         volumes:
             - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
             - logging-prometheus-storage:/prometheus
@@ -367,7 +371,7 @@ services:
     tempo:
         user: '0:0'
         image: grafana/tempo:latest
-        container_name: kleinkram-tempo
+        container_name: rslstudio-tempo
         command: ['-config.file=/etc/tempo/tempo.yml']
         volumes:
             - ./observability/tempo/tempo.yml:/etc/tempo/tempo.yml
@@ -382,7 +386,7 @@ services:
 
     loki:
         image: grafana/loki
-        container_name: kleinkram-loki
+        container_name: rslstudio-loki
         ports:
             - '3100:3100'
         command:
@@ -396,7 +400,7 @@ services:
 
     grafana:
         image: grafana/grafana
-        container_name: kleinkram-grafana
+        container_name: rslstudio-grafana
         volumes:
             - logging-grafana-storage:/var/lib/grafana
             - ./observability/grafana/provisioning:/etc/grafana/provisioning
@@ -416,7 +420,7 @@ services:
             - public-network
 
     docs:
-        container_name: kleinkram-docs
+        container_name: rslstudio-docs
         depends_on:
             - api-server
         build:
@@ -438,7 +442,7 @@ services:
         command: sh -c "ln -sf /app/docs/scripts /app/scripts && npm run docs:dev /app/docs"
 
     artifact-uploader:
-        container_name: kleinkram-artifact-uploader
+        container_name: rslstudio-artifact-uploader
         image: rslethz/kleinkram:artifact-uploader-latest
         build:
             context: queueConsumer/src/artifactUpload
@@ -448,7 +452,7 @@ services:
 
     postgres-exporter:
         image: prometheuscommunity/postgres-exporter
-        container_name: kleinkram-postgres-exporter
+        container_name: rslstudio-postgres-exporter
         ports:
             - '9187:9187'
         env_file:
@@ -462,10 +466,90 @@ services:
     fake-oauth:
         build: dev-oauth
         ports:
-            - '8004:5000'
+            - '5000:5000'
         networks:
             - private-network
             - public-network
+
+    rds-backend:
+        container_name: rslstudio-rds-backend
+
+        build:
+            context: .
+            dockerfile: docker/rds-backend.Dockerfile
+            target: development
+
+        ports:
+            - '127.0.0.1:8005:8000'
+
+        volumes:
+            - ./robot-data-studio:/app/robot-data-studio
+
+        environment:
+            RDS_CORS_ORIGIN: ${RDS_CORS_ORIGIN:-http://localhost:8003}
+
+        networks:
+            - public-network
+            - private-network
+
+    rds-frontend:
+        container_name: rslstudio-rds-frontend
+
+        build:
+            context: .
+            dockerfile: docker/rds-frontend.Dockerfile
+            target: production
+
+        ports:
+            - '127.0.0.1:5173:80'
+
+        networks:
+            - public-network
+
+        depends_on:
+            - rds-backend
+
+    # ── Spark Studio 3D 可视化 ────────────────────────────
+    spark-backend:
+        container_name: rslstudio-spark-backend
+
+        build:
+            context: .
+            dockerfile: docker/spark-studio-backend.Dockerfile
+            target: development
+
+        ports:
+            - '127.0.0.1:8004:8004'
+
+        volumes:
+            - ./spark-studio/backend:/app/spark-studio/backend
+            - ./spark-studio/data:/data/spark-studio
+
+        environment:
+            SPARK_CORS_ORIGIN: ${SPARK_CORS_ORIGIN:-http://localhost:8003}
+            SPARK_DATA_DIR: /data/spark-studio
+
+        networks:
+            - public-network
+            - private-network
+
+    spark-frontend:
+        container_name: rslstudio-spark-frontend
+
+        build:
+            context: .
+            dockerfile: docker/spark-studio-frontend.Dockerfile
+            target: production
+
+        ports:
+            - '127.0.0.1:5174:80'
+
+        networks:
+            - public-network
+
+        depends_on:
+            - spark-backend
+
 volumes:
     db_data:
     seaweedfs_data:

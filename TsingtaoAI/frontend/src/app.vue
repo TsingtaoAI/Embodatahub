@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FileUploadDto } from '@kleinkram/api-dto/types/upload.dto';
+import type { FileUploadDto } from '@rslstudio/api-dto/types/upload.dto';
 import { provide, Ref, ref } from 'vue';
 
 const uploads: Ref<Ref<FileUploadDto>[]> = ref([]);

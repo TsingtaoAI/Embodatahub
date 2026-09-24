@@ -1,8 +1,8 @@
 import { AccessService } from '@/services/access.service';
-import { AccessGroupEntity, ProjectEntity } from '@kleinkram/backend-common';
-import { GroupMembershipEntity } from '@kleinkram/backend-common/entities/auth/group-membership.entity';
-import { ProjectAccessEntity } from '@kleinkram/backend-common/entities/auth/project-access.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
+import { AccessGroupEntity, ProjectEntity } from '@rslstudio/backend-common';
+import { GroupMembershipEntity } from '@rslstudio/backend-common/entities/auth/group-membership.entity';
+import { ProjectAccessEntity } from '@rslstudio/backend-common/entities/auth/project-access.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccessController } from './access.controller';

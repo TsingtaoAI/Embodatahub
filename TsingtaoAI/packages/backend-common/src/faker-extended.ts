@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { DataType, FileType } from '@kleinkram/shared';
+import { DataType, FileType } from '@rslstudio/shared';
 
 /**
  * A modified faker implementation that provides

@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Delete Project</template>
+        <template #title> 删除项目</template>
         <template #content>
             <DeleteProject
                 v-if="project"
@@ -14,7 +14,7 @@
             <q-btn
                 flat
                 :disable="deleteProject?.project_name_check !== project?.name"
-                label="Delete Project"
+                label="删除项目"
                 class="bg-button-danger"
                 @click="deleteProjectAction"
             />

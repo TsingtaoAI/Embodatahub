@@ -2,7 +2,7 @@ import { ActionEntity } from '@backend-common/entities/action/action.entity';
 import { BaseEntity } from '@backend-common/entities/base-entity.entity';
 import { MissionEntity } from '@backend-common/entities/mission/mission.entity';
 import { UserEntity } from '@backend-common/entities/user/user.entity';
-import { AccessGroupRights, KeyTypes } from '@kleinkram/shared';
+import { AccessGroupRights, KeyTypes } from '@rslstudio/shared';
 import { Column, Entity, Generated, Index, ManyToOne, OneToOne } from 'typeorm';
 
 @Index('unique_apikey_active', ['apikey'], {

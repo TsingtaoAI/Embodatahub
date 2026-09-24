@@ -1,4 +1,4 @@
-FROM kleinkram-base AS development
+FROM tsintaorsl-base AS development
 # Install runtime dependencies for Python (rosbags)
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends python3-pip && rm -rf /var/lib/apt/lists/*
@@ -38,12 +38,12 @@ COPY . .
 RUN pnpm install -r
 
 # Build packages and backend
-RUN pnpm --filter @kleinkram/shared build
-RUN pnpm --filter @kleinkram/validation build
-RUN pnpm --filter @kleinkram/api-dto build
-RUN pnpm --filter @kleinkram/backend-common build
-RUN NODE_ENV=production pnpm --filter kleinkram-backend build
-RUN pnpm deploy --filter=kleinkram-backend --prod --legacy /prod/backend
+RUN pnpm --filter @tsintaorsl/shared build
+RUN pnpm --filter @tsintaorsl/validation build
+RUN pnpm --filter @tsintaorsl/api-dto build
+RUN pnpm --filter @tsintaorsl/backend-common build
+RUN NODE_ENV=production pnpm --filter tsintaorsl-backend build
+RUN pnpm deploy --filter=tsintaorsl-backend --prod --legacy /prod/backend
 
 # 替换国内百度镜像，解决gcr.io境外地址超时
 FROM mirror.baidubce.com/gcr/distroless/nodejs22-debian12 AS production

@@ -8,7 +8,7 @@ import {
     AccessGroupConfig,
     AccessGroupType,
     UserRole,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { DataSource, Not } from 'typeorm';
 import { SeederFactoryManager } from 'typeorm-extension';
 

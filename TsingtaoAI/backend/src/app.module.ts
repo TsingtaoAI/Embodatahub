@@ -1,7 +1,7 @@
-import env from '@kleinkram/backend-common/environment';
-import { StorageModule } from '@kleinkram/backend-common/modules/storage/storage.module';
-import configuration from '@kleinkram/backend-common/typeorm-config';
-import { AccessGroupConfig } from '@kleinkram/shared';
+import env from '@rslstudio/backend-common/environment';
+import { StorageModule } from '@rslstudio/backend-common/modules/storage/storage.module';
+import configuration from '@rslstudio/backend-common/typeorm-config';
+import { AccessGroupConfig } from '@rslstudio/shared';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
@@ -20,6 +20,7 @@ import { HealthModule } from './endpoints/health/health.module';
 import { FoxgloveModule } from './endpoints/integrations/foxglove.module';
 import { MissionModule } from './endpoints/mission/mission.module';
 import { ProjectModule } from './endpoints/project/project.module';
+import { RdsModule } from './endpoints/rds/rds.module';
 import { QueueModule } from './endpoints/queue/queue.module';
 import { TagModule } from './endpoints/tag/tag.module';
 import { TemplatesModule } from './endpoints/templates/templates.module';
@@ -27,6 +28,7 @@ import { TopicModule } from './endpoints/topic/topic.module';
 import { TriggerModule } from './endpoints/trigger/trigger.module';
 import { UserModule } from './endpoints/user/user.module';
 import { WorkerModule } from './endpoints/worker/worker.module';
+import { StreamModule } from './endpoints/stream/stream.module';
 import { APIKeyResolverMiddleware } from './routing/middlewares/api-key-resolver-middleware.service';
 import { AuditLoggerMiddleware } from './routing/middlewares/audit-logger-middleware.service';
 import { VersionCheckerMiddlewareService } from './routing/middlewares/version-checker-middleware.service';
@@ -74,6 +76,7 @@ import { DBDumper } from './services/dbdumper.service';
         HealthModule,
         FoxgloveModule,
         ProjectModule,
+        RdsModule,
         TopicModule,
         MissionModule,
         QueueModule,
@@ -86,6 +89,7 @@ import { DBDumper } from './services/dbdumper.service';
         TemplatesModule,
         TagModule,
         WorkerModule,
+        StreamModule,
         CategoryModule,
         ScheduleModule.forRoot(),
         StorageModule,
@@ -113,6 +117,7 @@ export class AppModule implements NestModule {
                 '/auth/{*path}', // excludes auth endpoints
                 '/integrations/{*path}', // excludes integration endpoints
                 '/hooks/{*path}', // excludes hook endpoints
+                '/rds/{*path}', // excludes internal RDS data endpoints
                 '/api/health', // excludes health check
                 '/', // excludes root for convenience
                 '/favicon.ico', // excludes favicon for browser requests

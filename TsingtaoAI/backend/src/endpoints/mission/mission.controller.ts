@@ -14,8 +14,8 @@ import {
     MinimumMissionsDto,
     MissionsDto,
     MissionWithFilesDto,
-} from '@kleinkram/api-dto';
-import { BodyUUID, MISSION_NAME_REGEX } from '@kleinkram/validation';
+} from '@rslstudio/api-dto';
+import { BodyUUID, MISSION_NAME_REGEX } from '@rslstudio/validation';
 import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
 import { ParameterUuid as ParameterUID } from '../../validation/parameter-decorators';
 import {
@@ -27,7 +27,7 @@ import {
     UserOnly,
 } from '../auth/roles.decorator';
 
-import { MissionQueryDto } from '@kleinkram/api-dto';
+import { MissionQueryDto } from '@rslstudio/api-dto';
 
 import { AddUser, AuthHeader } from '../auth/parameter-decorator';
 

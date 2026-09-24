@@ -2,13 +2,13 @@ import {
     ActionTriggerDto,
     CreateActionTriggerDto,
     UpdateActionTriggerDto,
-} from '@kleinkram/api-dto';
+} from '@rslstudio/api-dto';
 import {
     AccessGroupRights,
     TriggerEvent,
     TriggerType,
     UserRole,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { DEFAULT_URL } from '../auth/utilities';
 import { createActionUsingPost, getAuthHeaders } from '../utils/api-calls';
 import {
@@ -25,7 +25,7 @@ describe('Action Triggers CRUD Tests', () => {
 
     test('should create, retrieve, update, and delete an action trigger', async () => {
         const { user, missionUuid } = await setupTestEnvironment(
-            'trigger-user@kleinkram.dev',
+            'trigger-user@rslstudio.dev',
             'Trigger User',
         );
 
@@ -151,7 +151,7 @@ describe('Action Triggers CRUD Tests', () => {
 
     test('should deny access to unauthorized users for triggers', async () => {
         const creatorEnvironment = await setupTestEnvironment(
-            'trigger-creator@kleinkram.dev',
+            'trigger-creator@rslstudio.dev',
             'Trigger Creator',
         );
 

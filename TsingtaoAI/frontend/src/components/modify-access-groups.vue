@@ -78,14 +78,14 @@
 </template>
 
 <script setup lang="ts">
-import { AccessGroupRights } from '@kleinkram/shared';
+import { AccessGroupRights } from '@rslstudio/shared';
 import AppSearchBar from 'components/common/app-search-bar.vue';
 import { QTable } from 'quasar';
 import { useSearchAccessGroup, useUserSearch } from 'src/hooks/query-hooks';
 import { accessGroupRightsMap } from 'src/services/generic';
 import { computed, Ref, ref } from 'vue';
 
-import type { AccessGroupsDto } from '@kleinkram/api-dto/types/access-control/access-groups.dto';
+import type { AccessGroupsDto } from '@rslstudio/api-dto/types/access-control/access-groups.dto';
 
 const properties = defineProps<{
     existingRights: Record<string, { label: string; value: AccessGroupRights }>;

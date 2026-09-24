@@ -1,12 +1,12 @@
-import { AccessGroupEntity } from '@kleinkram/backend-common';
-import { ProjectEntity } from '@kleinkram/backend-common/entities/project/project.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import { ProjectAccessViewEntity } from '@kleinkram/backend-common/viewEntities/project-access-view.entity';
+import { AccessGroupEntity } from '@rslstudio/backend-common';
+import { ProjectEntity } from '@rslstudio/backend-common/entities/project/project.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import { ProjectAccessViewEntity } from '@rslstudio/backend-common/viewEntities/project-access-view.entity';
 import {
     AccessGroupRights,
     AccessGroupType,
     UserRole,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThanOrEqual, Repository } from 'typeorm';

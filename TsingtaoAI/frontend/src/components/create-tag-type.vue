@@ -42,7 +42,7 @@
     </q-btn-dropdown>
 </template>
 <script setup lang="ts">
-import { DataType } from '@kleinkram/shared';
+import { DataType } from '@rslstudio/shared';
 import { useQueryClient } from '@tanstack/vue-query';
 import { Notify } from 'quasar';
 import { createTagType } from 'src/services/mutations/tag';

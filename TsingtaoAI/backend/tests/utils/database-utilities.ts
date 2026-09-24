@@ -5,8 +5,8 @@ import {
     ALL_ENTITIES,
     GroupMembershipEntity,
     UserEntity,
-} from '@kleinkram/backend-common';
-import { Providers, UserRole } from '@kleinkram/shared';
+} from '@rslstudio/backend-common';
+import { Providers, UserRole } from '@rslstudio/shared';
 import jwt from 'jsonwebtoken';
 import * as crypto from 'node:crypto';
 import * as fs from 'node:fs';

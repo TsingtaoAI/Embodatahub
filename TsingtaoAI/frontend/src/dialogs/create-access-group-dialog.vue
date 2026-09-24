@@ -1,14 +1,14 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Create Access Group </template>
+        <template #title> 创建访问组 </template>
 
         <template #content>
             <label for="name" class="text-weight-bold">
-                Group Name<span class="text-negative">*</span>
+                组名<span class="text-negative">*</span>
             </label>
             <q-input
                 v-model="name"
-                placeholder="Name..."
+                placeholder="名称..."
                 name="name"
                 :error-message="errorMessagesProjectName"
                 :error="isInErrorStateProjectName"
@@ -21,7 +21,7 @@
         <template #actions>
             <q-btn
                 flat
-                label="Create Access Group"
+                label="创建访问组"
                 class="bg-button-primary"
                 :disable="isInErrorStateProjectName"
                 @click="createAccessGroup"
@@ -46,7 +46,7 @@ watch(name, () => {
     } else {
         isInErrorStateProjectName.value = true;
         errorMessagesProjectName.value =
-            'Name must be between 3 and 20 characters and only contain letters, numbers, -, and _';
+            '名称长度需为3-20个字符，只能包含字母、数字、- 和 _';
     }
 });
 

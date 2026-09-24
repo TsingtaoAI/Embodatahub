@@ -1,8 +1,8 @@
 <template>
     <div class="fixed-center text-center">
         <q-spinner color="primary" size="3em" />
-        <div class="q-mt-md text-h6">Login Successful</div>
-        <div class="text-subtitle2 text-grey">Redirecting...</div>
+        <div class="q-mt-md text-h6">登录成功</div>
+        <div class="text-subtitle2 text-grey">正在重定向...</div>
     </div>
 </template>
 <script setup lang="ts">

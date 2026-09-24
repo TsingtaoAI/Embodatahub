@@ -10,8 +10,9 @@ async function bootstrap(): Promise<void> {
     const app = await NestFactory.create(AppModule, {
         logger: new NestLoggerWrapper(),
     });
-    await app.listen(3000);
-    logger.info('Application started');
+    const port = process.env.QUEUE_CONSUMER_PORT || 3001;
+    await app.listen(port, '0.0.0.0');
+    logger.info(`Application started on port ${port}`);
 
     if (module.hot) {
         module.hot.accept();

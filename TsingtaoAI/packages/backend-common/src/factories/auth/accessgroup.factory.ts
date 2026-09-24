@@ -3,7 +3,7 @@ import { GroupMembershipEntity } from '@backend-common/entities/auth/group-membe
 import { UserEntity } from '@backend-common/entities/user/user.entity';
 import { extendedFaker } from '@backend-common/faker-extended';
 import { type Faker } from '@faker-js/faker';
-import { AccessGroupType } from '@kleinkram/shared';
+import { AccessGroupType } from '@rslstudio/shared';
 import { setSeederFactory } from 'typeorm-extension';
 
 export interface AccessGroupFactoryContext {

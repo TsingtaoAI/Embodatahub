@@ -7,7 +7,7 @@
         />
         <div class="text-h6 q-mb-sm text-grey-7">Preview Not Supported</div>
         <div class="text-body2 q-mb-lg text-grey-7">
-            Previewing SV02 files in Kleinkram is not yet supported. Please
+            Previewing SV02 files in RSL Studio is not yet supported. Please
             download the file to view it using the ZED SDK tools.
         </div>
 

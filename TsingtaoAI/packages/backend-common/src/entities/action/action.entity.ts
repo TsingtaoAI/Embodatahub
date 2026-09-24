@@ -14,7 +14,7 @@ import {
     ImageSource,
     LogType,
     ResourceUsage,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import {
     Column,
     Entity,

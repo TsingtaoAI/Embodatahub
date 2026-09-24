@@ -1,6 +1,6 @@
-import { CreateTemplateDto } from '@kleinkram/api-dto/types/actions/create-template.dto';
-import { SubmitActionDto } from '@kleinkram/api-dto/types/submit-action-response.dto';
-import { AccessGroupRights } from '@kleinkram/shared';
+import { CreateTemplateDto } from '@rslstudio/api-dto/types/actions/create-template.dto';
+import { SubmitActionDto } from '@rslstudio/api-dto/types/submit-action-response.dto';
+import { AccessGroupRights } from '@rslstudio/shared';
 import { DEFAULT_URL, generateAndFetchDatabaseUser } from '../auth/utilities';
 import {
     createMissionUsingPost,

@@ -1,12 +1,12 @@
-import type { FileExistsResponseDto } from '@kleinkram/api-dto/types/file/access.dto';
-import type { DownloadResponseDto } from '@kleinkram/api-dto/types/file/download-response.dto';
-import type { FileEventsDto } from '@kleinkram/api-dto/types/file/file-event.dto';
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
-import type { FilesDto } from '@kleinkram/api-dto/types/file/files.dto';
-import type { FoxgloveLinkResponseDto } from '@kleinkram/api-dto/types/file/foxglove-link-response.dto';
-import type { IsUploadingDto } from '@kleinkram/api-dto/types/file/is-uploading.dto';
-import type { StorageOverviewDto } from '@kleinkram/api-dto/types/storage-overview.dto';
-import { FileType, HealthStatus } from '@kleinkram/shared';
+import type { FileExistsResponseDto } from '@rslstudio/api-dto/types/file/access.dto';
+import type { DownloadResponseDto } from '@rslstudio/api-dto/types/file/download-response.dto';
+import type { FileEventsDto } from '@rslstudio/api-dto/types/file/file-event.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
+import type { FilesDto } from '@rslstudio/api-dto/types/file/files.dto';
+import type { FoxgloveLinkResponseDto } from '@rslstudio/api-dto/types/file/foxglove-link-response.dto';
+import type { IsUploadingDto } from '@rslstudio/api-dto/types/file/is-uploading.dto';
+import type { StorageOverviewDto } from '@rslstudio/api-dto/types/storage-overview.dto';
+import { FileType, HealthStatus } from '@rslstudio/shared';
 import { AxiosResponse } from 'axios';
 import axios from 'src/api/axios';
 

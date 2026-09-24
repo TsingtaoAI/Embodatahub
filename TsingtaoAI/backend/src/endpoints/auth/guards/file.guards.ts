@@ -1,6 +1,6 @@
 import { MissionGuardService } from '@/endpoints/auth/mission-guard.service';
 import { FileGuardService } from '@/services/file-guard.service';
-import { AccessGroupRights } from '@kleinkram/shared';
+import { AccessGroupRights } from '@rslstudio/shared';
 import {
     ExecutionContext,
     Injectable,

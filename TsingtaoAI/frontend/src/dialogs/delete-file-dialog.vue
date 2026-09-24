@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Delete File</template>
+        <template #title> 删除文件</template>
         <template #content>
             <delete-file v-if="file" ref="deleteFileReference" :file="file" />
             <q-skeleton v-else height="250px" />
@@ -12,7 +12,7 @@
                 :disable="
                     deleteFileReference?.file_name_check !== file?.filename
                 "
-                label="Delete File"
+                label="删除文件"
                 class="bg-button-danger"
                 @click="deleteFileAction"
             />
@@ -24,7 +24,7 @@ import { useDialogPluginComponent } from 'quasar';
 import BaseDialog from 'src/dialogs/base-dialog.vue';
 import { ref } from 'vue';
 
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
 import DeleteFile from 'components/delete-file.vue';
 
 const { dialogRef, onDialogOK } = useDialogPluginComponent();

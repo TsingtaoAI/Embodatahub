@@ -1,13 +1,15 @@
 import { OutputDto } from '@/decorators';
 import { AuthService } from '@/services/auth.service';
 import { UserService } from '@/services/user.service';
-import { AvailableProvidersDto } from '@kleinkram/api-dto';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import env from '@kleinkram/backend-common/environment';
-import { CookieNames, Providers } from '@kleinkram/shared';
+import { AvailableProvidersDto, LoginDto, RegisterDto } from '@rslstudio/api-dto';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import env from '@rslstudio/backend-common/environment';
+import { CookieNames, Providers } from '@rslstudio/shared';
 import {
+    Body,
     Controller,
     Get,
+    HttpCode,
     MethodNotAllowedException,
     Post,
     Req,
@@ -18,6 +20,7 @@ import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { InvalidJwtTokenException } from './jwt.strategy';
+import { LocalAuthService } from './local.strategy';
 import { UserOnly } from './roles.decorator';
 
 @Controller('auth')
@@ -26,6 +29,7 @@ export class AuthController {
         private authService: AuthService,
         private readonly jwtService: JwtService,
         private userService: UserService,
+        private localAuthService: LocalAuthService,
     ) {}
 
     @Get('available-providers')
@@ -35,6 +39,7 @@ export class AuthController {
             google: !!env.GOOGLE_CLIENT_ID && !!env.GOOGLE_CLIENT_SECRET,
             github: !!env.GITHUB_CLIENT_ID && !!env.GITHUB_CLIENT_SECRET,
             fakeOauth: env.VITE_USE_FAKE_OAUTH_FOR_DEVELOPMENT,
+            local: true,
         };
     }
 
@@ -94,6 +99,69 @@ export class AuthController {
         this.handleAuthRedirect(request, response);
     }
 
+    @Post('login')
+    @HttpCode(200)
+    @OutputDto(null)
+    async loginLocal(
+        @Body() loginDto: LoginDto,
+        @Res({ passthrough: true }) response: Response,
+    ): Promise<{ message: string }> {
+        const user = await this.localAuthService.validateUser(
+            loginDto.email,
+            loginDto.password,
+        );
+        const tokens = this.authService.login(user);
+
+        response.cookie(CookieNames.AUTH_TOKEN, tokens[CookieNames.AUTH_TOKEN], {
+            httpOnly: false,
+            secure: false,
+            sameSite: 'lax',
+        });
+        response.cookie(
+            CookieNames.REFRESH_TOKEN,
+            tokens[CookieNames.REFRESH_TOKEN],
+            {
+                httpOnly: true,
+                secure: false,
+                sameSite: 'lax',
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+            },
+        );
+        return { message: '登录成功' };
+    }
+
+    @Post('register')
+    @HttpCode(201)
+    @OutputDto(null)
+    async registerLocal(
+        @Body() registerDto: RegisterDto,
+        @Res({ passthrough: true }) response: Response,
+    ): Promise<{ message: string }> {
+        const user = await this.authService.registerLocal(
+            registerDto.name,
+            registerDto.email,
+            registerDto.password,
+        );
+        const tokens = this.authService.login(user);
+
+        response.cookie(CookieNames.AUTH_TOKEN, tokens[CookieNames.AUTH_TOKEN], {
+            httpOnly: false,
+            secure: false,
+            sameSite: 'lax',
+        });
+        response.cookie(
+            CookieNames.REFRESH_TOKEN,
+            tokens[CookieNames.REFRESH_TOKEN],
+            {
+                httpOnly: true,
+                secure: false,
+                sameSite: 'lax',
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+            },
+        );
+        return { message: '注册成功' };
+    }
+
     private handleAuthRedirect(
         @Req() request: Request,
         @Res() response: Response,
@@ -126,7 +194,7 @@ export class AuthController {
             response.status(200).send(`
         <html>
         <head>
-            <title>Authentication Successful</title>
+            <title>认证成功</title>
             <style>
                 body { font-family: Arial, sans-serif; padding: 40px; line-height: 1.6; }
                 .token { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; word-wrap: break-word; }
@@ -137,16 +205,16 @@ export class AuthController {
             </style>
         </head>
         <body>
-            <h1>Authentication Successful</h1>
-            <p>Please copy your tokens from below and paste them back into your application.</p>
+            <h1>认证成功</h1>
+            <p>请从下方复制您的令牌并粘贴回应用程序。</p>
 
-            <h2>Authentication Token</h2>
+            <h2>认证令牌</h2>
             <div class="token" id="authToken">${authToken}</div>
-            <button onclick="copyToClipboard('authToken')">Copy Authentication Token</button>
+            <button onclick="copyToClipboard('authToken')">复制认证令牌</button>
 
-            <h2>Refresh Token</h2>
+            <h2>刷新令牌</h2>
             <div class="token" id="refreshToken">${refreshToken}</div>
-            <button onclick="copyToClipboard('refreshToken')">Copy Refresh Token</button>
+            <button onclick="copyToClipboard('refreshToken')">复制刷新令牌</button>
 
             <script>
                 function copyToClipboard(elementId) {
@@ -167,20 +235,24 @@ export class AuthController {
 
         response.cookie(CookieNames.AUTH_TOKEN, token[CookieNames.AUTH_TOKEN], {
             httpOnly: false,
-            secure: env.DEV,
-            sameSite: 'strict',
+            secure: false,
+            sameSite: 'lax',
         });
         response.cookie(
             CookieNames.REFRESH_TOKEN,
             token[CookieNames.REFRESH_TOKEN],
             {
                 httpOnly: true,
-                secure: env.DEV,
-                sameSite: 'strict',
+                secure: false,
+                sameSite: 'lax',
                 maxAge: 30 * 24 * 60 * 60 * 1000,
             },
         );
-        response.redirect(`${env.FRONTEND_URL}/landing`);
+        // 根据请求 Host 动态确定前端地址，兼容远程 IP/域名访问
+        const host = request.get('host') || `localhost:${env.FRONTEND_URL?.split(':').pop() || '8003'}`;
+        const proto = request.get('x-forwarded-proto') || 'http';
+        const frontendBase = `${proto}://${host}`;
+        response.redirect(`${frontendBase}/landing`);
     }
 
     @Get('validate-token')
@@ -188,7 +260,7 @@ export class AuthController {
     @OutputDto(null) // TODO: type API response
     validateToken(@Res() response: Response): void {
         // If we reach here, the token is valid
-        response.status(200).json({ message: 'Token is valid' });
+        response.status(200).json({ message: '令牌有效' });
     }
 
     @Post('refresh-token')
@@ -199,7 +271,7 @@ export class AuthController {
         if (!refreshToken) {
             return response
                 .status(401)
-                .json({ message: 'Refresh token not found' });
+                .json({ message: '未找到刷新令牌' });
         }
 
         try {
@@ -219,7 +291,7 @@ export class AuthController {
             if (!user) {
                 return response
                     .status(401)
-                    .json({ message: 'Invalid refresh token' });
+                    .json({ message: '无效的刷新令牌' });
             }
 
             const newAuthToken = this.jwtService.sign(
@@ -228,10 +300,10 @@ export class AuthController {
             );
             response.cookie(CookieNames.AUTH_TOKEN, newAuthToken, {
                 httpOnly: false,
-                secure: env.DEV,
+                secure: false,
                 sameSite: 'strict',
             });
-            return response.status(200).json({ message: 'Token refreshed' });
+            return response.status(200).json({ message: '令牌已刷新' });
         } catch {
             throw InvalidJwtTokenException;
         }
@@ -250,6 +322,6 @@ export class AuthController {
             expires: new Date(0),
             secure: true,
         });
-        response.status(200).json({ message: 'Logged out' });
+        response.status(200).json({ message: '已退出登录' });
     }
 }

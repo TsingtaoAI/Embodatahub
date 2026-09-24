@@ -1,7 +1,7 @@
 <template>
     <base-dialog ref="dialogRef">
         <template #title>
-            Move File{{ files.length === 1 ? ' ' + files[0]?.filename : 's' }}
+            移动文件{{ files.length === 1 ? ' ' + files[0]?.filename : '' }}
         </template>
 
         <template #content>
@@ -16,13 +16,13 @@
         </template>
         <template #actions>
             <q-btn
-                label="Cancel"
+                label="取消"
                 flat
                 class="q-mr-sm button-border"
                 @click="onDialogCancel"
             />
             <q-btn
-                label="Save"
+                label="保存"
                 class="bg-button-primary"
                 :loading="isPending"
                 :disable="!targetMissionUuid || isPending"
@@ -38,8 +38,8 @@ import { Notify, useDialogPluginComponent } from 'quasar';
 import { ref } from 'vue';
 
 // API Types
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission.dto';
 
 // Components & Services
 import ScopeSelector from 'components/common/scope-selector.vue';
@@ -74,7 +74,7 @@ const { mutate: moveFilesMutation, isPending } = useMutation({
     onSuccess: async () => {
         Notify.create({
             group: false,
-            message: 'Files moved',
+            message: '文件已移动',
             color: 'positive',
             spinner: false,
             position: 'bottom',
@@ -98,7 +98,7 @@ const { mutate: moveFilesMutation, isPending } = useMutation({
 
         Notify.create({
             group: false,
-            message: `Error moving file: ${message}`,
+            message: `移动文件失败: ${message}`,
             color: 'negative',
             spinner: false,
             position: 'bottom',

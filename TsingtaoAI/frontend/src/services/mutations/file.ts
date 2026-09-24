@@ -1,19 +1,19 @@
-import type { CancelProcessingResponseDto } from '@kleinkram/api-dto/types/cancel-processing-response.dto';
-import type { CategoryDto } from '@kleinkram/api-dto/types/category.dto';
-import type { ConfirmUploadDto } from '@kleinkram/api-dto/types/confirm-upload.dto';
-import type { DeleteMissionResponseDto } from '@kleinkram/api-dto/types/delete-mission-response.dto';
-import type { DriveImportResponseDto } from '@kleinkram/api-dto/types/drive-import-response.dto';
-import type { TemporaryFileAccessesDto } from '@kleinkram/api-dto/types/file/access.dto';
-import type { CancelUploadResponseDto } from '@kleinkram/api-dto/types/file/cancel-upload-response.dto';
-import type { DeleteFileResponseDto } from '@kleinkram/api-dto/types/file/delete-file-response.dto';
-import type { FileQueueEntriesDto } from '@kleinkram/api-dto/types/file/file-queue-entry.dto';
+import type { CancelProcessingResponseDto } from '@rslstudio/api-dto/types/cancel-processing-response.dto';
+import type { CategoryDto } from '@rslstudio/api-dto/types/category.dto';
+import type { ConfirmUploadDto } from '@rslstudio/api-dto/types/confirm-upload.dto';
+import type { DeleteMissionResponseDto } from '@rslstudio/api-dto/types/delete-mission-response.dto';
+import type { DriveImportResponseDto } from '@rslstudio/api-dto/types/drive-import-response.dto';
+import type { TemporaryFileAccessesDto } from '@rslstudio/api-dto/types/file/access.dto';
+import type { CancelUploadResponseDto } from '@rslstudio/api-dto/types/file/cancel-upload-response.dto';
+import type { DeleteFileResponseDto } from '@rslstudio/api-dto/types/file/delete-file-response.dto';
+import type { FileQueueEntriesDto } from '@rslstudio/api-dto/types/file/file-queue-entry.dto';
 import type {
     FileDto,
     FileWithTopicDto,
-} from '@kleinkram/api-dto/types/file/file.dto';
-import type { MoveFilesResponseDto } from '@kleinkram/api-dto/types/file/move-files-response.dto';
-import type { TemporaryAccessRequestDto } from '@kleinkram/api-dto/types/file/temporary-access-request.dto';
-import type { StopJobResponseDto } from '@kleinkram/api-dto/types/queue/stop-job-response.dto';
+} from '@rslstudio/api-dto/types/file/file.dto';
+import type { MoveFilesResponseDto } from '@rslstudio/api-dto/types/file/move-files-response.dto';
+import type { TemporaryAccessRequestDto } from '@rslstudio/api-dto/types/file/temporary-access-request.dto';
+import type { StopJobResponseDto } from '@rslstudio/api-dto/types/queue/stop-job-response.dto';
 import axios from 'src/api/axios';
 
 // define type for generateTemporaryCredentials 'files' return

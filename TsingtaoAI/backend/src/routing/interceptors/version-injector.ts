@@ -24,10 +24,10 @@ export class AddVersionInterceptor implements NestInterceptor {
         // Set headers early, so they are included even if an error occurs
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-        response.header('kleinkram-version', appVersion);
+        response.header('rslstudio-version', appVersion);
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-        response.header('Access-Control-Expose-Headers', 'kleinkram-version');
+        response.header('Access-Control-Expose-Headers', 'rslstudio-version');
 
         return next.handle();
     }

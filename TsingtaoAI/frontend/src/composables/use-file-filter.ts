@@ -1,4 +1,4 @@
-import { FileType, HealthStatus } from '@kleinkram/shared';
+import { FileType, HealthStatus } from '@rslstudio/shared';
 import { useQuery } from '@tanstack/vue-query';
 import { useHandler } from 'src/hooks/query-hooks';
 import { formatDate, parseDate } from 'src/services/date-formating';

@@ -2,7 +2,7 @@ import { BaseEntity } from '@backend-common/entities/base-entity.entity';
 import { FileEntity } from '@backend-common/entities/file/file.entity';
 import { MissionEntity } from '@backend-common/entities/mission/mission.entity';
 import { UserEntity } from '@backend-common/entities/user/user.entity';
-import { FileLocation, QueueState } from '@kleinkram/shared';
+import { FileLocation, QueueState } from '@rslstudio/shared';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'ingestion_job' })

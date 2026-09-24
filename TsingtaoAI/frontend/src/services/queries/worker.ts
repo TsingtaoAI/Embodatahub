@@ -1,4 +1,4 @@
-import type { ActionWorkersDto } from '@kleinkram/api-dto/types/action-workers.dto';
+import type { ActionWorkersDto } from '@rslstudio/api-dto/types/action-workers.dto';
 import { AxiosResponse } from 'axios';
 import axios from 'src/api/axios';
 

@@ -4,14 +4,14 @@ from uuid import uuid4
 
 import pytest
 
-from kleinkram.api.query import InvalidMissionQuery
-from kleinkram.api.query import InvalidProjectQuery
-from kleinkram.api.query import MissionQuery
-from kleinkram.api.query import ProjectQuery
-from kleinkram.api.query import check_mission_query_is_creatable
-from kleinkram.api.query import check_project_query_is_creatable
-from kleinkram.api.query import mission_query_is_unique
-from kleinkram.api.query import project_query_is_unique
+from rslstudio.api.query import InvalidMissionQuery
+from rslstudio.api.query import InvalidProjectQuery
+from rslstudio.api.query import MissionQuery
+from rslstudio.api.query import ProjectQuery
+from rslstudio.api.query import check_mission_query_is_creatable
+from rslstudio.api.query import check_project_query_is_creatable
+from rslstudio.api.query import mission_query_is_unique
+from rslstudio.api.query import project_query_is_unique
 
 
 @pytest.mark.parametrize(

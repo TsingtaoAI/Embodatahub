@@ -8,8 +8,8 @@ import {
     ProjectEntity,
     UserEntity,
     WorkerEntity,
-} from '@kleinkram/backend-common';
-import { AccessGroupRights, FileType, KeyTypes } from '@kleinkram/shared';
+} from '@rslstudio/backend-common';
+import { AccessGroupRights, FileType, KeyTypes } from '@rslstudio/shared';
 import { DEFAULT_URL, generateAndFetchDatabaseUser } from '../auth/utilities';
 import {
     createMissionUsingPost,

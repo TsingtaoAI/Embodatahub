@@ -73,13 +73,13 @@
             <q-btn
                 v-close-popup
                 flat
-                label="Cancel"
+                label="取消"
                 class="text-button-primary"
                 style="margin-right: 8px"
             />
             <q-btn
                 flat
-                label="Save"
+                label="保存"
                 class="bg-button-primary"
                 @click="saveExpiration"
             />
@@ -88,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import type { GroupMembershipDto } from '@kleinkram/api-dto/types/access-control/group-membership.dto';
+import type { GroupMembershipDto } from '@rslstudio/api-dto/types/access-control/group-membership.dto';
 import { useDialogPluginComponent } from 'quasar';
 import BaseDialog from 'src/dialogs/base-dialog.vue';
 import { formatDate, parseDate } from 'src/services/date-formating';

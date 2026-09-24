@@ -3,46 +3,46 @@
         <table class="q-table__table">
             <tbody>
                 <tr>
-                    <td class="q-table__cell first-column">Name:</td>
+                    <td class="q-table__cell first-column">姓名：</td>
                     <td class="q-table__cell">
                         <q-chip> {{ user.name }}</q-chip>
                     </td>
                 </tr>
                 <tr>
-                    <td class="q-table__cell first-column">Email:</td>
+                    <td class="q-table__cell first-column">邮箱：</td>
                     <td class="q-table__cell">
                         <q-chip> {{ user.email }}</q-chip>
                     </td>
                 </tr>
                 <tr>
-                    <td class="q-table__cell first-column">Role:</td>
+                    <td class="q-table__cell first-column">角色：</td>
                     <td class="q-table__cell">
                         <q-chip>{{ user.role }}</q-chip>
                     </td>
                 </tr>
                 <tr>
-                    <td class="q-table__cell first-column">UUID:</td>
+                    <td class="q-table__cell first-column">UUID：</td>
                     <td class="q-table__cell">
                         <q-chip> {{ user.uuid }}</q-chip>
                     </td>
                 </tr>
                 <tr>
                     <td class="q-table__cell first-column">
-                        Affiliation Group:
+                        归属组：
                     </td>
                     <td class="q-table__cell">
-                        <q-chip>{{ affiliationGroup?.name || 'None' }}</q-chip>
+                        <q-chip>{{ affiliationGroup?.name || '无' }}</q-chip>
                     </td>
                 </tr>
                 <tr>
-                    <td class="q-table__cell first-column">Primary Group:</td>
+                    <td class="q-table__cell first-column">主组：</td>
                     <td class="q-table__cell">
-                        <q-chip>{{ primaryGroup?.name || 'None' }}</q-chip>
+                        <q-chip>{{ primaryGroup?.name || '无' }}</q-chip>
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="q-table__cell first-column">Custom Groups:</td>
+                    <td class="q-table__cell first-column">自定义组：</td>
                     <td class="q-table__cell">
                         <q-chip
                             v-for="group in user.memberships.filter(
@@ -65,7 +65,7 @@
                                 )
                             "
                         >
-                            <q-chip> None </q-chip>
+                            <q-chip> 无 </q-chip>
                         </span>
                     </td>
                 </tr>
@@ -79,8 +79,8 @@
     </div>
 </template>
 <script setup lang="ts">
-import type { GroupMembershipDto } from '@kleinkram/api-dto/types/access-control/group-membership.dto';
-import { AccessGroupType } from '@kleinkram/shared';
+import type { GroupMembershipDto } from '@rslstudio/api-dto/types/access-control/group-membership.dto';
+import { AccessGroupType } from '@rslstudio/shared';
 import { useUser } from 'src/hooks/query-hooks';
 import { computed } from 'vue';
 

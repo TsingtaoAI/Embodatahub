@@ -72,7 +72,7 @@
                                 dense
                                 padding="6px"
                                 class="button-border text-black"
-                                label="Upload File"
+                                label="上传文件"
                                 icon="sym_o_upload"
                                 no-caps
                             />
@@ -83,14 +83,14 @@
                 <div v-else-if="hasActiveFilters" class="column items-center">
                     <q-icon name="sym_o_search_off" size="3rem" />
                     <span class="q-mt-sm text-subtitle1">
-                        No files found matching your filters
+                        没有找到匹配筛选条件的文件
                     </span>
                     <q-btn
                         flat
                         dense
                         no-caps
                         padding="6px"
-                        label="Reset Filters"
+                        label="重置筛选"
                         class="button-border text-black q-mt-md"
                         icon="sym_o_clear"
                         @click="resetFilters"
@@ -211,10 +211,10 @@
 </template>
 
 <script setup lang="ts">
-import type { CategoryDto } from '@kleinkram/api-dto/types/category.dto';
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
-import type { FilesDto } from '@kleinkram/api-dto/types/file/files.dto';
-import { FileType, HealthStatus } from '@kleinkram/shared';
+import type { CategoryDto } from '@rslstudio/api-dto/types/category.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
+import type { FilesDto } from '@rslstudio/api-dto/types/file/files.dto';
+import { FileType, HealthStatus } from '@rslstudio/shared';
 import {
     keepPreviousData,
     useQuery,

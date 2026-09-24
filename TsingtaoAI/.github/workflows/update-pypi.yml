@@ -63,4 +63,4 @@ jobs:
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  gh workflow run build-sample-actions.yml -f kleinkram_version=$VERSION --ref ${{ github.ref }}
+                  gh workflow run build-sample-actions.yml -f rslstudio_version=$VERSION --ref ${{ github.ref }}

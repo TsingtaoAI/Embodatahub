@@ -1,8 +1,8 @@
 import { ApiOkResponse, OutputDto } from '@/decorators';
 import { CategoryService } from '@/services/category.service';
 import { QueryOptionalString, QueryUUID } from '@/validation/query-decorators';
-import { CategoriesDto } from '@kleinkram/api-dto';
-import { BodyString, BodyUUID, BodyUUIDArray } from '@kleinkram/validation';
+import { CategoriesDto } from '@rslstudio/api-dto';
+import { BodyString, BodyUUID, BodyUUIDArray } from '@rslstudio/validation';
 import { Controller, Get, Post } from '@nestjs/common';
 import { AddUser, AuthHeader } from '../auth/parameter-decorator';
 import {

@@ -44,14 +44,14 @@ import {
     TemporaryAccessRequestDto,
     TemporaryFileAccessesDto,
     UpdateFile,
-} from '@kleinkram/api-dto';
+} from '@rslstudio/api-dto';
 import {
     BodyOptionalSource,
     BodyString,
     BodyUUID,
     BodyUUIDArray,
     isValidFileName,
-} from '@kleinkram/validation';
+} from '@rslstudio/validation';
 import {
     BadRequestException,
     Body,
@@ -80,7 +80,7 @@ import {
 } from '../auth/roles.decorator';
 
 import { FoxgloveService } from '@/services/foxglove.service';
-import { FileSource, HealthStatus } from '@kleinkram/shared';
+import { FileSource, HealthStatus } from '@rslstudio/shared';
 
 @Controller(['files'])
 export class FileController {
@@ -380,14 +380,14 @@ export class FileController {
             if (!isValidFileName(filename)) {
                 invalidFiles.push({
                     filename,
-                    error: `Filename "${filename}" is not valid!`,
+                    error: `文件名 "${filename}" 无效！`,
                 });
             }
         }
 
         if (invalidFiles.length > 0) {
             throw new BadRequestException({
-                message: 'Validation failed',
+                message: '验证失败',
                 errors: invalidFiles,
             });
         }
@@ -579,7 +579,7 @@ export class FileController {
         const date = new Date(startDate);
         if (Number.isNaN(date.getTime())) {
             throw new BadRequestException(
-                `Invalid startDate: "${startDate}". Expected ISO 8601 format.`,
+                `无效的开始日期："${startDate}"。需要 ISO 8601 格式。`,
             );
         }
 

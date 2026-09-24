@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../global.d.ts" />
 import { appVersion } from '@/app-version';
-import { CreateTemplateDto } from '@kleinkram/api-dto/types/actions/create-template.dto';
-import { SubmitActionDto } from '@kleinkram/api-dto/types/submit-action-response.dto';
+import { CreateTemplateDto } from '@rslstudio/api-dto/types/actions/create-template.dto';
+import { SubmitActionDto } from '@rslstudio/api-dto/types/submit-action-response.dto';
 import {
     AccessGroupEntity,
     ActionEntity,
@@ -12,8 +12,8 @@ import {
     ProjectEntity,
     UserEntity,
     WorkerEntity,
-} from '@kleinkram/backend-common';
-import { AccessGroupRights, KeyTypes } from '@kleinkram/shared';
+} from '@rslstudio/backend-common';
+import { AccessGroupRights, KeyTypes } from '@rslstudio/shared';
 import { DEFAULT_URL, generateAndFetchDatabaseUser } from '../auth/utilities';
 import {
     createMissionUsingPost,
@@ -217,7 +217,7 @@ describe('Verify Action API Key Scope', () => {
                     // eslint-disable-next-line @typescript-eslint/naming-convention
                     'x-api-key': apiKey,
                     // eslint-disable-next-line @typescript-eslint/naming-convention
-                    'kleinkram-client-version': appVersion,
+                    'rslstudio-client-version': appVersion,
                 },
             },
         );
@@ -289,7 +289,7 @@ describe('Verify Action API Key Scope', () => {
                     // eslint-disable-next-line @typescript-eslint/naming-convention
                     'x-api-key': apiKey,
                     // eslint-disable-next-line @typescript-eslint/naming-convention
-                    'kleinkram-client-version': appVersion,
+                    'rslstudio-client-version': appVersion,
                 },
             },
         );

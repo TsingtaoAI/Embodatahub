@@ -1,9 +1,9 @@
 import { ActionGuardService } from '@/endpoints/auth/action-guard.service';
 import { MissionGuardService } from '@/endpoints/auth/mission-guard.service';
-import { ActionTemplateEntity } from '@kleinkram/backend-common/entities/action/action-template.entity';
-import { ActionTriggerEntity } from '@kleinkram/backend-common/entities/action/action-trigger.entity';
-import { ActionEntity } from '@kleinkram/backend-common/entities/action/action.entity';
-import { AccessGroupRights, ActionState } from '@kleinkram/shared';
+import { ActionTemplateEntity } from '@rslstudio/backend-common/entities/action/action-template.entity';
+import { ActionTriggerEntity } from '@rslstudio/backend-common/entities/action/action-trigger.entity';
+import { ActionEntity } from '@rslstudio/backend-common/entities/action/action.entity';
+import { AccessGroupRights, ActionState } from '@rslstudio/shared';
 import {
     BadRequestException,
     ExecutionContext,

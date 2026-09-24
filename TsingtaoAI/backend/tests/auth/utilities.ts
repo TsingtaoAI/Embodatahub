@@ -1,5 +1,5 @@
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import { UserRole } from '@kleinkram/shared';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import { UserRole } from '@rslstudio/shared';
 import { HeaderCreator } from '../utils/api-calls';
 import {
     database,
@@ -29,7 +29,7 @@ export const generateAndFetchDatabaseUser = async (
 
         const baseEmail =
             userType === 'internal'
-                ? 'internal-user@kleinkram.dev'
+                ? 'internal-user@rslstudio.dev'
                 : 'external-user@third-party.com';
 
         let userEmail = baseEmail;

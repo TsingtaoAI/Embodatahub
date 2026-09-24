@@ -1,5 +1,5 @@
-import { WorkerEntity } from '@kleinkram/backend-common/entities/worker/worker.entity';
-import { UserRole } from '@kleinkram/shared';
+import { WorkerEntity } from '@rslstudio/backend-common/entities/worker/worker.entity';
+import { UserRole } from '@rslstudio/shared';
 import { createMissionUsingPost, createProjectUsingPost } from './api-calls';
 import {
     clearAllData,
@@ -35,7 +35,7 @@ export const setupDatabaseHooks = () => {
 };
 
 export const setupTestEnvironment = async (
-    email = 'test@kleinkram.dev',
+    email = 'test@rslstudio.dev',
     username = 'Test Env User',
     role = UserRole.ADMIN,
 ) => {

@@ -1,4 +1,4 @@
-import env from '@kleinkram/backend-common/environment';
+import env from '@rslstudio/backend-common/environment';
 import { google } from 'googleapis';
 import * as crypto from 'node:crypto';
 import * as fs from 'node:fs';

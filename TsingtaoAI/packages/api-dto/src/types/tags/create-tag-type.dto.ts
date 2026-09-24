@@ -1,4 +1,4 @@
-import { DataType } from '@kleinkram/shared';
+import { DataType } from '@rslstudio/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsString } from 'class-validator';
 

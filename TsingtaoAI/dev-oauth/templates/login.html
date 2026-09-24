@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Fake OAuth2 Login</title>
+        <title>模拟 OAuth2 登录</title>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -12,9 +12,9 @@
     <body class="bg-light">
         <div class="container mt-5">
             <h2 class="mb-4 text-center">
-                Select a user to log into Kleinkram
+                选择用户登录 Kleinkram
             </h2>
-            <form method="POST" action="/login">
+            <form method="POST" action="/oauth/login">
                 <input
                     type="hidden"
                     name="redirect_uri"
@@ -46,7 +46,7 @@
                                     name="user_id"
                                     value="{{ user.id }}"
                                 >
-                                    Login
+                                    登录
                                 </button>
                             </div>
                         </div>

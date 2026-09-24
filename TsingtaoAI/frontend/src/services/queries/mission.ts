@@ -1,5 +1,5 @@
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission-with-files.dto';
-import type { MissionsDto } from '@kleinkram/api-dto/types/mission/mission.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission-with-files.dto';
+import type { MissionsDto } from '@rslstudio/api-dto/types/mission/mission.dto';
 import { AxiosResponse } from 'axios';
 import qs from 'qs';
 import axios from 'src/api/axios';

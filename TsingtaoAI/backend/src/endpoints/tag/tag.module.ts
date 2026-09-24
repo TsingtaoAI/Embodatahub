@@ -1,10 +1,10 @@
 import { TagService } from '@/services/tag.service';
-import { AccessGroupEntity, ApiKeyEntity } from '@kleinkram/backend-common';
-import { AccountEntity } from '@kleinkram/backend-common/entities/auth/account.entity';
-import { MetadataEntity } from '@kleinkram/backend-common/entities/metadata/metadata.entity';
-import { MissionEntity } from '@kleinkram/backend-common/entities/mission/mission.entity';
-import { ProjectEntity } from '@kleinkram/backend-common/entities/project/project.entity';
-import { TagTypeEntity } from '@kleinkram/backend-common/entities/tagType/tag-type.entity';
+import { AccessGroupEntity, ApiKeyEntity } from '@rslstudio/backend-common';
+import { AccountEntity } from '@rslstudio/backend-common/entities/auth/account.entity';
+import { MetadataEntity } from '@rslstudio/backend-common/entities/metadata/metadata.entity';
+import { MissionEntity } from '@rslstudio/backend-common/entities/mission/mission.entity';
+import { ProjectEntity } from '@rslstudio/backend-common/entities/project/project.entity';
+import { TagTypeEntity } from '@rslstudio/backend-common/entities/tagType/tag-type.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TagController } from './tag.controller';

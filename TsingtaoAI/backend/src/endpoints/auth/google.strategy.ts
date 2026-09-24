@@ -1,7 +1,7 @@
 import { AuthService } from '@/services/auth.service';
 import { AuthFlowException } from '@/types/auth-flow-exception';
-import env from '@kleinkram/backend-common/environment';
-import { Providers } from '@kleinkram/shared';
+import env from '@rslstudio/backend-common/environment';
+import { Providers } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import e from 'express';
@@ -40,7 +40,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         // currently only google is supported
         if (provider !== Providers.GOOGLE) {
             logger.error('Invalid provider, expected google but got', provider);
-            callback(new AuthFlowException('Invalid provider!'));
+            callback(new AuthFlowException('无效的提供商！'));
             return;
         }
 

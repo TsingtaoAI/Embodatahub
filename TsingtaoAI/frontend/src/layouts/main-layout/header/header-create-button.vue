@@ -5,7 +5,7 @@
             class="q-mx-xs"
             style="height: 36px; display: inline-flex"
         />
-        <span class="q-mr-md"> New </span>
+        <span class="q-mr-md"> 新建 </span>
     </div>
     <q-separator vertical class="separator" />
     <q-icon

@@ -1,7 +1,7 @@
-import { AccessGroupEntity } from '@kleinkram/backend-common';
-import { AccountEntity } from '@kleinkram/backend-common/entities/auth/account.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import { UserRole } from '@kleinkram/shared';
+import { AccessGroupEntity } from '@rslstudio/backend-common';
+import { AccountEntity } from '@rslstudio/backend-common/entities/auth/account.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import { UserRole } from '@rslstudio/shared';
 import { clearAllData, database, mockDatabaseUser } from './database-utilities';
 
 describe('Test Suite Utils', () => {
@@ -20,7 +20,7 @@ describe('Test Suite Utils', () => {
         // Insert some data
         const user = new UserEntity();
         user.name = 'John Doe';
-        user.email = 'test-01@kleinkram.dev';
+        user.email = 'test-01@rslstudio.dev';
         user.role = UserRole.USER;
 
         await database.getRepository(UserEntity).save(user);
@@ -38,14 +38,14 @@ describe('Test Suite Utils', () => {
     });
 
     test('Create User with Valid Token', async () => {
-        await mockDatabaseUser('test-01@kleinkram.dev');
+        await mockDatabaseUser('test-01@rslstudio.dev');
 
         const userRepository = database.getRepository(UserEntity);
         const users = await userRepository.find({
             select: ['email', 'uuid'],
         });
         expect(users.length).toBe(1);
-        expect(users[0]?.email).toBe('test-01@kleinkram.dev');
+        expect(users[0]?.email).toBe('test-01@rslstudio.dev');
 
         const accountRepository = database.getRepository(AccountEntity);
         const accounts = await accountRepository.find();

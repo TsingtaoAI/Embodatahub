@@ -7,7 +7,7 @@
     >
         <div v-if="isDragging" class="drop-overlay">
             <q-icon name="sym_o_upload" size="4rem" color="white" />
-            <div class="text-h4 text-white q-mt-md">Drop files to upload</div>
+            <div class="text-h4 text-white q-mt-md">拖放文件以上传</div>
         </div>
 
         <div
@@ -56,7 +56,7 @@
                             flat
                             class="bg-button-secondary text-on-color"
                             icon="sym_o_search"
-                            label="Search"
+                            label="搜索"
                             @click="refresh"
                         />
                     </div>
@@ -65,7 +65,7 @@
                             :mission="missionData as MissionWithFilesDto"
                         >
                             <app-create-button
-                                label="Upload File"
+                                label="上传文件"
                                 icon="sym_o_upload"
                             />
                         </create-file-dialog-opener>
@@ -169,10 +169,10 @@
 </template>
 
 <script setup lang="ts">
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission-with-files.dto';
-import type { FileUploadDto } from '@kleinkram/api-dto/types/upload.dto';
-import { FileType } from '@kleinkram/shared';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission-with-files.dto';
+import type { FileUploadDto } from '@rslstudio/api-dto/types/upload.dto';
+import { FileType } from '@rslstudio/shared';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import CreateFileDialogOpener from 'components/button-wrapper/dialog-opener-create-file.vue';
 import ButtonGroupOverlay from 'components/buttons/button-group-overlay.vue';

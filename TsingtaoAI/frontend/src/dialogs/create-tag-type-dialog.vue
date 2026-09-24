@@ -1,7 +1,7 @@
 <template>
     <!-- here we need to set the height explicitly to avoid a visual bug -->
     <base-dialog ref="dialogRef" content-height="366px">
-        <template #title> Define Metadata Field</template>
+        <template #title> 定义元数字段</template>
 
         <template #content>
             <create-metadata-type ref="tagType" />
@@ -10,7 +10,7 @@
         <template #actions>
             <q-btn
                 flat
-                label="Create Metadata"
+                label="创建元数据"
                 class="bg-button-primary"
                 @click="createTagTypeAction"
             />

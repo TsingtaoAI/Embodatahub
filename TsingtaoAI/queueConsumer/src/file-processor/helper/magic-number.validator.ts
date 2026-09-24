@@ -1,4 +1,4 @@
-import { FileType } from '@kleinkram/shared';
+import { FileType } from '@rslstudio/shared';
 import * as fs from 'node:fs/promises';
 import logger from '../../logger';
 

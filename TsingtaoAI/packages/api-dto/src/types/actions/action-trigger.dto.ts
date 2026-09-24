@@ -1,4 +1,4 @@
-import { TriggerEvent, TriggerType } from '@kleinkram/shared';
+import { TriggerEvent, TriggerType } from '@rslstudio/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import {
     IsEnum,

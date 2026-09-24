@@ -1,14 +1,14 @@
 # this file is used in CI to run test cases
 services:
     base:
-        image: kleinkram-base
+        image: rslstudio-base
         build:
             context: .
             dockerfile: docker/base.Dockerfile
 
     action_test_file_hash:
         image: rslethz/kleinkram_actions:file-hash-latest
-        container_name: kleinkram-action-test-file-hash-test
+        container_name: rslstudio-action-test-file-hash-test
         build:
             context: ./
             dockerfile: backend/tests/actions/file-hash/Dockerfile
@@ -16,13 +16,13 @@ services:
 
     api-server:
         image: rslethz/kleinkram:api-server-latest
-        container_name: kleinkram-api-server-test
+        container_name: rslstudio-api-server-test
         build:
             context: .
             dockerfile: docker/backend.Dockerfile
             target: production
             additional_contexts:
-                kleinkram-base: service:base
+                rslstudio-base: service:base
                 action-test-file-hash: service:action_test_file_hash
         ports:
             - 127.0.0.1:${SERVER_PORT}:${SERVER_PORT}
@@ -43,7 +43,7 @@ services:
 
     loki:
         image: grafana/loki
-        container_name: kleinkram-loki-test
+        container_name: rslstudio-loki-test
         ports:
             - '3100:3100'
         command:
@@ -57,7 +57,7 @@ services:
 
     database:
         image: postgres:17
-        container_name: kleinkram-postgres-test
+        container_name: rslstudio-postgres-test
         ports:
             - '5432:5432'
         networks:
@@ -73,7 +73,7 @@ services:
 
     seaweedfs:
         image: chrislusf/seaweedfs:latest
-        container_name: kleinkram-seaweedfs-test
+        container_name: rslstudio-seaweedfs-test
 
         command: server -dir=/data -s3 -s3.port=9000
 
@@ -99,7 +99,7 @@ services:
 
     frontend:
         image: rslethz/kleinkram:frontend-dev
-        container_name: kleinkram-frontend-test
+        container_name: rslstudio-frontend-test
 
         build:
             context: .
@@ -109,7 +109,7 @@ services:
                 - GIT_BRANCH=${GIT_BRANCH}
                 - GIT_COMMIT=${GIT_COMMIT}
             additional_contexts:
-                kleinkram-base: service:base
+                rslstudio-base: service:base
         ports:
             - '8003:8003'
 
@@ -121,7 +121,7 @@ services:
 
     redis:
         image: redis:latest
-        container_name: kleinkram-redis-test
+        container_name: rslstudio-redis-test
         ports:
             - '6379:6379'
         networks:
@@ -129,14 +129,14 @@ services:
 
     queue-consumer:
         image: rslethz/kleinkram:queue-consumer-latest
-        container_name: kleinkram-queue-consumer-test
+        container_name: rslstudio-queue-consumer-test
         hostname: 'DO_NOT_CHANGE'
         build:
             context: .
             dockerfile: docker/queue-consumer.Dockerfile
             target: production
             additional_contexts:
-                kleinkram-base: service:base
+                rslstudio-base: service:base
                 artifact-uploader: service:artifact-uploader
         volumes:
             # mount docker socket to access docker from within the container

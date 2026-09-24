@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { DataType } from '@kleinkram/shared';
+import { DataType } from '@rslstudio/shared';
 import { useQueryClient } from '@tanstack/vue-query';
 import DataTypeDropdown from 'components/metadata/data-type-dropdown.vue';
 import { Notify } from 'quasar';

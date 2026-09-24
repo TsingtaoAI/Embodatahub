@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ActionDto } from '@kleinkram/api-dto/types/actions/action.dto';
+import type { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
 import { Notify } from 'quasar';
 import { useDeleteAction } from 'src/composables/use-action-mutations';
 import { ref } from 'vue';

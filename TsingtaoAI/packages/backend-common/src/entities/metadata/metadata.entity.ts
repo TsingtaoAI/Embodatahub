@@ -5,7 +5,7 @@ import { UserEntity } from '@backend-common/entities/user/user.entity';
 import { Column, Entity, ManyToOne } from 'typeorm';
 
 // TODO: rename the SQL table from tag to metadata
-//   in some early version of kleinkram metadata were named
+//   in some early version of rslstudio metadata were named
 //   tags, this is a legacy and should be cleaned up at some point
 @Entity({ name: 'tag' })
 export class MetadataEntity extends BaseEntity {

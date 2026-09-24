@@ -3,8 +3,8 @@ name: Build Sample Actions
 on:
     workflow_dispatch:
         inputs:
-            kleinkram_version:
-                description: 'Kleinkram version to install'
+            rslstudio_version:
+                description: "RslStudio version to install"
                 required: false
                 default: ''
     workflow_run:
@@ -13,7 +13,7 @@ on:
             - completed
     push:
         paths:
-            - 'examples/kleinkram-actions/**'
+            - 'examples/rslstudio-actions/**'
 
 jobs:
     build-and-push:
@@ -53,20 +53,20 @@ jobs:
                     else
                       echo "tag=dev" >> $GITHUB_OUTPUT
                     fi
-                    echo "kleinkram_version=${{ inputs.kleinkram_version }}" >> $GITHUB_OUTPUT
+                    echo "rslstudio_version=${{ inputs.rslstudio_version }}" >> $GITHUB_OUTPUT
                   elif [ "${{ matrix.type }}" == "dev" ]; then
                     echo "tag=dev" >> $GITHUB_OUTPUT
-                    echo "kleinkram_version=" >> $GITHUB_OUTPUT # Installs latest from PyPI which is updated by Update PyPI workflow
+                    echo "rslstudio_version=" >> $GITHUB_OUTPUT # Installs latest from PyPI which is updated by Update PyPI workflow
                   else
                     echo "tag=latest" >> $GITHUB_OUTPUT
-                    echo "kleinkram_version=" >> $GITHUB_OUTPUT # Installs latest from PyPI
+                    echo "rslstudio_version=" >> $GITHUB_OUTPUT # Installs latest from PyPI
                   fi
 
             - name: Build and push
               uses: docker/build-push-action@v7
               with:
-                  context: examples/kleinkram-actions/${{ matrix.action }}
+                  context: examples/rslstudio-actions/${{ matrix.action }}
                   push: true
                   tags: rslethz/action:${{ matrix.action }}-${{ steps.tag.outputs.tag }}
                   build-args: |
-                      KLEINKRAM_VERSION=${{ steps.tag.outputs.kleinkram_version }}
+                      KLEINKRAM_VERSION=${{ steps.tag.outputs.rslstudio_version }}

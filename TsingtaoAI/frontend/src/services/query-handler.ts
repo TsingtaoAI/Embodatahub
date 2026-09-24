@@ -1,4 +1,4 @@
-import { FileType } from '@kleinkram/shared';
+import { FileType } from '@rslstudio/shared';
 import { watch } from 'vue';
 import { RouteLocationNormalizedLoaded, Router } from 'vue-router';
 

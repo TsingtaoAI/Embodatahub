@@ -1,6 +1,6 @@
 import { appVersion } from '@/app-version';
 import { AuthFlowException } from '@/types/auth-flow-exception';
-import env from '@kleinkram/backend-common/environment';
+import env from '@rslstudio/backend-common/environment';
 import {
     ArgumentsHost,
     BadRequestException,
@@ -26,8 +26,8 @@ import logger from '../../logger';
 export class GlobalErrorFilter implements ExceptionFilter {
     public catch(exception: Error, host: ArgumentsHost): void {
         const response: Response = host.switchToHttp().getResponse();
-        response.header('kleinkram-version', appVersion);
-        response.header('Access-Control-Expose-Headers', 'kleinkram-version');
+        response.header('rslstudio-version', appVersion);
+        response.header('Access-Control-Expose-Headers', 'rslstudio-version');
 
         //////////////////////////////
         // Errors that don't get logged
@@ -35,7 +35,7 @@ export class GlobalErrorFilter implements ExceptionFilter {
         if (exception.name === 'InvalidJwtTokenException') {
             response.status(401).json({
                 statusCode: 401,
-                message: 'Invalid JWT token. Are you logged in?',
+                message: '无效的 JWT 令牌。您是否已登录？',
             });
             return;
         }
@@ -78,7 +78,7 @@ export class GlobalErrorFilter implements ExceptionFilter {
                 .status(302)
                 .redirect(
                     `${env.FRONTEND_URL}/login?error_state=auth_flow_failed&error_msg=${encodeURIComponent(
-                        'Failed to obtain access token. Please try again.',
+                        '获取访问令牌失败，请重试。',
                     )}`,
                 );
 
@@ -139,7 +139,7 @@ export class GlobalErrorFilter implements ExceptionFilter {
         }
 
         logger.error(
-            `GlobalErrorFilter: ${exception.name} on kleinkram-version ${appVersion} on endpoint ${request.url} with method ${request.method}`,
+            `GlobalErrorFilter: ${exception.name} on rslstudio-version ${appVersion} on endpoint ${request.url} with method ${request.method}`,
         );
         logger.error(exception.message);
         logger.error(exception);
@@ -148,7 +148,7 @@ export class GlobalErrorFilter implements ExceptionFilter {
         if (exception instanceof EntityNotFoundError) {
             response.status(400).json({
                 statusCode: 400,
-                message: 'Bad Request',
+                message: '请求错误',
             });
             return;
         }
@@ -164,7 +164,7 @@ export class GlobalErrorFilter implements ExceptionFilter {
         if (exception.name === 'PayloadTooLargeError') {
             response.status(413).json({
                 statusCode: 413,
-                message: 'Payload too large',
+                message: '请求体过大',
             });
             return;
         }
@@ -175,7 +175,7 @@ export class GlobalErrorFilter implements ExceptionFilter {
         ) {
             response.status(400).json({
                 statusCode: 400,
-                message: 'Invalid UUID',
+                message: '无效的 UUID',
             });
             return;
         }
@@ -189,7 +189,7 @@ export class GlobalErrorFilter implements ExceptionFilter {
 
         response.status(500).json({
             statusCode: 500,
-            message: 'Internal server error',
+            message: '服务器内部错误',
         });
     }
 }

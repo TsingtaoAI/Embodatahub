@@ -117,6 +117,18 @@ const ROUTES = {
         layout: () => import('layouts/main-layout/main-layout.vue'),
     }),
 
+    PROJECT_DATASETS: routeWithLayout({
+        name: 'ProjectDatasetsPage',
+        breadcrumbs: [
+            { displayName: 'All Projects', to: '/projects' },
+            { displayName: ':project_name', to: '/project/:projectUuid/missions' },
+            { displayName: '数据集质检', to: undefined },
+        ],
+        path: '/project/:projectUuid/datasets',
+        component: () => import('pages/project-datasets-page.vue'),
+        layout: () => import('layouts/main-layout/main-layout.vue'),
+    }),
+
     MISSIONS: routeWithLayout({
         name: 'MissionsPage',
         breadcrumbs: [
@@ -207,6 +219,68 @@ const ROUTES = {
         name: 'AccessGroupDetailPage',
         path: '/access-group/:uuid',
         component: () => import('pages/access-group-details-page.vue'),
+        layout: () => import('layouts/main-layout/main-layout.vue'),
+    }),
+
+    ROBOT_DATA_STUDIO: routeWithLayout({
+        name: 'RobotDataStudioPage',
+        path: '/robot-data-studio',
+        breadcrumbs: [{ displayName: '数据集质检', to: '/robot-data-studio' }],
+        component: () => import('pages/robot-data-studio-page.vue'),
+        layout: () => import('layouts/main-layout/main-layout.vue'),
+    }),
+
+    ROBOT_DATA_STUDIO_VLM: routeWithLayout({
+        name: 'RobotDataStudioVlmPage',
+        path: '/robot-data-studio/vlm',
+        breadcrumbs: [
+            { displayName: '数据集质检', to: '/robot-data-studio' },
+            { displayName: 'VLM 设置', to: undefined },
+        ],
+        component: () => import('pages/robot-data-studio-page.vue'),
+        layout: () => import('layouts/main-layout/main-layout.vue'),
+    }),
+
+    ROBOT_DATA_STUDIO_IMPORT: routeWithLayout({
+        name: 'RobotDataStudioImportPage',
+        path: '/robot-data-studio/import',
+        breadcrumbs: [
+            { displayName: '数据集质检', to: '/robot-data-studio' },
+            { displayName: '导入 dataset', to: undefined },
+        ],
+        component: () => import('pages/robot-data-studio-page.vue'),
+        layout: () => import('layouts/main-layout/main-layout.vue'),
+    }),
+
+    SPARK_STUDIO: routeWithLayout({
+        name: 'SparkStudioPage',
+        path: '/spark-studio',
+        breadcrumbs: [{ displayName: '3D场景可视化', to: undefined }],
+        component: () => import('pages/spark-studio-page.vue'),
+        layout: () => import('layouts/main-layout/main-layout.vue'),
+    }),
+
+    WORLD_MODEL: routeWithLayout({
+        name: 'WorldModelPage',
+        path: '/world-model',
+        breadcrumbs: [{ displayName: '模型训练', to: undefined }],
+        component: () => import('pages/world-model-page.vue'),
+        layout: () => import('layouts/main-layout/main-layout.vue'),
+    }),
+
+    STREAM_MONITOR: routeWithLayout({
+        name: 'StreamMonitorPage',
+        path: '/stream-monitor',
+        breadcrumbs: [{ displayName: '实时采集', to: '/stream-monitor' }],
+        component: () => import('pages/stream-monitor-page.vue'),
+        layout: () => import('layouts/main-layout/main-layout.vue'),
+    }),
+
+    ABOUT: routeWithLayout({
+        name: 'AboutPage',
+        path: '/about',
+        breadcrumbs: [{ displayName: '关于', to: undefined }],
+        component: () => import('pages/about-page.vue'),
         layout: () => import('layouts/main-layout/main-layout.vue'),
     }),
 

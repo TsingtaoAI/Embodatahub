@@ -5,7 +5,7 @@ set -e
 echo "Show GPU info:"
 nvidia-smi
 
-echo "Kleinkram CLI version: $(klein --version)"
+echo "RslStudio CLI version: $(klein --version)"
 
 # Authenticate
 klein login --key "$KLEINKRAM_API_KEY"

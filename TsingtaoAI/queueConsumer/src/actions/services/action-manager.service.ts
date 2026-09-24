@@ -4,15 +4,15 @@ import {
     ActionEntity,
     ApiKeyEntity,
     Image,
-} from '@kleinkram/backend-common';
-import { ActionRunnerEntity } from '@kleinkram/backend-common/entities/action/action-runner.entity';
+} from '@rslstudio/backend-common';
+import { ActionRunnerEntity } from '@rslstudio/backend-common/entities/action/action-runner.entity';
 import {
     AccessGroupRights,
     ActionState,
     KeyTypes,
     ResourceUsage,
     UserRole,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import Dockerode from 'dockerode';

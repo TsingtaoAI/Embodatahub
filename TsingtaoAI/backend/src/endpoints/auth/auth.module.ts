@@ -7,6 +7,7 @@ import { AuthController } from './auth.controller';
 import { GoogleStrategy } from './google.strategy';
 import { AdminOnlyGuard, LoggedInUserGuard } from './guards';
 import { JwtStrategy } from './jwt.strategy';
+import { LocalAuthService } from './local.strategy';
 
 import { ProjectGuardService } from '@/services/project-guard.service';
 import {
@@ -16,14 +17,15 @@ import {
     GroupMembershipEntity,
     MissionAccessEntity,
     ProjectAccessEntity,
-} from '@kleinkram/backend-common';
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { MetadataEntity } from '@kleinkram/backend-common/entities/metadata/metadata.entity';
-import { MissionEntity } from '@kleinkram/backend-common/entities/mission/mission.entity';
-import { ProjectEntity } from '@kleinkram/backend-common/entities/project/project.entity';
-import env from '@kleinkram/backend-common/environment';
-import { MissionAccessViewEntity } from '@kleinkram/backend-common/viewEntities/mission-access-view.entity';
-import { ProjectAccessViewEntity } from '@kleinkram/backend-common/viewEntities/project-access-view.entity';
+} from '@rslstudio/backend-common';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { MetadataEntity } from '@rslstudio/backend-common/entities/metadata/metadata.entity';
+import { MissionEntity } from '@rslstudio/backend-common/entities/mission/mission.entity';
+import { ProjectEntity } from '@rslstudio/backend-common/entities/project/project.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import env from '@rslstudio/backend-common/environment';
+import { MissionAccessViewEntity } from '@rslstudio/backend-common/viewEntities/mission-access-view.entity';
+import { ProjectAccessViewEntity } from '@rslstudio/backend-common/viewEntities/project-access-view.entity';
 
 import { AuthGuardService } from './auth-guard.service';
 import { FakeOauthStrategy } from './fake-oauth.strategy';
@@ -45,6 +47,7 @@ import { MissionGuardService } from './mission-guard.service';
             MissionAccessViewEntity,
             FileEntity,
             GroupMembershipEntity,
+            UserEntity,
         ]),
         PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.registerAsync({
@@ -57,6 +60,7 @@ import { MissionGuardService } from './mission-guard.service';
     providers: [
         AuthService,
         AffiliationGroupService,
+        LocalAuthService,
 
         GoogleStrategy,
         GitHubStrategy,

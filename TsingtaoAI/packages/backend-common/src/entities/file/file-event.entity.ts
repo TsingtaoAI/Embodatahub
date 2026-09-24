@@ -2,7 +2,7 @@ import { ActionEntity } from '@backend-common/entities/action/action.entity';
 import { FileEntity } from '@backend-common/entities/file/file.entity';
 import { MissionEntity } from '@backend-common/entities/mission/mission.entity';
 import { UserEntity } from '@backend-common/entities/user/user.entity';
-import { FileEventType } from '@kleinkram/shared';
+import { FileEventType } from '@rslstudio/shared';
 import { Column, CreateDateColumn, Entity, Index, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'file_event' })

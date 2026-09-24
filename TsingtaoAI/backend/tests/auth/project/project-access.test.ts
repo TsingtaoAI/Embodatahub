@@ -1,8 +1,8 @@
 import {
     AccessGroupEntity,
     ProjectAccessEntity,
-} from '@kleinkram/backend-common';
-import { AccessGroupRights } from '@kleinkram/shared';
+} from '@rslstudio/backend-common';
+import { AccessGroupRights } from '@rslstudio/shared';
 import { createProjectUsingPost } from '../../utils/api-calls';
 import { database } from '../../utils/database-utilities';
 import { setupDatabaseHooks } from '../../utils/test-helpers';

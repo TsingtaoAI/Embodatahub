@@ -1,4 +1,4 @@
-import { HealthStatus } from '@kleinkram/shared';
+import { HealthStatus } from '@rslstudio/shared';
 import { KEYWORDS } from 'src/composables/use-filter-parser';
 import { MissionFilterState } from 'src/composables/use-mission-file-filter';
 import { SuggestionContext } from 'src/services/suggestions/suggestion-types';

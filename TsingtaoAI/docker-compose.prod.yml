@@ -1,21 +1,21 @@
-# this file described a reference production setup of Kleinkram
+# this file described a RslStudio 生产环境配置
 services:
     base:
-        image: kleinkram-base
+        image: rslstudio-base
         build:
             context: .
             dockerfile: docker/base.Dockerfile
 
     api-server:
         image: rslethz/kleinkram:api-server-latest
-        container_name: kleinkram-api-server-prod
+        container_name: rslstudio-api-server-prod
 
         build:
             context: .
             dockerfile: docker/backend.Dockerfile
             target: production
             additional_contexts:
-                kleinkram-base: service:base
+                rslstudio-base: service:base
 
         ports:
             - 127.0.0.1:${SERVER_PORT}:${SERVER_PORT}
@@ -39,7 +39,7 @@ services:
 
     postgres:
         image: postgres:17
-        container_name: kleinkram-postgres-prod
+        container_name: rslstudio-postgres-prod
 
         ports:
             - '5432:5432'
@@ -57,7 +57,7 @@ services:
 
     seaweedfs:
         image: chrislusf/seaweedfs:latest
-        container_name: kleinkram-seaweedfs-prod
+        container_name: rslstudio-seaweedfs-prod
 
         command: server -dir=/data -s3 -s3.port=9000
 
@@ -83,7 +83,7 @@ services:
 
     frontend:
         image: rslethz/kleinkram:frontend-latest
-        container_name: kleinkram-frontend-prod
+        container_name: rslstudio-frontend-prod
 
         build:
             context: .
@@ -95,7 +95,7 @@ services:
                 - GIT_COMMIT=${GIT_COMMIT}
                 - VITE_S3_ENDPOINT=${S3_ENDPOINT}
             additional_contexts:
-                kleinkram-base: service:base
+                rslstudio-base: service:base
 
         ports:
             - '8003:80'
@@ -105,7 +105,7 @@ services:
 
     redis:
         image: redis:latest
-        container_name: kleinkram-redis-prod
+        container_name: rslstudio-redis-prod
         ports:
             - '6379:6379'
         networks:
@@ -113,13 +113,13 @@ services:
 
     queue-consumer:
         image: rslethz/kleinkram:queue-consumer-latest
-        container_name: kleinkram-queue-consumer-prod
+        container_name: rslstudio-queue-consumer-prod
         build:
             context: .
             dockerfile: docker/queue-consumer.Dockerfile
             target: production
             additional_contexts:
-                kleinkram-base: service:base
+                rslstudio-base: service:base
                 artifact-uploader: service:artifact-uploader
         ports:
             - '127.0.0.1:8080:8080'
@@ -145,7 +145,7 @@ services:
 
     prometheus:
         image: prom/prometheus
-        container_name: kleinkram-prometheus-prod
+        container_name: rslstudio-prometheus-prod
         volumes:
             - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
             - logging-prometheus-storage:/prometheus
@@ -163,7 +163,7 @@ services:
     tempo:
         user: '0:0'
         image: grafana/tempo:latest
-        container_name: kleinkram-tempo-prod
+        container_name: rslstudio-tempo-prod
         command: ['-config.file=/etc/tempo/tempo.yml']
         volumes:
             - ./observability/tempo/tempo.yml:/etc/tempo/tempo.yml
@@ -177,7 +177,7 @@ services:
 
     loki:
         image: grafana/loki
-        container_name: kleinkram-loki-prod
+        container_name: rslstudio-loki-prod
         ports:
             - '3100:3100'
         command:
@@ -190,7 +190,7 @@ services:
 
     grafana:
         image: grafana/grafana
-        container_name: kleinkram-grafana-prod
+        container_name: rslstudio-grafana-prod
         volumes:
             - logging-grafana-storage:/var/lib/grafana
             - ./observability/grafana/provisioning:/etc/grafana/provisioning
@@ -204,7 +204,7 @@ services:
 
     documentation:
         image: rslethz/kleinkram:docs-latest
-        container_name: kleinkram-documentation-prod
+        container_name: rslstudio-documentation-prod
         build:
             context: .
             dockerfile: docker/docs.Dockerfile

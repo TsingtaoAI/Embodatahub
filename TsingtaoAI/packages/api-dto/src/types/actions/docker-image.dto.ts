@@ -1,4 +1,4 @@
-import { ImageSource } from '@kleinkram/shared';
+import { ImageSource } from '@rslstudio/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsEnum, IsOptional, IsString } from 'class-validator';
 

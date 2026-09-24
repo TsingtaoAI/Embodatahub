@@ -5,11 +5,11 @@ import datetime
 import pytest
 from rich.table import Table
 
-from kleinkram.models import MetadataValue
-from kleinkram.models import MetadataValueType
-from kleinkram.printing import _add_placeholder_row
-from kleinkram.printing import format_bytes
-from kleinkram.printing import parse_metadata_value
+from rslstudio.models import MetadataValue
+from rslstudio.models import MetadataValueType
+from rslstudio.printing import _add_placeholder_row
+from rslstudio.printing import format_bytes
+from rslstudio.printing import parse_metadata_value
 
 
 def test_format_bytes():

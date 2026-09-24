@@ -1,4 +1,4 @@
-import { AccessGroupRights, UserRole } from '@kleinkram/shared';
+import { AccessGroupRights, UserRole } from '@rslstudio/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsEnum, IsUUID, ValidateNested } from 'class-validator';

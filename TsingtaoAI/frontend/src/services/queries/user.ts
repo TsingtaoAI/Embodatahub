@@ -1,7 +1,7 @@
-import type { PermissionsDto } from '@kleinkram/api-dto/types/permissions.dto';
-import type { ApiKeysDto } from '@kleinkram/api-dto/types/user/api-keys.dto';
-import type { CurrentAPIUserDto } from '@kleinkram/api-dto/types/user/current-api-user.dto';
-import type { UsersDto } from '@kleinkram/api-dto/types/user/users.dto';
+import type { PermissionsDto } from '@rslstudio/api-dto/types/permissions.dto';
+import type { ApiKeysDto } from '@rslstudio/api-dto/types/user/api-keys.dto';
+import type { CurrentAPIUserDto } from '@rslstudio/api-dto/types/user/current-api-user.dto';
+import type { UsersDto } from '@rslstudio/api-dto/types/user/users.dto';
 import { AxiosResponse } from 'axios';
 import axios from 'src/api/axios';
 

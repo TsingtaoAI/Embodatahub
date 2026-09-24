@@ -1,5 +1,5 @@
-import { ImageSource } from '@kleinkram/shared';
-import { validateDockerImageName } from '@kleinkram/validation';
+import { ImageSource } from '@rslstudio/shared';
+import { validateDockerImageName } from '@rslstudio/validation';
 import { Injectable } from '@nestjs/common';
 import Dockerode from 'dockerode';
 import { execFile } from 'node:child_process';

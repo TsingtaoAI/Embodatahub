@@ -1,19 +1,20 @@
 import { AuthFlowException } from '@/types/auth-flow-exception';
-import { AffiliationGroupService } from '@kleinkram/backend-common';
-import { AccountEntity } from '@kleinkram/backend-common/entities/auth/account.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
+import { AffiliationGroupService } from '@rslstudio/backend-common';
+import { AccountEntity } from '@rslstudio/backend-common/entities/auth/account.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
 import {
     AccessGroupConfig,
     CookieNames,
     Providers,
     UserRole,
-} from '@kleinkram/shared';
-import { Injectable, OnModuleInit } from '@nestjs/common';
+} from '@rslstudio/shared';
+import { ConflictException, Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtPayload } from 'jsonwebtoken';
 import { Repository } from 'typeorm';
+import { LocalAuthService } from '../endpoints/auth/local.strategy';
 import logger from '../logger';
 
 @Injectable()
@@ -28,6 +29,7 @@ export class AuthService implements OnModuleInit {
         private userRepository: Repository<UserEntity>,
         private affiliationGroupService: AffiliationGroupService,
         private configService: ConfigService,
+        private localAuthService: LocalAuthService,
     ) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const config = this.configService.get('accessConfig');
@@ -55,9 +57,9 @@ export class AuthService implements OnModuleInit {
         });
 
         if (account !== null && account.user === undefined) {
-            logger.error('Account exists but has no linked user!');
+            logger.error('账户存在但未关联用户！');
             throw new AuthFlowException(
-                'Account exists but has no linked user!',
+                '账户存在但未关联用户！',
             );
         }
 
@@ -91,9 +93,9 @@ export class AuthService implements OnModuleInit {
         });
 
         if (account !== null && account.user === undefined) {
-            logger.error('Account exists but has no linked user!');
+            logger.error('账户存在但未关联用户！');
             throw new AuthFlowException(
-                'Account exists but has no linked user!',
+                '账户存在但未关联用户！',
             );
         }
 
@@ -120,9 +122,9 @@ export class AuthService implements OnModuleInit {
         });
 
         if (account !== null && account.user === undefined) {
-            logger.error('Account exists but has no linked user!');
+            logger.error('账户存在但未关联用户！');
             throw new AuthFlowException(
-                'Account exists but has no linked user!',
+                '账户存在但未关联用户！',
             );
         }
 
@@ -191,6 +193,66 @@ export class AuthService implements OnModuleInit {
             },
         );
     }
+
+    /**
+     * Register a new user with email and password (local authentication).
+     *
+     * Unlike OAuth users, local users do not have an AccountEntity record.
+     * The password is hashed before storage.
+     *
+     * @param name The display name of the user
+     * @param email The email address (must be unique)
+     * @param password The plain-text password (will be hashed)
+     * @returns The created user entity (without password)
+     * @throws AuthFlowException if the email is already registered
+     */
+    async registerLocal(
+        name: string,
+        email: string,
+        password: string,
+    ): Promise<UserEntity> {
+        // Check for existing user (including OAuth-only users)
+        const existingUser = await this.userRepository.findOne({
+            where: { email },
+            relations: ['account'],
+        });
+
+        if (existingUser) {
+            throw new ConflictException('该邮箱已被注册');
+        }
+
+        // Hash the password
+        const hashedPassword = await this.localAuthService.hashPassword(password);
+
+        // Create the user with hashed password
+        let user: UserEntity = this.userRepository.create({
+            email,
+            name,
+            role: UserRole.USER,
+            avatarUrl: '',
+            password: hashedPassword,
+        });
+
+        user = await this.userRepository.save(user);
+        user = await this.userRepository.findOneOrFail({
+            where: { uuid: user.uuid },
+            relations: ['memberships'],
+            select: ['uuid', 'name', 'email', 'role', 'avatarUrl'],
+        });
+
+        // Create and Link Access Groups
+        await this.affiliationGroupService.createPrimaryGroup(user);
+        await this.affiliationGroupService.addToAffiliationGroups(
+            this.config,
+            user,
+        );
+
+        return await this.userRepository.findOneOrFail({
+            where: { uuid: user.uuid },
+            relations: ['memberships'],
+            select: ['uuid', 'name', 'email', 'role', 'avatarUrl'],
+        });
+    }
 }
 
 /**
@@ -223,7 +285,7 @@ export const createNewUser = async (
     // assert that we don't have a user with the same email but a different provider
     if (!!existingUser && existingUser.account) {
         throw new AuthFlowException(
-            'User already exists and has a linked account! Please use a different OAuth provider.',
+            '用户已存在且已关联账户！请使用其他 OAuth 提供商。',
         );
     }
 

@@ -1,6 +1,6 @@
 import { Paginated } from '@api-dto/pagination';
-import { DataType } from '@kleinkram/shared';
-import { IsSkip, IsTake } from '@kleinkram/validation';
+import { DataType } from '@rslstudio/shared';
+import { IsSkip, IsTake } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
 import {

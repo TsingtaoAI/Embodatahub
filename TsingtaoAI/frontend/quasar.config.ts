@@ -16,7 +16,7 @@ export default defineConfig((/* ctx */) => {
         // app boot file (/src/boot)
         // --> boot files are part of "main.js"
         // https://v2.quasar.dev/quasar-cli-vite/boot-files
-        boot: ['router', 'query', 'wasm-polyfill'], // <--- Add it here
+        boot: ['i18n', 'router', 'query', 'wasm-polyfill'],
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
         css: ['app.scss'],
@@ -37,28 +37,28 @@ export default defineConfig((/* ctx */) => {
         build: {
             alias: {
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                '@kleinkram/shared': path.resolve(
+                '@rslstudio/shared': path.resolve(
                     __dirname,
                     '../packages/shared/src',
                 ),
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                '@kleinkram/api-dto': path.resolve(
+                '@rslstudio/api-dto': path.resolve(
                     __dirname,
                     '../packages/api-dto/src',
                 ),
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                '@kleinkram/validation': path.resolve(
+                '@rslstudio/validation': path.resolve(
                     __dirname,
                     '../packages/validation/src',
                 ),
                 // Use frontend-safe validation (no @nestjs dependencies)
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                '@kleinkram/validation/frontend': path.resolve(
+                '@rslstudio/validation/frontend': path.resolve(
                     __dirname,
                     '../packages/validation/src/frontend.ts',
                 ),
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                '@kleinkram/backend-common': path.resolve(
+                '@rslstudio/backend-common': path.resolve(
                     __dirname,
                     '../packages/backend-common/src',
                 ),
@@ -105,7 +105,7 @@ export default defineConfig((/* ctx */) => {
                 viteConfig.envPrefix = ['VITE_', 'BACKEND_URL'];
                 // ========== 新增这2行，放在最前面 ==========
                 viteConfig.server = viteConfig.server ?? {};
-                viteConfig.server.allowedHosts = 'all';
+                viteConfig.server.allowedHosts = true;
                 // =========================================
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
                 viteConfig.optimizeDeps = viteConfig.optimizeDeps ?? {};
@@ -130,11 +130,11 @@ export default defineConfig((/* ctx */) => {
                     viteConfig.optimizeDeps.exclude ?? [];
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
                 viteConfig.optimizeDeps.exclude.push(
-                    '@kleinkram/shared',
-                    '@kleinkram/api-dto',
-                    '@kleinkram/validation',
-                    '@kleinkram/validation/frontend',
-                    '@kleinkram/backend-common',
+                    '@rslstudio/shared',
+                    '@rslstudio/api-dto',
+                    '@rslstudio/validation',
+                    '@rslstudio/validation/frontend',
+                    '@rslstudio/backend-common',
                     // Exclude problematic paths
                     'class-transformer/storage',
                 );
@@ -145,7 +145,7 @@ export default defineConfig((/* ctx */) => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
                 viteConfig.resolve.alias = viteConfig.resolve.alias ?? {};
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                viteConfig.resolve.alias['@kleinkram/validation/frontend'] =
+                viteConfig.resolve.alias['@rslstudio/validation/frontend'] =
                     path.resolve(
                         __dirname,
                         '../packages/validation/src/frontend.ts',
@@ -166,12 +166,36 @@ export default defineConfig((/* ctx */) => {
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
         devServer: {
-            // https: true
+            https: {
+                key: '../certs/key.pem',
+                cert: '../certs/cert.pem',
+            },
             open: false, // Don't auto-open browser in Docker
             host: '0.0.0.0', // Bind to all interfaces for Docker
             hmr: {
                 // Use the client host for HMR WebSocket connection
-                clientPort: 8003,
+                clientPort: 8880,
+            },
+            proxy: {
+                // 将同源 API 请求代理转发到本地后端
+                // 覆盖所有后端 NestJS 路由
+                // bypass: 浏览器页面导航（Accept: text/html）返回 index.html，
+                //         避免刷新页面时缺少版本头导致 426 错误
+                '^/(api|auth|graphql|swagger|\.well-known|user|files|projects|oldProject|mission|missions|topic|tag|category|actions|worker|templates|hooks|triggers|integrations|access|rds|metrics)(/|\\?|$)': {
+                    target: 'http://localhost:3000',
+                    changeOrigin: false,
+                    bypass(req) {
+                        const accept = req.headers.accept || '';
+                        if (accept.includes('text/html')) {
+                            return '/index.html';
+                        }
+                    },
+                },
+                // 将 Fake OAuth 代理转发（仅 oauth 路径，login 由前端路由处理）
+                '^/oauth': {
+                    target: 'http://localhost:5000',
+                    changeOrigin: true,
+                },
             },
         },
 
@@ -180,7 +204,7 @@ export default defineConfig((/* ctx */) => {
             config: {},
 
             iconSet: 'material-symbols-outlined',
-            // lang: 'en-US', // Quasar language pack
+            // lang is set dynamically in boot/i18n.ts
 
             // For special cases outside of where the auto-import strategy can have an impact
             // (like functional components as one of the examples),

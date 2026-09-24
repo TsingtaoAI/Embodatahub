@@ -1,5 +1,5 @@
 import { ProjectDto } from '@api-dto/project/base-project.dto';
-import { AccessGroupRights } from '@kleinkram/shared';
+import { AccessGroupRights } from '@rslstudio/shared';
 import { IsEnum } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';

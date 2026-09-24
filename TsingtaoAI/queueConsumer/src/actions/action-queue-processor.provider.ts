@@ -1,9 +1,9 @@
 import {
     ActionEntity,
     SubmittedAction,
-} from '@kleinkram/backend-common/entities/action/action.entity';
-import { WorkerEntity } from '@kleinkram/backend-common/entities/worker/worker.entity';
-import { ActionState, ArtifactState } from '@kleinkram/shared';
+} from '@rslstudio/backend-common/entities/action/action.entity';
+import { WorkerEntity } from '@rslstudio/backend-common/entities/worker/worker.entity';
+import { ActionState, ArtifactState } from '@rslstudio/shared';
 import {
     InjectQueue,
     OnQueueActive,
@@ -71,6 +71,25 @@ export class ActionQueueProcessorProvider implements OnModuleInit {
             worker = await this.workerRepository.save(potentialWorker);
         }
         this.worker = worker;
+
+        // ── 定期心跳：每 60 秒更新 lastSeen，防止健康检查误判离线 ──
+        setInterval(async () => {
+            try {
+                const fresh = await this.workerRepository.findOne({
+                    where: { uuid: this.worker!.uuid },
+                });
+                if (fresh) {
+                    fresh.lastSeen = new Date();
+                    fresh.reachable = true;
+                    await this.workerRepository.save(fresh);
+                }
+            } catch (err) {
+                logger.error(
+                    `Worker heartbeat failed: ${(err as Error).message}`,
+                );
+            }
+        }, 60_000);
+
         logger.debug('Connecting to Redis...');
         await this.analysisQueue.isReady().catch((error: unknown) => {
             logger.error('Failed to connect to Redis:', error);

@@ -154,8 +154,8 @@ import { useScopeSelection } from 'src/composables/use-scope-selection';
 import { useManyMissions } from 'src/hooks/query-hooks';
 
 // --- Types ---
-import type { ActionTemplateDto } from '@kleinkram/api-dto/types/actions/action-template.dto';
-import { AccessGroupRights } from '@kleinkram/shared';
+import type { ActionTemplateDto } from '@rslstudio/api-dto/types/actions/action-template.dto';
+import { AccessGroupRights } from '@rslstudio/shared';
 
 const props = defineProps<{
     open: boolean;

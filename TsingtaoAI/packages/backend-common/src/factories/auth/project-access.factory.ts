@@ -4,7 +4,7 @@ import { ProjectEntity } from '@backend-common/entities/project/project.entity';
 import { type Faker } from '@faker-js/faker';
 import { setSeederFactory } from 'typeorm-extension';
 
-import { AccessGroupRights } from '@kleinkram/shared';
+import { AccessGroupRights } from '@rslstudio/shared';
 
 export interface ProjectAccessFactoryContext {
     project?: ProjectEntity;

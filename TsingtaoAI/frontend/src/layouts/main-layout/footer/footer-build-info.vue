@@ -1,19 +1,18 @@
 <template>
     <q-icon
-        v-if="!!kleinkramVersion && kleinkramVersion !== BUILD_INFO.version"
+        v-if="!!rslstudioVersion && rslstudioVersion !== BUILD_INFO.version"
         name="sym_o_warning"
         color="red"
     >
         <q-tooltip>
-            The API is running
-            {{ kleinkramVersion }}
+            API 版本 {{ rslstudioVersion }}
         </q-tooltip>
     </q-icon>
     <a
         class="text-placeholder"
         style="text-decoration: none"
         :href="
-            'https://github.com/leggedrobotics/kleinkram/releases/tag/v' +
+            'https://github.com/leggedrobotics/rslstudio/releases/tag/v' +
             BUILD_INFO.version
         "
         >{{ BUILD_INFO.version }} ({{
@@ -25,7 +24,7 @@
         class="text-placeholder"
         style="text-decoration: none"
         :href="
-            'https://github.com/leggedrobotics/kleinkram/tree/' +
+            'https://github.com/leggedrobotics/rslstudio/tree/' +
             BUILD_INFO.git.branch
         "
     >
@@ -36,7 +35,7 @@
         class="text-placeholder"
         style="text-decoration: none"
         :href="
-            'https://github.com/leggedrobotics/kleinkram/commit/' +
+            'https://github.com/leggedrobotics/rslstudio/commit/' +
             BUILD_INFO.git.hash
         "
     >
@@ -46,7 +45,7 @@
 
 <script setup lang="ts">
 // @ts-ignore (build.ts is only available at runtime)
-import { kleinkramVersion } from 'src/api/axios';
+import { rslstudioVersion } from 'src/api/axios';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import BUILD_INFO from 'src/build';

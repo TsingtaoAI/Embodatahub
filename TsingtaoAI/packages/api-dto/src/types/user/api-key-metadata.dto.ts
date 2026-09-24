@@ -1,4 +1,4 @@
-import { AccessGroupRights, KeyTypes } from '@kleinkram/shared';
+import { AccessGroupRights, KeyTypes } from '@rslstudio/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import {
     IsBoolean,

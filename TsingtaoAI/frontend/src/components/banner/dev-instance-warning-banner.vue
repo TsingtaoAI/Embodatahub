@@ -13,7 +13,7 @@
             />
         </template>
         <span>
-            This app is the development version of Kleinkram. Data may be lost
+            This app is the development version of RSL Studio. Data may be lost
             at any time.
         </span>
     </q-banner>

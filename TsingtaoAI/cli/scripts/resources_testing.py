@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from rich.console import Console
 
-from kleinkram.api.client import AuthenticatedClient
-from kleinkram.api.query import FileQuery
-from kleinkram.api.query import MissionQuery
-from kleinkram.api.query import ProjectQuery
-from kleinkram.api.routes import get_files
-from kleinkram.printing import files_to_table
+from rslstudio.api.client import AuthenticatedClient
+from rslstudio.api.query import FileQuery
+from rslstudio.api.query import MissionQuery
+from rslstudio.api.query import ProjectQuery
+from rslstudio.api.routes import get_files
+from rslstudio.printing import files_to_table
 
 
 def main():

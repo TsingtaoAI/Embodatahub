@@ -1,17 +1,17 @@
-import { redis } from '@kleinkram/backend-common/consts';
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { IngestionJobEntity } from '@kleinkram/backend-common/entities/file/ingestion-job.entity';
-import { MissionEntity } from '@kleinkram/backend-common/entities/mission/mission.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import { IStorageBucket } from '@kleinkram/backend-common/modules/storage/types';
-import { MissionAccessViewEntity } from '@kleinkram/backend-common/viewEntities/mission-access-view.entity';
-import { ProjectAccessViewEntity } from '@kleinkram/backend-common/viewEntities/project-access-view.entity';
+import { redis } from '@rslstudio/backend-common/consts';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { IngestionJobEntity } from '@rslstudio/backend-common/entities/file/ingestion-job.entity';
+import { MissionEntity } from '@rslstudio/backend-common/entities/mission/mission.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import { IStorageBucket } from '@rslstudio/backend-common/modules/storage/types';
+import { MissionAccessViewEntity } from '@rslstudio/backend-common/viewEntities/mission-access-view.entity';
+import { ProjectAccessViewEntity } from '@rslstudio/backend-common/viewEntities/project-access-view.entity';
 import {
     AccessGroupRights,
     FileState,
     QueueState,
     UserRole,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { Process, Processor } from '@nestjs/bull';
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';

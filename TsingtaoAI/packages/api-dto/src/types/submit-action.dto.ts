@@ -1,5 +1,5 @@
-import { ActionState } from '@kleinkram/shared';
-import { IsSkip } from '@kleinkram/validation';
+import { ActionState } from '@rslstudio/shared';
+import { IsSkip } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsBoolean, IsOptional, IsString, IsUUID } from 'class-validator';

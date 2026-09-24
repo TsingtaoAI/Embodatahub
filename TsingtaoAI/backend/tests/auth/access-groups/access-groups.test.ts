@@ -1,5 +1,5 @@
-import { AccessGroupEntity, UserEntity } from '@kleinkram/backend-common';
-import { AccessGroupRights, AccessGroupType } from '@kleinkram/shared';
+import { AccessGroupEntity, UserEntity } from '@rslstudio/backend-common';
+import { AccessGroupRights, AccessGroupType } from '@rslstudio/shared';
 import {
     createAccessGroupUsingPost,
     createProjectUsingPost,
@@ -19,7 +19,7 @@ describe('Verify Access Groups External', () => {
     setupDatabaseHooks();
 
     // user: external
-    test('Non "kleinkram.dev" email is not added to default group', async () => {
+    test('Non "rslstudio.dev" email is not added to default group', async () => {
         const mockEmail = 'external-user@third-party.com';
         const externalUuid = await mockDatabaseUser(mockEmail, 'external-user');
 
@@ -72,7 +72,7 @@ describe('Verify Access Groups Internal', () => {
 
     // user: internal
     test('if leggedrobotics email is added to default group', async () => {
-        const mockEmail = 'internal-user@kleinkram.dev';
+        const mockEmail = 'internal-user@rslstudio.dev';
         const internalUuid = await mockDatabaseUser(mockEmail, 'internal-user');
 
         const userRepository = database.getRepository(UserEntity);

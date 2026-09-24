@@ -1,6 +1,6 @@
-import { ActionDto, SubmitActionDto } from '@kleinkram/api-dto';
-import { ActionEntity, environment } from '@kleinkram/backend-common';
-import { AccessGroupRights, ArtifactState } from '@kleinkram/shared';
+import { ActionDto, SubmitActionDto } from '@rslstudio/api-dto';
+import { ActionEntity, environment } from '@rslstudio/backend-common';
+import { AccessGroupRights, ArtifactState } from '@rslstudio/shared';
 import { DEFAULT_URL } from '../auth/utilities';
 import { createActionUsingPost, getAuthHeaders } from '../utils/api-calls';
 import { database } from '../utils/database-utilities';
@@ -15,7 +15,7 @@ describe('Action Artefacts Tests', () => {
 
     test('should generate a presigned download URL for action artifacts', async () => {
         const { user, missionUuid } = await setupTestEnvironment(
-            'artefact-user@kleinkram.dev',
+            'artefact-user@rslstudio.dev',
             'Artefact User',
         );
 

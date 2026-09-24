@@ -87,7 +87,7 @@ jobs:
                   source .venv/bin/activate
 
                   # Remove existing config to avoid compatibility check prompt
-                  rm -f ~/.kleinkram.json
+                  rm -f ~/.rslstudio.json
 
                   # Set endpoint to local
                   klein endpoint local

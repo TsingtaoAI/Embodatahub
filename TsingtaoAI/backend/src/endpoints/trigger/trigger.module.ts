@@ -4,9 +4,9 @@ import {
     ActionTriggerEntity,
     MissionEntity,
     UserEntity,
-} from '@kleinkram/backend-common';
-import { redis } from '@kleinkram/backend-common/consts';
-import { ActionDispatcherModule } from '@kleinkram/backend-common/modules/action-dispatcher/action-dispatcher.module';
+} from '@rslstudio/backend-common';
+import { redis } from '@rslstudio/backend-common/consts';
+import { ActionDispatcherModule } from '@rslstudio/backend-common/modules/action-dispatcher/action-dispatcher.module';
 import { ThrottlerStorageRedisService } from '@nest-lab/throttler-storage-redis';
 import { Module } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';

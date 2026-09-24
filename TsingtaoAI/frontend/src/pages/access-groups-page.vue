@@ -1,5 +1,5 @@
 <template>
-    <title-section title="Access Control">
+    <title-section title="权限控制">
         <template #tabs>
             <q-tabs
                 v-model="tab"
@@ -8,8 +8,8 @@
                 dense
                 class="text-grey"
             >
-                <q-tab name="users" label="Users" style="color: #222" />
-                <q-tab name="groups" label="Groups" style="color: #222" />
+                <q-tab name="users" label="用户" style="color: #222" />
+                <q-tab name="groups" label="用户组" style="color: #222" />
             </q-tabs>
         </template>
     </title-section>
@@ -40,7 +40,7 @@
                 <app-search-bar
                     v-model="filterOptions.search"
                     :placeholder="
-                        tab === 'groups' ? 'Search Groups' : 'Search Users'
+                        tab === 'groups' ? '搜索用户组' : '搜索用户'
                     "
                 />
 
@@ -58,7 +58,7 @@
             <ButtonGroupOverlay>
                 <template #start>
                     <div style="margin: 0; font-size: 14pt; color: white">
-                        {{ selectedAccessGroups.length }} items selected
+                        {{ selectedAccessGroups.length }} 个已选中
                     </div>
                 </template>
                 <template #end>
@@ -128,7 +128,7 @@
                                     "
                                 >
                                     <q-item-section>
-                                        View Details
+                                        查看详情
                                     </q-item-section>
                                 </q-item>
 
@@ -139,13 +139,13 @@
                                             AccessGroupType.PRIMARY
                                         "
                                     >
-                                        You can't edit personal access groups
+                                        无法编辑个人权限组
                                     </q-tooltip>
-                                    <q-item-section>Edit</q-item-section>
+                                    <q-item-section>编辑</q-item-section>
                                 </q-item>
                                 <DeleteAccessGroup :access-group="props.row">
                                     <q-item v-ripple clickable>
-                                        <q-item-section>Delete</q-item-section>
+                                        <q-item-section>删除</q-item-section>
                                     </q-item>
                                 </DeleteAccessGroup>
                             </q-list>
@@ -162,10 +162,10 @@ import { useQuery } from '@tanstack/vue-query';
 import { formatDate, isExpired } from 'src/services/date-formating';
 import { computed, Ref, ref, watch } from 'vue';
 
-import type { AccessGroupDto } from '@kleinkram/api-dto/types/access-control/access-group.dto';
-import type { AccessGroupsDto } from '@kleinkram/api-dto/types/access-control/access-groups.dto';
-import type { ProjectWithMissionsDto } from '@kleinkram/api-dto/types/project/project-with-missions.dto';
-import { AccessGroupType } from '@kleinkram/shared';
+import type { AccessGroupDto } from '@rslstudio/api-dto/types/access-control/access-group.dto';
+import type { AccessGroupsDto } from '@rslstudio/api-dto/types/access-control/access-groups.dto';
+import type { ProjectWithMissionsDto } from '@rslstudio/api-dto/types/project/project-with-missions.dto';
+import { AccessGroupType } from '@rslstudio/shared';
 import DeleteAccessGroup from 'components/button-wrapper/delete-access-group.vue';
 import CreateAccessGroupDialogOpener from 'components/button-wrapper/dialog-opener-create-access-group.vue';
 import ButtonGroupOverlay from 'components/buttons/button-group-overlay.vue';
@@ -184,8 +184,8 @@ const route = useRoute();
 const tab = ref((route.query.tab as string) || 'groups');
 
 const prefilterOptions = [
-    { label: 'Custom Groups', value: AccessGroupType.CUSTOM },
-    { label: 'Affiliation Groups', value: AccessGroupType.AFFILIATION },
+    { label: '自定义组', value: AccessGroupType.CUSTOM },
+    { label: '归属组', value: AccessGroupType.AFFILIATION },
 ];
 const prefilter = ref<AccessGroupType>(AccessGroupType.CUSTOM);
 
@@ -294,7 +294,7 @@ const usersColumns = [
     {
         name: 'Name',
         required: true,
-        label: 'Name',
+        label: '名称',
         align: 'left',
         field: (row: AccessGroupDto): string => row.name,
         format: (value: string): string => value,
@@ -304,7 +304,7 @@ const usersColumns = [
     {
         name: 'Email',
         required: false,
-        label: 'Email',
+        label: '邮箱',
         align: 'left',
         field: (row: AccessGroupDto): string =>
             row.memberships[0]?.user.email ?? '-',
@@ -314,14 +314,14 @@ const usersColumns = [
     {
         name: 'Status',
         required: true,
-        label: 'Status',
+        label: '状态',
         align: 'center',
         field: (row: AccessGroupDto): string => {
             const exp = row.memberships[0]?.expirationDate;
             if (isExpired(exp)) {
-                return 'Expired';
+                return '已过期';
             }
-            return 'Active';
+            return '活跃';
         },
         format: (value: string): string => value,
         sortable: true,
@@ -330,7 +330,7 @@ const usersColumns = [
     {
         name: 'Projects',
         required: true,
-        label: '# Projects',
+        label: '项目数',
         align: 'center',
         field: (row: AccessGroupDto): string =>
             row.projectAccesses.length.toString(),
@@ -350,7 +350,7 @@ const accessGroupsColumns = [
     {
         name: 'Access Group',
         required: true,
-        label: 'Group Name',
+        label: '组名称',
         align: 'left',
         field: (row: AccessGroupDto): string => row.name,
         format: (value: string): string => value,
@@ -360,7 +360,7 @@ const accessGroupsColumns = [
     {
         name: 'Creator',
         required: false,
-        label: 'Created By',
+        label: '创建者',
         align: 'center',
         field: (row: AccessGroupDto): string => row.creator?.name ?? '-',
         format: (value: string): string => value,
@@ -369,7 +369,7 @@ const accessGroupsColumns = [
     {
         name: 'createdAt',
         required: true,
-        label: 'Creation Date',
+        label: '创建日期',
         align: 'center',
         field: (row: AccessGroupDto): string =>
             row.createdAt.toLocaleDateString(),
@@ -380,7 +380,7 @@ const accessGroupsColumns = [
     {
         name: 'NrOfUsers',
         required: true,
-        label: '# Members',
+        label: '成员数',
         align: 'center',
         field: (row: AccessGroupDto): string =>
             row.memberships.length.toString(),
@@ -391,7 +391,7 @@ const accessGroupsColumns = [
     {
         name: 'NrOfProjects',
         required: true,
-        label: '# Projects',
+        label: '项目数',
         align: 'center',
         field: (row: AccessGroupDto): string =>
             row.projectAccesses.length.toString(),

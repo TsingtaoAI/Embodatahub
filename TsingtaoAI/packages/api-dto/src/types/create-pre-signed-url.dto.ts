@@ -1,5 +1,5 @@
-import { FileSource } from '@kleinkram/shared';
-import { IsNoValidUUID, IsValidFileName } from '@kleinkram/validation';
+import { FileSource } from '@rslstudio/shared';
+import { IsNoValidUUID, IsValidFileName } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import {
     IsEnum,

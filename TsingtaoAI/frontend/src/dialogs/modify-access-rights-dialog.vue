@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title>Change Access Rights</template>
+        <template #title>更改访问权限</template>
 
         <template #content>
             <access-rights-manager
@@ -12,7 +12,7 @@
         <template #actions>
             <q-btn
                 flat
-                label="Confirm"
+                label="确认"
                 class="bg-button-primary"
                 @click="confirmAccessRightsModification"
             />

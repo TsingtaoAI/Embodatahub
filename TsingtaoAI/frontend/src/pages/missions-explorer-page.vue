@@ -9,6 +9,16 @@
 
             <template #buttons>
                 <button-group>
+                    <q-btn
+                        class="button-border"
+                        flat
+                        style="height: 100%"
+                        color="primary"
+                        icon="sym_o_checklist"
+                        :label="$t('project.datasets')"
+                        @click="navigateToDatasets"
+                    />
+
                     <ConfigureTagsDialogOpener
                         v-if="projectUuid"
                         :project-uuid="projectUuid"
@@ -19,7 +29,7 @@
                             style="height: 100%"
                             color="primary"
                             icon="sym_o_sell"
-                            label="Enforce Metadata"
+                            label="强制元数据"
                             :disable="!projectUuid"
                         />
                     </ConfigureTagsDialogOpener>
@@ -31,7 +41,7 @@
                         style="height: 100%"
                         color="primary"
                     >
-                        <q-tooltip> More Actions</q-tooltip>
+                        <q-tooltip> 更多操作</q-tooltip>
 
                         <q-menu
                             v-if="projectUuid !== undefined"
@@ -49,7 +59,7 @@
                                         </q-item-section>
                                         <q-item-section>
                                             <q-item-section>
-                                                Manage Access
+                                                管理权限
                                             </q-item-section>
                                         </q-item-section>
                                     </q-item>
@@ -64,7 +74,7 @@
                                         </q-item-section>
                                         <q-item-section>
                                             <q-item-section>
-                                                Edit Project
+                                                编辑项目
                                             </q-item-section>
                                         </q-item-section>
                                     </q-item>
@@ -77,7 +87,7 @@
                                     <q-item-section avatar>
                                         <q-icon name="sym_o_fingerprint" />
                                     </q-item-section>
-                                    <q-item-section> Copy UUID</q-item-section>
+                                    <q-item-section> 复制 UUID</q-item-section>
                                 </q-item>
                                 <DeleteProjectDialogOpener
                                     :project-uuid="projectUuid ?? ''"
@@ -96,7 +106,7 @@
                                         </q-item-section>
                                         <q-item-section>
                                             <q-item-section>
-                                                Delete Project
+                                                删除项目
                                             </q-item-section>
                                         </q-item-section>
                                     </q-item>
@@ -124,7 +134,7 @@
                 <button-group>
                     <app-search-bar
                         v-model="search"
-                        placeholder="Search by Mission Name"
+                        placeholder="按任务名称搜索"
                     />
 
                     <app-refresh-button @click="refresh" />
@@ -138,7 +148,7 @@
                         />
                     </UploadMissionFolder>
                     <create-mission-dialog-opener :project-uuid="projectUuid">
-                        <app-create-button label="Create Mission" />
+                        <app-create-button label="创建任务" />
                     </create-mission-dialog-opener>
                 </button-group>
             </div>
@@ -147,12 +157,8 @@
                     <template #start>
                         <div style="margin: 0; font-size: 14pt; color: white">
                             {{ selectedMissions.length }}
-                            {{
-                                selectedMissions.length === 1
-                                    ? 'mission'
-                                    : 'missions'
-                            }}
-                            selected
+                            个任务
+                            已选中
                         </div>
                     </template>
                     <template #end>
@@ -168,7 +174,7 @@
                             color="white"
                             @click="openMultiActions"
                         >
-                            Actions
+                            操作
                         </q-btn>
 
                         <q-btn
@@ -184,9 +190,9 @@
                             "
                             @click="deleteMission"
                         >
-                            Delete
+                            删除
                             <q-tooltip v-if="selectedMissions.length !== 1">
-                                You can only delete one mission at a time
+                                一次只能删除一个任务
                             </q-tooltip>
 
                             <q-tooltip
@@ -195,7 +201,7 @@
                                     (selectedMissions[0]?.filesCount ?? 0) > 0
                                 "
                             >
-                                You cannot delete missions with files
+                                不能删除包含文件的任务
                             </q-tooltip>
                         </q-btn>
                         <q-btn
@@ -237,7 +243,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import type { FlatMissionDto } from '@kleinkram/api-dto/types/mission/mission.dto';
+import type { FlatMissionDto } from '@rslstudio/api-dto/types/mission/mission.dto';
 import { useQueryClient } from '@tanstack/vue-query';
 import ActionConfiguration from 'components/actions/action-configuration.vue';
 import DeleteProjectDialogOpener from 'components/button-wrapper/delete-project-dialog-opener.vue';
@@ -262,16 +268,26 @@ import {
     useProjectQuery,
 } from 'src/hooks/query-hooks';
 import { useProjectUUID } from 'src/hooks/router-hooks';
+import { useRouter } from 'vue-router';
+import ROUTES from 'src/router/routes';
 import { computed, ref, Ref } from 'vue';
 
 const queryClient = useQueryClient();
 const handler = useHandler();
 const $q = useQuasar();
+const $router = useRouter();
 const projectUuid = useProjectUUID();
 const { data: project, isLoadingError, error } = useProjectQuery(projectUuid);
 const createAction = ref(false);
 
 registerNoPermissionErrorHandler(isLoadingError, projectUuid, 'project', error);
+
+const navigateToDatasets = (): void => {
+    void $router.push({
+        name: ROUTES.PROJECT_DATASETS.routeName,
+        params: { projectUuid: projectUuid.value },
+    });
+};
 
 const onClose = (): void => {
     createAction.value = false;
@@ -283,13 +299,13 @@ const deleteMission = (): void => {
     if (mission === undefined) {
         $q.notify({
             type: 'negative',
-            message: 'Please select a mission to delete',
+            message: '请选择要删除的任务',
         });
         return;
     }
 
     $q.dialog({
-        title: 'Delete Mission',
+        title: '删除任务',
         component: DeleteMissionDialog,
         componentProps: {
             missionUuid: mission.uuid,

@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ActionDto } from '@kleinkram/api-dto/types/actions/action.dto';
-import { ActionState } from '@kleinkram/shared';
+import type { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
+import { ActionState } from '@rslstudio/shared';
 import AppInput from 'components/common/app-input.vue';
 import { formatDuration } from 'src/services/date-formating';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';

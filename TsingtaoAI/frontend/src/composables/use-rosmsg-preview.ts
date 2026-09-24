@@ -1,4 +1,4 @@
-import { UniversalHttpReader } from '@kleinkram/shared';
+import { UniversalHttpReader } from '@rslstudio/shared';
 import { markRaw, reactive, Ref, ref, shallowRef } from 'vue';
 import { DecodingStrategy } from '../services/decoding-strategies';
 import { Db3Strategy } from '../services/decoding-strategies/db3-strategy';

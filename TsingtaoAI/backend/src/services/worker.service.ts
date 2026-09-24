@@ -1,5 +1,5 @@
-import { ActionWorkersDto } from '@kleinkram/api-dto';
-import { WorkerEntity } from '@kleinkram/backend-common/entities/worker/worker.entity';
+import { ActionWorkersDto } from '@rslstudio/api-dto';
+import { WorkerEntity } from '@rslstudio/backend-common/entities/worker/worker.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToInstance } from 'class-transformer';
@@ -32,6 +32,9 @@ export class WorkerService {
             {},
         );
 
+        const now = Date.now();
+        const REACHABLE_TIMEOUT_MS = 5 * 60 * 1000; // 5 分钟内有心跳视为在线
+
         const count = Object.keys(workerMap).length;
         const result = {
             count,
@@ -39,6 +42,10 @@ export class WorkerService {
                 // eslint-disable-next-line @typescript-eslint/no-misused-spread
                 ...worker,
                 gpuModel: worker.gpuModel ?? null,
+                // 基于 lastSeen 动态判断在线状态（而非仅依赖可能过时的 DB 字段）
+                reachable:
+                    now - new Date(worker.lastSeen).getTime() <
+                    REACHABLE_TIMEOUT_MS,
             })),
             skip: 0,
             take: count,

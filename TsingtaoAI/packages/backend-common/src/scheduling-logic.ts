@@ -1,4 +1,4 @@
-import { ActionState } from '@kleinkram/shared';
+import { ActionState } from '@rslstudio/shared';
 import { MoreThanOrEqual, Repository } from 'typeorm';
 import { ActionEntity } from './entities/action/action.entity';
 import { WorkerEntity } from './entities/worker/worker.entity';

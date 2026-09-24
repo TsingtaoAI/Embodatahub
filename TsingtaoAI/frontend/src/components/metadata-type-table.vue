@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TagTypeDto } from '@kleinkram/api-dto/types/tags/tags.dto';
+import type { TagTypeDto } from '@rslstudio/api-dto/types/tags/tags.dto';
 import { defineEmits, defineProps } from 'vue';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

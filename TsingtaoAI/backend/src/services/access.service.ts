@@ -13,18 +13,18 @@ import {
     ProjectAccessListDto,
     ProjectDto,
     ProjectWithAccessRightsDto,
-} from '@kleinkram/api-dto';
-import { AccessGroupEntity } from '@kleinkram/backend-common';
-import { GroupMembershipEntity } from '@kleinkram/backend-common/entities/auth/group-membership.entity';
-import { ProjectAccessEntity } from '@kleinkram/backend-common/entities/auth/project-access.entity';
-import { ProjectEntity } from '@kleinkram/backend-common/entities/project/project.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
+} from '@rslstudio/api-dto';
+import { AccessGroupEntity } from '@rslstudio/backend-common';
+import { GroupMembershipEntity } from '@rslstudio/backend-common/entities/auth/group-membership.entity';
+import { ProjectAccessEntity } from '@rslstudio/backend-common/entities/auth/project-access.entity';
+import { ProjectEntity } from '@rslstudio/backend-common/entities/project/project.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
 import {
     AccessGroupConfig,
     AccessGroupRights,
     AccessGroupType,
     UserRole,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';

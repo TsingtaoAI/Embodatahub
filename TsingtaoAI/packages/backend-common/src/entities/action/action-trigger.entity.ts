@@ -1,5 +1,5 @@
-import type { TriggerConfig } from '@kleinkram/api-dto/types/actions/action-trigger.dto';
-import { TriggerType } from '@kleinkram/shared';
+import type { TriggerConfig } from '@rslstudio/api-dto/types/actions/action-trigger.dto';
+import { TriggerType } from '@rslstudio/shared';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../base-entity.entity';
 import { MissionEntity } from '../mission/mission.entity';

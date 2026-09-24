@@ -142,8 +142,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ProjectDto } from '@kleinkram/api-dto/types/project/base-project.dto';
-import { AccessGroupRights } from '@kleinkram/shared';
+import type { ProjectDto } from '@rslstudio/api-dto/types/project/base-project.dto';
+import { AccessGroupRights } from '@rslstudio/shared';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { Notify, QSelect, QTableColumn } from 'quasar';
 import { accessGroupRightsList } from 'src/enums/access-group-rights-list';
@@ -190,14 +190,14 @@ const columns: QTableColumn<SelectedProject>[] = [
     {
         name: 'name',
         required: true,
-        label: 'Name',
+        label: '名称',
         align: 'left',
         field: 'name',
     },
     {
         name: 'rights',
         required: true,
-        label: 'Rights',
+        label: '权限',
         align: 'left',
         field: 'rights',
     },

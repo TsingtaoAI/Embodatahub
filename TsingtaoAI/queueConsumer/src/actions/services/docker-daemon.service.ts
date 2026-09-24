@@ -1,6 +1,6 @@
-import { ContainerLog } from '@kleinkram/backend-common/entities/action/action.entity';
-import environment from '@kleinkram/backend-common/environment';
-import { ImageSource, LogType } from '@kleinkram/shared';
+import { ContainerLog } from '@rslstudio/backend-common/entities/action/action.entity';
+import environment from '@rslstudio/backend-common/environment';
+import { ImageSource, LogType } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import Dockerode, { Image } from 'dockerode';
 import process from 'node:process';
@@ -91,7 +91,7 @@ const artifactUploaderImage =
 export class DockerDaemon {
     readonly docker: Dockerode;
 
-    static readonly CONTAINER_PREFIX = 'kleinkram-user-action-';
+    static readonly CONTAINER_PREFIX = 'rslstudio-user-action-';
 
     constructor(
         private readonly imageResolutionService: ImageResolutionService,
@@ -577,7 +577,7 @@ export class DockerDaemon {
 
         const containerCreateOptions: Dockerode.ContainerCreateOptions = {
             Image: artifactUploaderImage,
-            name: `kleinkram-artifact-uploader-${actionUuid}`,
+            name: `rslstudio-artifact-uploader-${actionUuid}`,
             Env: [
                 `KLEINKRAM_ACTION_UUID=${actionUuid}`,
                 `S3_ENDPOINT=${environment.S3_ENDPOINT === 'localhost' ? '127.0.0.1' : environment.S3_ENDPOINT}${environment.DEV ? ':9000' : ''}`,

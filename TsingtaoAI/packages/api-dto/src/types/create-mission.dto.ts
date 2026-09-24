@@ -1,4 +1,4 @@
-import { IsNoValidUUID, IsValidMissionName } from '@kleinkram/validation';
+import { IsNoValidUUID, IsValidMissionName } from '@rslstudio/validation';
 import {
     IsBoolean,
     IsNotEmpty,

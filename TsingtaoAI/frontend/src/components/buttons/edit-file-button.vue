@@ -4,24 +4,24 @@
         flat
         color="primary"
         icon="sym_o_edit"
-        label="Edit File"
+        label="编辑文件"
         :disable="!isEnabled"
         @click="editFile"
     >
-        <q-tooltip v-if="isEnabled"> Edit File</q-tooltip>
+        <q-tooltip v-if="isEnabled"> 编辑文件</q-tooltip>
         <q-tooltip v-else>
-            You do not have permission to edit this file
+            您没有权限编辑此文件
         </q-tooltip>
     </q-btn>
 </template>
 
 <script setup lang="ts">
-import { FileState } from '@kleinkram/shared';
+import { FileState } from '@rslstudio/shared';
 import { useQuasar } from 'quasar';
 import { canModifyMission, usePermissionsQuery } from 'src/hooks/query-hooks';
 import { computed } from 'vue';
 
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
 import EditFile from 'components/edit-file.vue';
 
 const { file } = defineProps<{ file: FileWithTopicDto }>();

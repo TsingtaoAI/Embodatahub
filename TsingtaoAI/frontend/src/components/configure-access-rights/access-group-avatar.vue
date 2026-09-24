@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { AccessGroupType } from '@kleinkram/shared';
+import { AccessGroupType } from '@rslstudio/shared';
 import { computed } from 'vue';
 
 const properties = defineProps<{

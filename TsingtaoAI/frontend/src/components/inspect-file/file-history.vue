@@ -37,8 +37,8 @@
 </template>
 
 <script setup lang="ts">
-import type { FileEventsDto } from '@kleinkram/api-dto/types/file/file-event.dto';
-import { FileEventType } from '@kleinkram/shared';
+import type { FileEventsDto } from '@rslstudio/api-dto/types/file/file-event.dto';
+import { FileEventType } from '@rslstudio/shared';
 import { computed } from 'vue';
 import FileEventGroupItem from './file-history/file-event-group-item.vue';
 import FileEventSingleItem from './file-history/file-event-single-item.vue';

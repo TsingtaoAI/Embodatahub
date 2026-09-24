@@ -1,4 +1,4 @@
-import { ResourceSample, ResourceUsage } from '@kleinkram/shared';
+import { ResourceSample, ResourceUsage } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import type Dockerode from 'dockerode';
 import logger from '../../logger';

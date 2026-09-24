@@ -1,9 +1,9 @@
-import { FileAuditService } from '@kleinkram/backend-common/audit/file-audit.service';
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import environment from '@kleinkram/backend-common/environment';
-import { IStorageBucket } from '@kleinkram/backend-common/modules/storage/types';
-import { FileEventType, FileType } from '@kleinkram/shared';
+import { FileAuditService } from '@rslstudio/backend-common/audit/file-audit.service';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import environment from '@rslstudio/backend-common/environment';
+import { IStorageBucket } from '@rslstudio/backend-common/modules/storage/types';
+import { FileEventType, FileType } from '@rslstudio/shared';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as crypto from 'node:crypto';

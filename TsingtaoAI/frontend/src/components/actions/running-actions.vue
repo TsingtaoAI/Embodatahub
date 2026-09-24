@@ -59,10 +59,10 @@
             <div class="empty-state-content">
                 <q-icon name="sym_o_analytics" size="lg" color="grey-6" />
                 <span class="text-h6 text-grey-7 q-mt-md">
-                    No running actions
+                    暂无正在执行的任务
                 </span>
                 <span class="text-body1 text-grey-6 q-mt-sm">
-                    Your running actions will appear here.
+                    正在执行的任务将显示在此处。
                 </span>
             </div>
         </div>
@@ -70,8 +70,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ActionDto } from '@kleinkram/api-dto/types/actions/action.dto';
-import { ActionState } from '@kleinkram/shared';
+import type { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
+import { ActionState } from '@rslstudio/shared';
 import ActionBadge from 'components/action-badge.vue';
 import { useRunningActions } from 'src/composables/use-actions-queries';
 import ROUTES from 'src/router/routes';
@@ -85,7 +85,7 @@ const { data: actions, isFetched } = useRunningActions();
 const columns = [
     {
         name: 'state',
-        label: 'Status',
+        label: '状态',
         align: 'left',
         field: 'state',
         sortable: true,
@@ -93,31 +93,31 @@ const columns = [
     },
     {
         name: 'image',
-        label: 'Docker Image',
+        label: '镜像',
         align: 'left',
         sortable: false,
         field: (row: ActionDto): string => row.template.imageName,
     },
     {
         name: 'mission',
-        label: 'Mission',
+        label: '任务',
         align: 'left',
         sortable: false,
         field: (row: ActionDto): string => row.mission.name,
     },
     {
         name: 'name',
-        label: 'Action Name',
+        label: '执行名称',
         align: 'left',
         sortable: false,
         field: (row: ActionDto): string =>
             row.template.name === ''
-                ? 'N/A'
+                ? '无'
                 : `${row.template.name} v${row.template.version}`,
     },
     {
         name: 'user',
-        label: 'Submitted By',
+        label: '提交人',
         align: 'left',
         field: (row: ActionDto): string => row.creator.name,
         sortable: false,

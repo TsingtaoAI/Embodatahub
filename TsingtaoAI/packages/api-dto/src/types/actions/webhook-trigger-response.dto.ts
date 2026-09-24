@@ -1,4 +1,4 @@
-import { ActionState } from '@kleinkram/shared';
+import { ActionState } from '@rslstudio/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsEnum, IsUUID } from 'class-validator';
 

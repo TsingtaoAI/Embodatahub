@@ -69,7 +69,7 @@ jobs:
                   while ! curl -s http://localhost:3000/ > /dev/null; do
                     if [ $SECONDS -ge $TIMEOUT ]; then
                         echo "Timeout reached: API not reachable"
-                        docker logs kleinkram-api-server-test
+                        docker logs rslstudio-api-server-test
                         docker compose -f ../docker-compose.testing.yml down
                         exit 1
                     fi

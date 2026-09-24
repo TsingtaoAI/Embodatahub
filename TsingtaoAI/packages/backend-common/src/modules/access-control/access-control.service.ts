@@ -1,4 +1,4 @@
-import { AccessGroupRights, UserRole } from '@kleinkram/shared';
+import { AccessGroupRights, UserRole } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThanOrEqual, Repository } from 'typeorm';

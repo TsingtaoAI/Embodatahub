@@ -6,12 +6,12 @@
         "outDir": "dist",
         "paths": {
             "@backend-common/*": ["src/*"],
-            "@kleinkram/api-dto": ["../api-dto/src/index.ts"],
-            "@kleinkram/api-dto/*": ["../api-dto/src/*"],
-            "@kleinkram/shared": ["../shared/src/index.ts"],
-            "@kleinkram/shared/*": ["../shared/src/*"],
-            "@kleinkram/validation": ["../validation/src/index.ts"],
-            "@kleinkram/validation/*": ["../validation/src/*"]
+            "@rslstudio/api-dto": ["../api-dto/src/index.ts"],
+            "@rslstudio/api-dto/*": ["../api-dto/src/*"],
+            "@rslstudio/shared": ["../shared/src/index.ts"],
+            "@rslstudio/shared/*": ["../shared/src/*"],
+            "@rslstudio/validation": ["../validation/src/index.ts"],
+            "@rslstudio/validation/*": ["../validation/src/*"]
         },
         "types": ["node"]
     },

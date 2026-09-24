@@ -10,7 +10,7 @@ import pytest
 from rich.console import Console
 from rich.text import Text
 
-from kleinkram.api.routes import _get_api_version
+from rslstudio.api.routes import _get_api_version
 
 VERBOSE = True
 

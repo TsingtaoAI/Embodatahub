@@ -1,8 +1,8 @@
 import { GroupMembershipDto } from '@api-dto/access-control/group-membership.dto';
 import { ProjectWithAccessRightsDto } from '@api-dto/project/project-access.dto';
 import { UserDto } from '@api-dto/user/user.dto';
-import { AccessGroupType } from '@kleinkram/shared';
-import { IsNotUndefined } from '@kleinkram/validation';
+import { AccessGroupType } from '@rslstudio/shared';
+import { IsNotUndefined } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {

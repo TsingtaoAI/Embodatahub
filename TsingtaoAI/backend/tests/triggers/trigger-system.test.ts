@@ -1,5 +1,5 @@
 import { appVersion } from '@/app-version';
-import { ActionTriggerDto } from '@kleinkram/api-dto';
+import { ActionTriggerDto } from '@rslstudio/api-dto';
 import {
     ActionEntity,
     ActionTriggerEntity,
@@ -7,8 +7,8 @@ import {
     MissionEntity,
     UserEntity,
     WorkerEntity,
-} from '@kleinkram/backend-common';
-import { systemUser } from '@kleinkram/backend-common/consts';
+} from '@rslstudio/backend-common';
+import { systemUser } from '@rslstudio/backend-common/consts';
 import {
     AccessGroupRights,
     ActionState,
@@ -16,7 +16,7 @@ import {
     FileType,
     TriggerEvent,
     TriggerType,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { minimatch } from 'minimatch';
 import { DEFAULT_URL, generateAndFetchDatabaseUser } from '../auth/utilities';
 import {
@@ -216,7 +216,7 @@ describe('Trigger System API Tests', () => {
                     // eslint-disable-next-line @typescript-eslint/naming-convention
                     'Content-Type': 'application/json',
                     // eslint-disable-next-line @typescript-eslint/naming-convention
-                    'kleinkram-client-version': appVersion,
+                    'rslstudio-client-version': appVersion,
                 },
                 body: JSON.stringify({ key: 'value' }),
             },

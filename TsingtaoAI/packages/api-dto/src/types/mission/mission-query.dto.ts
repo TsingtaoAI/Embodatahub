@@ -1,5 +1,5 @@
 import { ProjectQueryDto } from '@api-dto/project/project-query.dto';
-import { IsRecordStringString } from '@kleinkram/validation';
+import { IsRecordStringString } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {

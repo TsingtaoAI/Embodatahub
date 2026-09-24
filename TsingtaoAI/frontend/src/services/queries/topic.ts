@@ -1,4 +1,4 @@
-import type { TopicNamesDto, TopicTypesDto } from '@kleinkram/api-dto';
+import type { TopicNamesDto, TopicTypesDto } from '@rslstudio/api-dto';
 import axios from 'src/api/axios';
 
 export const allTopicsNames = async (): Promise<string[]> => {

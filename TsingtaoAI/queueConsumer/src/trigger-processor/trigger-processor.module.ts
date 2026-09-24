@@ -4,8 +4,8 @@ import {
     FileEntity,
     MissionEntity,
     UserEntity,
-} from '@kleinkram/backend-common';
-import { ActionDispatcherModule } from '@kleinkram/backend-common/modules/action-dispatcher/action-dispatcher.module';
+} from '@rslstudio/backend-common';
+import { ActionDispatcherModule } from '@rslstudio/backend-common/modules/action-dispatcher/action-dispatcher.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TriggerQueueProcessorProvider } from './trigger-queue-processor.provider';

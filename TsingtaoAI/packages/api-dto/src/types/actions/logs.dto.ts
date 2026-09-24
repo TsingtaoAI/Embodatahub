@@ -1,4 +1,4 @@
-import { LogType } from '@kleinkram/shared';
+import { LogType } from '@rslstudio/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsString } from 'class-validator';
 

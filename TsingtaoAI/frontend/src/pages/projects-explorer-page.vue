@@ -1,5 +1,5 @@
 <template>
-    <title-section title="Projects" />
+    <title-section title="项目" />
 
     <div class="q-my-lg">
         <project-list-filter-options v-model="myProjects" />

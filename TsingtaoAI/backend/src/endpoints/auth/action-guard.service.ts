@@ -1,8 +1,8 @@
 import { ProjectGuardService } from '@/services/project-guard.service';
-import { ApiKeyEntity } from '@kleinkram/backend-common';
-import { ActionEntity } from '@kleinkram/backend-common/entities/action/action.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import { AccessGroupRights, UserRole } from '@kleinkram/shared';
+import { ApiKeyEntity } from '@rslstudio/backend-common';
+import { ActionEntity } from '@rslstudio/backend-common/entities/action/action.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import { AccessGroupRights, UserRole } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

@@ -29,8 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import type { FileEventDto } from '@kleinkram/api-dto/types/file/file-event.dto';
-import { FileEventType } from '@kleinkram/shared';
+import type { FileEventDto } from '@rslstudio/api-dto/types/file/file-event.dto';
+import { FileEventType } from '@rslstudio/shared';
 
 defineProps<{
     event: FileEventDto;

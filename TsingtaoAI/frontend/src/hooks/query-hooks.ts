@@ -1,34 +1,34 @@
-import type { MissionsDto } from '@kleinkram/api-dto';
-import type { AccessGroupDto } from '@kleinkram/api-dto/types/access-control/access-group.dto';
-import type { AccessGroupsDto } from '@kleinkram/api-dto/types/access-control/access-groups.dto';
-import type { DefaultRightDto } from '@kleinkram/api-dto/types/access-control/default-right.dto';
-import type { DefaultRights } from '@kleinkram/api-dto/types/access-control/default-rights';
-import type { ProjectAccessListDto } from '@kleinkram/api-dto/types/access-control/project-access.dto';
-import type { ActionWorkersDto } from '@kleinkram/api-dto/types/action-workers.dto';
-import type { CategoriesDto } from '@kleinkram/api-dto/types/category.dto';
-import type { FileEventsDto } from '@kleinkram/api-dto/types/file/file-event.dto';
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission-with-files.dto';
+import type { MissionsDto } from '@rslstudio/api-dto';
+import type { AccessGroupDto } from '@rslstudio/api-dto/types/access-control/access-group.dto';
+import type { AccessGroupsDto } from '@rslstudio/api-dto/types/access-control/access-groups.dto';
+import type { DefaultRightDto } from '@rslstudio/api-dto/types/access-control/default-right.dto';
+import type { DefaultRights } from '@rslstudio/api-dto/types/access-control/default-rights';
+import type { ProjectAccessListDto } from '@rslstudio/api-dto/types/access-control/project-access.dto';
+import type { ActionWorkersDto } from '@rslstudio/api-dto/types/action-workers.dto';
+import type { CategoriesDto } from '@rslstudio/api-dto/types/category.dto';
+import type { FileEventsDto } from '@rslstudio/api-dto/types/file/file-event.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission-with-files.dto';
 import type {
     PermissionsDto,
     ProjectPermissions,
-} from '@kleinkram/api-dto/types/permissions.dto';
-import type { ProjectWithRequiredTagsDto } from '@kleinkram/api-dto/types/project/project-with-required-tags.dto';
-import type { ProjectsDto } from '@kleinkram/api-dto/types/project/projects.dto';
-import type { StorageOverviewDto } from '@kleinkram/api-dto/types/storage-overview.dto';
+} from '@rslstudio/api-dto/types/permissions.dto';
+import type { ProjectWithRequiredTagsDto } from '@rslstudio/api-dto/types/project/project-with-required-tags.dto';
+import type { ProjectsDto } from '@rslstudio/api-dto/types/project/projects.dto';
+import type { StorageOverviewDto } from '@rslstudio/api-dto/types/storage-overview.dto';
 import type {
     TagsDto,
     TagTypeDto,
-} from '@kleinkram/api-dto/types/tags/tags.dto';
-import type { ApiKeysDto } from '@kleinkram/api-dto/types/user/api-keys.dto';
-import type { CurrentAPIUserDto } from '@kleinkram/api-dto/types/user/current-api-user.dto';
-import type { UsersDto } from '@kleinkram/api-dto/types/user/users.dto';
+} from '@rslstudio/api-dto/types/tags/tags.dto';
+import type { ApiKeysDto } from '@rslstudio/api-dto/types/user/api-keys.dto';
+import type { CurrentAPIUserDto } from '@rslstudio/api-dto/types/user/current-api-user.dto';
+import type { UsersDto } from '@rslstudio/api-dto/types/user/users.dto';
 import {
     AccessGroupRights,
     AccessGroupType,
     DataType,
     UserRole,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import {
     ThrowOnError,
     useQuery,
@@ -421,6 +421,7 @@ export const useStorageOverview = (): UseQueryReturnType<
     return useQuery<StorageOverviewDto>({
         queryFn: () => getStorage(),
         queryKey: ['storage'],
+        refetchInterval: 30_000, // 每 30 秒刷新一次，确保开机后能及时检测到磁盘占用
     });
 };
 

@@ -1,6 +1,6 @@
 import { ApiOkResponse } from '@/decorators';
 import { WorkerService } from '@/services/worker.service';
-import { ActionWorkersDto } from '@kleinkram/api-dto';
+import { ActionWorkersDto } from '@rslstudio/api-dto';
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { LoggedIn } from '../auth/roles.decorator';

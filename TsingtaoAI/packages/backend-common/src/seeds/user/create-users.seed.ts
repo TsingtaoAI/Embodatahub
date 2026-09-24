@@ -2,7 +2,7 @@ import { AccessGroupEntity } from '@backend-common/entities/auth/access-group.en
 import { GroupMembershipEntity } from '@backend-common/entities/auth/group-membership.entity';
 import { UserEntity } from '@backend-common/entities/user/user.entity';
 import { AffiliationGroupService } from '@backend-common/services/affiliation-group.service';
-import { AccessGroupConfig } from '@kleinkram/shared';
+import { AccessGroupConfig } from '@rslstudio/shared';
 import * as fs from 'node:fs';
 
 import { systemUser } from '@backend-common/consts';

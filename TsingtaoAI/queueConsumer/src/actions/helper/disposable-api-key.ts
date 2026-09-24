@@ -1,5 +1,5 @@
-import { ApiKeyEntity, MissionEntity } from '@kleinkram/backend-common';
-import { KeyTypes } from '@kleinkram/shared';
+import { ApiKeyEntity, MissionEntity } from '@rslstudio/backend-common';
+import { KeyTypes } from '@rslstudio/shared';
 import { Repository } from 'typeorm';
 import logger from '../../logger';
 

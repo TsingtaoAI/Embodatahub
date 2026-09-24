@@ -1,7 +1,7 @@
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { IngestionJobEntity } from '@kleinkram/backend-common/entities/file/ingestion-job.entity';
-import { IStorageBucket } from '@kleinkram/backend-common/modules/storage/types';
-import { FileLocation, FileState, QueueState } from '@kleinkram/shared';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { IngestionJobEntity } from '@rslstudio/backend-common/entities/file/ingestion-job.entity';
+import { IStorageBucket } from '@rslstudio/backend-common/modules/storage/types';
+import { FileLocation, FileState, QueueState } from '@rslstudio/shared';
 import { InjectQueue, Process, Processor } from '@nestjs/bull';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';

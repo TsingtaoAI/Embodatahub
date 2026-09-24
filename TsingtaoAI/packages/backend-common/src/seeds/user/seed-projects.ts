@@ -4,7 +4,7 @@ import { MissionEntity } from '@backend-common/entities/mission/mission.entity';
 import { ProjectEntity } from '@backend-common/entities/project/project.entity';
 import { TagTypeEntity } from '@backend-common/entities/tagType/tag-type.entity';
 import { UserEntity } from '@backend-common/entities/user/user.entity';
-import { AccessGroupType } from '@kleinkram/shared';
+import { AccessGroupType } from '@rslstudio/shared';
 import { DataSource } from 'typeorm';
 import { SeederFactoryManager } from 'typeorm-extension';
 

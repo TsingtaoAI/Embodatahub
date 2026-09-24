@@ -18,8 +18,12 @@ module.exports = function (options, webpackOptions) {
                 nodeExternals({
                     allowlist: [
                         'webpack/hot/poll?100',
-                        /^@kleinkram/,
+                        /^@rslstudio/,
                         /^@backend-common/,
+                        /^@nestjs\//,
+                        /^typeorm/,
+                        /^class-transformer/,
+                        /^reflect-metadata/,
                     ],
                 }),
         ].filter(Boolean),
@@ -69,19 +73,19 @@ module.exports = function (options, webpackOptions) {
                     __dirname,
                     '../packages/backend-common/src',
                 ),
-                '@kleinkram/backend-common': path.resolve(
+                '@rslstudio/backend-common': path.resolve(
                     __dirname,
                     '../packages/backend-common/src',
                 ),
-                '@kleinkram/shared': path.resolve(
+                '@rslstudio/shared': path.resolve(
                     __dirname,
                     '../packages/shared/src/index.ts',
                 ),
-                '@kleinkram/validation': path.resolve(
+                '@rslstudio/validation': path.resolve(
                     __dirname,
                     '../packages/validation/src/index.ts',
                 ),
-                '@kleinkram/api-dto': path.resolve(
+                '@rslstudio/api-dto': path.resolve(
                     __dirname,
                     '../packages/api-dto/src/index.ts',
                 ),

@@ -1,4 +1,4 @@
-import { metadataApplier, UUIDValidate } from '@kleinkram/validation';
+import { metadataApplier, UUIDValidate } from '@rslstudio/validation';
 import {
     BadRequestException,
     createParamDecorator,

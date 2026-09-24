@@ -1,6 +1,6 @@
-import { ActionDto } from '@kleinkram/api-dto/types/actions/action.dto';
-import { CreateTemplateDto } from '@kleinkram/api-dto/types/actions/create-template.dto';
-import { SubmitActionDto } from '@kleinkram/api-dto/types/submit-action-response.dto';
+import { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
+import { CreateTemplateDto } from '@rslstudio/api-dto/types/actions/create-template.dto';
+import { SubmitActionDto } from '@rslstudio/api-dto/types/submit-action-response.dto';
 import {
     AccessGroupEntity,
     ActionEntity,
@@ -9,8 +9,8 @@ import {
     ProjectEntity,
     UserEntity,
     WorkerEntity,
-} from '@kleinkram/backend-common';
-import { AccessGroupRights, ActionState } from '@kleinkram/shared';
+} from '@rslstudio/backend-common';
+import { AccessGroupRights, ActionState } from '@rslstudio/shared';
 import { DEFAULT_URL, generateAndFetchDatabaseUser } from '../auth/utilities';
 import {
     createMissionUsingPost,

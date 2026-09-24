@@ -1,4 +1,4 @@
-import { FileType } from '@kleinkram/shared';
+import { FileType } from '@rslstudio/shared';
 
 const validTypes = Object.values(FileType).filter(
     (type) => type !== FileType.ALL,

@@ -1,5 +1,5 @@
-import { UserEntity } from '@kleinkram/backend-common';
-import { AccessGroupRights, TriggerType } from '@kleinkram/shared';
+import { UserEntity } from '@rslstudio/backend-common';
+import { AccessGroupRights, TriggerType } from '@rslstudio/shared';
 import { DEFAULT_URL, generateAndFetchDatabaseUser } from '../auth/utilities';
 import {
     createActionUsingPost,

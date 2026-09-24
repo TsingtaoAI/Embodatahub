@@ -1,4 +1,4 @@
-import { FileEntity, TopicEntity } from '@kleinkram/backend-common';
+import { FileEntity, TopicEntity } from '@rslstudio/backend-common';
 import { DEFAULT_URL } from '../auth/utilities';
 import { getAuthHeaders, uploadFile } from '../utils/api-calls';
 import { database } from '../utils/database-utilities';
@@ -14,7 +14,7 @@ describe('Topic Extraction Tests', () => {
     test('should extract topics from a file', async () => {
         console.log('[DEBUG] Starting test setup');
         const { user, missionUuid } = await setupTestEnvironment(
-            'test-topic@kleinkram.dev',
+            'test-topic@rslstudio.dev',
             'Topic User',
         );
         console.log('[DEBUG] Test setup complete');

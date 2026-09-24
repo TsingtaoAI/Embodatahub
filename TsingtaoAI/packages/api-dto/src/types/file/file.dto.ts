@@ -2,7 +2,7 @@ import { CategoryDto } from '@api-dto/category.dto';
 import { MissionDto } from '@api-dto/mission/mission.dto';
 import { TopicDto } from '@api-dto/topic.dto';
 import { UserDto } from '@api-dto/user/user.dto';
-import { FileState, FileType } from '@kleinkram/shared';
+import { FileState, FileType } from '@rslstudio/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
 import {

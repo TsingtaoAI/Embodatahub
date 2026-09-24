@@ -1,4 +1,4 @@
-import { FileEventType } from '@kleinkram/shared';
+import { FileEventType } from '@rslstudio/shared';
 
 export function formatEventType(type: FileEventType): string {
     const map: Record<string, string> = {

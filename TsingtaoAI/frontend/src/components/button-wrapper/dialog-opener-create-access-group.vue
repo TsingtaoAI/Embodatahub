@@ -1,11 +1,11 @@
 <template>
     <app-create-button
-        label="Create Access Group"
+        label="创建访问组"
         :disable="!canCreate"
         @click="createAccessGroupDialog"
     >
         <q-tooltip v-if="!canCreate">
-            You do not have permission to create a new Access Group
+            您没有权限创建新的访问组
         </q-tooltip>
     </app-create-button>
 </template>
@@ -34,7 +34,7 @@ const { mutate: _createAccessGroup } = useMutation({
             },
         });
         Notify.create({
-            message: 'Access Group Created',
+            message: '访问组创建成功',
             color: 'positive',
             position: 'bottom',
             timeout: 2000,
@@ -42,7 +42,7 @@ const { mutate: _createAccessGroup } = useMutation({
     },
     onError: () => {
         Notify.create({
-            message: 'Error creating Access Group',
+            message: '创建访问组失败',
             color: 'negative',
             position: 'bottom',
             timeout: 2000,

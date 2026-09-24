@@ -37,6 +37,21 @@
 
                     <q-separator />
 
+                    <q-item
+                        v-close-popup
+                        clickable
+                        @click="navigateToAbout"
+                    >
+                        <q-item-section avatar>
+                            <q-icon name="sym_o_info" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>关于</q-item-label>
+                        </q-item-section>
+                    </q-item>
+
+                    <q-separator />
+
                     <q-item clickable class="text-error" @click="logout">
                         <q-item-section avatar>
                             <q-icon
@@ -45,7 +60,7 @@
                             />
                         </q-item-section>
                         <q-item-section>
-                            <q-item-label>Log out</q-item-label>
+                            <q-item-label>退出登录</q-item-label>
                         </q-item-section>
                     </q-item>
                 </q-list>
@@ -54,7 +69,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { UserRole } from '@kleinkram/shared';
+import { UserRole } from '@rslstudio/shared';
 import { useUser } from 'src/hooks/query-hooks';
 import ROUTES from 'src/router/routes';
 import { logout } from 'src/services/auth';
@@ -66,6 +81,10 @@ const { data: user } = useUser();
 
 const navigateToUserProfile = async (): Promise<void> => {
     await $router.push(ROUTES.USER_PROFILE.path);
+};
+
+const navigateToAbout = async (): Promise<void> => {
+    await $router.push(ROUTES.ABOUT.path);
 };
 </script>
 

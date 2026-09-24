@@ -10,7 +10,7 @@ import { IngestionJobEntity } from '@backend-common/entities/file/ingestion-job.
 import { MetadataEntity } from '@backend-common/entities/metadata/metadata.entity';
 import { MissionEntity } from '@backend-common/entities/mission/mission.entity';
 import { ProjectEntity } from '@backend-common/entities/project/project.entity';
-import { UserRole } from '@kleinkram/shared';
+import { UserRole } from '@rslstudio/shared';
 import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { ActionTriggerEntity } from '../action/action-trigger.entity';
 
@@ -73,6 +73,13 @@ export class UserEntity extends BaseEntity {
      */
     @Column({ nullable: true })
     avatarUrl?: string;
+
+    /**
+     * The hashed password for local (email/password) authentication.
+     * Nullable -- users created via OAuth will have no password.
+     */
+    @Column({ select: false, nullable: true })
+    password?: string;
 
     @OneToOne(() => AccountEntity, (account: AccountEntity) => account.user)
     @JoinColumn({ name: 'account_uuid' })

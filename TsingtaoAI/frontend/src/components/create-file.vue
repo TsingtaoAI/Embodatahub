@@ -7,7 +7,7 @@
             :disabled="disableScope ?? false"
         />
 
-        <label>Upload File from Device</label>
+        <label>从本地上传文件</label>
         <div
             class="drop-zone"
             :class="{ 'drop-active': isDragging }"
@@ -23,17 +23,16 @@
                     unelevated
                     color="grey-3"
                     text-color="black"
-                    label="Add Files"
+                    label="添加文件"
                     icon-right="sym_o_add"
                     class="q-mb-sm"
                     @click="triggerFileInput"
                 />
-                <div class="text-grey-5">Accepts .bag or .mcap</div>
+                <div class="text-grey-5">支持 .bag 或 .mcap 格式</div>
             </div>
             <div v-else class="column justify-center q-pa-md full-height">
                 <div class="text-h6 q-mb-sm">
-                    {{ files.length }} file{{ files.length > 1 ? 's' : '' }}
-                    selected
+                    已选择 {{ files.length }} 个文件
                 </div>
                 <div class="row q-gutter-sm">
                     <q-chip
@@ -59,14 +58,14 @@
 
         <br />
 
-        <label>Import File from Google Drive</label>
+        <label>从 Google Drive 导入文件</label>
 
         <q-input
             v-model="driveUrl"
             outlined
             dense
             clearable
-            placeholder="Google Drive Link"
+            placeholder="Google Drive 链接"
             style="min-width: 300px"
             :rules="driveUrlRules"
         />
@@ -74,11 +73,11 @@
 </template>
 
 <script setup lang="ts">
-import type { FlatMissionDto } from '@kleinkram/api-dto/types/mission/mission.dto';
-import type { ProjectDto } from '@kleinkram/api-dto/types/project/base-project.dto';
-import type { FileUploadDto } from '@kleinkram/api-dto/types/upload.dto';
-import { FileType } from '@kleinkram/shared';
-import { isValidGoogleDriveUrl } from '@kleinkram/validation/frontend';
+import type { FlatMissionDto } from '@rslstudio/api-dto/types/mission/mission.dto';
+import type { ProjectDto } from '@rslstudio/api-dto/types/project/base-project.dto';
+import type { FileUploadDto } from '@rslstudio/api-dto/types/upload.dto';
+import { FileType } from '@rslstudio/shared';
+import { isValidGoogleDriveUrl } from '@rslstudio/validation/frontend';
 import { useQueryClient } from '@tanstack/vue-query';
 import ScopeSelector from 'components/common/scope-selector.vue';
 import { useQuasar } from 'quasar';
@@ -108,7 +107,7 @@ const driveUrl = ref('');
 const driveUrlRules = computed(() => [
     (value: string) =>
         isValidGoogleDriveUrl(value) ||
-        'Invalid Google Drive Link (must be a file/folder link or ID)',
+        'Google Drive 链接无效（必须是文件/文件夹链接或 ID）',
 ]);
 
 const uploadingFiles = ref<Record<string, Record<string, string>>>({});
@@ -172,19 +171,19 @@ const createFile = async (): Promise<void> => {
         if (success) {
             quasar.notify({
                 message:
-                    'Google Drive upload started. check the progress in the Upload page.',
+                    'Google Drive 上传已开始。请在上传页面查看进度。',
                 color: 'positive',
                 timeout: 0,
                 actions: [
                     {
-                        label: 'Go to Uploads',
+                        label: '前往上传页面',
                         color: 'white',
                         handler: () => {
                             void router.push('/upload');
                         },
                     },
                     {
-                        label: 'Dismiss',
+                        label: '关闭',
                         color: 'white',
                         handler: () => {
                             /* dismiss */

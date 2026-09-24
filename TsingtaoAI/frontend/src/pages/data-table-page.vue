@@ -1,5 +1,5 @@
 <template>
-    <title-section title="Datatable" />
+    <title-section title="数据表" />
 
     <FilesFilter :use-filter="filterHook" />
 
@@ -54,7 +54,7 @@
                         <q-list>
                             <edit-file-dialog-opener :file="props.row">
                                 <q-item v-ripple clickable>
-                                    <q-item-section>Edit File</q-item-section>
+                                    <q-item-section>编辑文件</q-item-section>
                                 </q-item>
                             </edit-file-dialog-opener>
                             <q-item
@@ -62,7 +62,7 @@
                                 clickable
                                 @click="() => onRowClick(undefined, props.row)"
                             >
-                                <q-item-section>View File</q-item-section>
+                                <q-item-section>查看文件</q-item-section>
                             </q-item>
                             <q-item v-ripple clickable>
                                 <q-item-section>
@@ -70,7 +70,7 @@
                                         v-if="props.row"
                                         :file="props.row"
                                     >
-                                        Delete File
+                                        删除文件
                                     </DeleteFileDialogOpener>
                                 </q-item-section>
                             </q-item>
@@ -90,7 +90,7 @@
                     total === 0 &&
                     (!!debouncedFilter || selectedFileTypesFilter.length > 0)
                 "
-                empty-label="No files found"
+                empty-label="未找到文件"
                 @reset="resetSearch"
             />
         </template>
@@ -98,8 +98,8 @@
 </template>
 
 <script setup lang="ts">
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
-import type { FilesDto } from '@kleinkram/api-dto/types/file/files.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
+import type { FilesDto } from '@rslstudio/api-dto/types/file/files.dto';
 import {
     keepPreviousData,
     useQuery,
@@ -232,7 +232,7 @@ const columns = [
     {
         name: 'state',
         required: true,
-        label: 'Health',
+        label: '状态',
         style: 'width: 10px',
         align: 'center',
         sortable: true,
@@ -240,7 +240,7 @@ const columns = [
     {
         name: 'project.name',
         required: true,
-        label: 'Project',
+        label: '项目',
         align: 'left',
         field: (row: FileWithTopicDto): string => row.mission.project.name,
         format: (value: string): string => value,
@@ -250,7 +250,7 @@ const columns = [
     {
         name: 'mission.name',
         required: true,
-        label: 'Mission',
+        label: '任务',
         align: 'left',
         field: (row: FileWithTopicDto): string => row.mission.name,
         format: (value: string): string => value,
@@ -260,7 +260,7 @@ const columns = [
     {
         name: 'file.filename',
         required: true,
-        label: 'File',
+        label: '文件名',
         align: 'left',
         field: (row: FileWithTopicDto): string => row.filename,
         format: (value: string): string => value,
@@ -270,7 +270,7 @@ const columns = [
     {
         name: 'file.date',
         required: true,
-        label: 'Recoring Date',
+        label: '录制日期',
         align: 'left',
         field: (row: FileWithTopicDto): Date => row.date,
         format: (value: string): string => formatDate(new Date(value)),
@@ -279,7 +279,7 @@ const columns = [
     {
         name: 'file.createdAt',
         required: true,
-        label: 'Creation Date',
+        label: '创建日期',
         align: 'left',
         field: (row: FileWithTopicDto): Date => row.createdAt,
         format: (value: string): string => formatDate(new Date(value)),
@@ -288,7 +288,7 @@ const columns = [
     {
         name: 'Creator',
         required: true,
-        label: 'Creator',
+        label: '创建者',
         align: 'left',
         field: (row: FileWithTopicDto): string => row.creator.name,
         format: (value: string): string => value,
@@ -298,7 +298,7 @@ const columns = [
     {
         name: 'file.size',
         required: true,
-        label: 'Size',
+        label: '大小',
         align: 'left',
         field: (row: FileWithTopicDto): number => row.size,
         format: formatSize,

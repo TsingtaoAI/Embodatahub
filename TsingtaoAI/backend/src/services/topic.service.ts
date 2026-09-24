@@ -1,9 +1,9 @@
 import { addAccessConstraints } from '@/endpoints/auth/auth-helper';
 import { topicEntityToDto } from '@/serialization';
-import { TopicNamesDto, TopicsDto, TopicTypesDto } from '@kleinkram/api-dto';
-import { TopicEntity } from '@kleinkram/backend-common/entities/topic/topic.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import { UserRole } from '@kleinkram/shared';
+import { TopicNamesDto, TopicsDto, TopicTypesDto } from '@rslstudio/api-dto';
+import { TopicEntity } from '@rslstudio/backend-common/entities/topic/topic.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import { UserRole } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

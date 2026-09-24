@@ -1,4 +1,4 @@
-import { UserRole } from '@kleinkram/shared';
+import { UserRole } from '@rslstudio/shared';
 
 export const redis = {
     host: process.env.REDIS_HOST ?? 'localhost',

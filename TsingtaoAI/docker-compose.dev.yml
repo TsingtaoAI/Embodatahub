@@ -1,14 +1,14 @@
-# this file defines a reference integration (dev branch) setup of Kleinkram
+# this file defines a RslStudio 开发环境配置
 services:
     base:
-        image: kleinkram-base
+        image: rslstudio-base
         build:
             context: .
             dockerfile: docker/base.Dockerfile
 
     api-server:
         image: rslethz/kleinkram:api-server-dev
-        container_name: kleinkram-api-server-dev
+        container_name: rslstudio-api-server-dev
 
         build:
             context: .
@@ -38,7 +38,7 @@ services:
 
     database:
         image: postgres:17
-        container_name: kleinkram-postgres-dev
+        container_name: rslstudio-postgres-dev
 
         ports:
             - '5432:5432'
@@ -54,35 +54,55 @@ services:
         volumes:
             - postgres_db_data:/var/lib/postgresql/data
 
-    seaweedfs:
-        image: chrislusf/seaweedfs:latest
-        container_name: kleinkram-seaweedfs-dev
+    # MinIO S3 兼容对象存储（替代 SeaweedFS）
+    minio:
+        image: minio/minio:latest
+        container_name: rslstudio-minio-dev
 
-        command: server -dir=/data -s3 -s3.port=9000
-
-        volumes:
-            - seaweedfs_data:/data
-            - ./docker/seaweedfs-entrypoint.sh:/docker-entrypoint.sh:ro
+        command: server /data --console-address ":9001"
 
         environment:
-            S3_DATA_BUCKET_NAME: ${S3_DATA_BUCKET_NAME}
-            S3_DB_BUCKET_NAME: ${S3_DB_BUCKET_NAME}
-            S3_ARTIFACTS_BUCKET_NAME: ${S3_ARTIFACTS_BUCKET_NAME}
-            S3_ACCESS_KEY: ${S3_ACCESS_KEY}
-            S3_SECRET_KEY: ${S3_SECRET_KEY}
+            MINIO_ROOT_USER: ${S3_ACCESS_KEY}
+            MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY}
+            MINIO_PROMETHEUS_AUTH_TYPE: public
 
-        entrypoint: ['/docker-entrypoint.sh']
+        volumes:
+            - minio_data:/data
 
         ports:
-            - '127.0.0.1:9000:9000' # file storage
-            - '127.0.0.1:9333:9333' # management console
+            - '0.0.0.0:9000:9000'   # S3 API（局域网可访问）
+            - '0.0.0.0:9001:9001'   # Web 控制台
         networks:
             - webnet
             - privatenet
 
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
+            interval: 30s
+            timeout: 20s
+            retries: 3
+
+    # MinIO 初始化 — 创建 Bucket
+    minio-init:
+        image: minio/mc:latest
+        container_name: rslstudio-minio-init
+        depends_on:
+            minio:
+                condition: service_healthy
+        entrypoint: >
+            /bin/sh -c "
+            mc alias set rslstudio http://minio:9000 ${S3_ACCESS_KEY} ${S3_SECRET_KEY};
+            mc mb --ignore-existing rslstudio/${S3_DATA_BUCKET_NAME:-data};
+            mc mb --ignore-existing rslstudio/${S3_DB_BUCKET_NAME:-dbdumps};
+            mc mb --ignore-existing rslstudio/${S3_ARTIFACTS_BUCKET_NAME:-artifacts};
+            echo 'Buckets created successfully';
+            "
+        networks:
+            - privatenet
+
     frontend:
         image: rslethz/kleinkram:frontend-dev
-        container_name: kleinkram-frontend-dev
+        container_name: rslstudio-frontend-dev
 
         build:
             context: .
@@ -106,7 +126,7 @@ services:
 
     redis:
         image: redis:latest
-        container_name: kleinkram-redis-dev
+        container_name: rslstudio-redis-dev
         ports:
             - '6379:6379'
         networks:
@@ -114,7 +134,7 @@ services:
 
     queue-consumer:
         image: rslethz/kleinkram:queue-consumer-dev
-        container_name: kleinkram-queue-consumer-dev
+        container_name: rslstudio-queue-consumer-dev
         build:
             context: .
             dockerfile: docker/queue-consumer.Dockerfile
@@ -135,7 +155,7 @@ services:
             - ${DOCKER_GID:-999}
     prometheus:
         image: prom/prometheus
-        container_name: kleinkram-prometheus-dev
+        container_name: rslstudio-prometheus-dev
         volumes:
             - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
             - logging-prometheus-storage:/prometheus
@@ -153,7 +173,7 @@ services:
     tempo:
         user: '0:0'
         image: grafana/tempo:latest
-        container_name: kleinkram-tempo-dev
+        container_name: rslstudio-tempo-dev
         command: ['-config.file=/etc/tempo/tempo.yml']
         volumes:
             - ./observability/tempo/tempo.yml:/etc/tempo/tempo.yml
@@ -167,7 +187,7 @@ services:
 
     loki:
         image: grafana/loki
-        container_name: kleinkram-loki-dev
+        container_name: rslstudio-loki-dev
         ports:
             - '3100:3100'
         command:
@@ -180,7 +200,7 @@ services:
 
     grafana:
         image: grafana/grafana
-        container_name: kleinkram-grafana-dev
+        container_name: rslstudio-grafana-dev
         volumes:
             - logging-grafana-storage:/var/lib/grafana
             - ./observability/grafana/provisioning:/etc/grafana/provisioning
@@ -196,7 +216,7 @@ services:
         depends_on:
             - api-server
         image: rslethz/kleinkram:docs-dev
-        container_name: kleinkram-documentation-dev
+        container_name: rslstudio-documentation-dev
         volumes:
             - swagger-spec:/app/src/docs/
         build:
@@ -216,7 +236,7 @@ services:
 
 volumes:
     postgres_db_data:
-    seaweedfs_data:
+    minio_data:
     logging-prometheus-storage:
     logging-grafana-storage:
     logging-tempo-data:

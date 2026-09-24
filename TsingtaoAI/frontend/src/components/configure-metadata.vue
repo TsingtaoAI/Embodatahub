@@ -77,8 +77,8 @@
 </template>
 
 <script setup lang="ts">
-import type { TagTypeDto } from '@kleinkram/api-dto/types/tags/tags.dto';
-import { DataType } from '@kleinkram/shared';
+import type { TagTypeDto } from '@rslstudio/api-dto/types/tags/tags.dto';
+import { DataType } from '@rslstudio/shared';
 import { QSelect } from 'quasar';
 import { useFilteredTag } from 'src/hooks/query-hooks';
 import { icon } from 'src/services/generic';

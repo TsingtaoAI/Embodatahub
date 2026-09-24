@@ -149,9 +149,9 @@
 </template>
 
 <script setup lang="ts">
-import type { ActionTriggerDto } from '@kleinkram/api-dto/types/actions/action-trigger.dto';
-import type { CurrentAPIUserDto } from '@kleinkram/api-dto/types/user/current-api-user.dto';
-import { TriggerType } from '@kleinkram/shared';
+import type { ActionTriggerDto } from '@rslstudio/api-dto/types/actions/action-trigger.dto';
+import type { CurrentAPIUserDto } from '@rslstudio/api-dto/types/user/current-api-user.dto';
+import { TriggerType } from '@rslstudio/shared';
 import AppCreateButton from 'components/common/app-create-button.vue';
 import AppRefreshButton from 'components/common/app-refresh-button.vue';
 import AppSearchBar from 'components/common/app-search-bar.vue';
@@ -175,15 +175,15 @@ const currentUser = ref<CurrentAPIUserDto | null>(null);
 
 // Columns
 const columns: QTableColumn[] = [
-    { name: 'name', label: 'Trigger Name', field: 'name', align: 'left' },
-    { name: 'type', label: 'Type', field: 'type', align: 'left' },
+    { name: 'name', label: '触发器名称', field: 'name', align: 'left' },
+    { name: 'type', label: '类型', field: 'type', align: 'left' },
     {
         name: 'template',
-        label: 'Target Action Template',
+        label: '目标执行模板',
         field: (row: ActionTriggerDto) => row.templateName ?? row.templateUuid,
         align: 'left',
     },
-    { name: 'creator', label: 'Creator', field: 'creatorName', align: 'left' },
+    { name: 'creator', label: '创建者', field: 'creatorName', align: 'left' },
     { name: 'actions', label: '', field: 'actions', align: 'right' },
 ];
 

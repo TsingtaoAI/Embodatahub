@@ -1,5 +1,5 @@
-import { ActionEntity, environment } from '@kleinkram/backend-common';
-import { ArtifactState } from '@kleinkram/shared';
+import { ActionEntity, environment } from '@rslstudio/backend-common';
+import { ArtifactState } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

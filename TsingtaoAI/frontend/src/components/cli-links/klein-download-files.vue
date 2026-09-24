@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
 
 const { files } = defineProps<{
     files: FileWithTopicDto[];

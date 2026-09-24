@@ -1,4 +1,4 @@
-import environment from '@kleinkram/backend-common/environment';
+import environment from '@rslstudio/backend-common/environment';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import cookieParser from 'cookie-parser';
@@ -82,7 +82,9 @@ async function bootstrap(): Promise<void> {
         }),
     );
     app.enableCors({
-        origin: [environment.FRONTEND_URL, environment.DOCS_URL],
+        origin: environment.DEV
+            ? true
+            : [environment.FRONTEND_URL, environment.DOCS_URL],
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         preflightContinue: false,
         credentials: true,
@@ -127,7 +129,7 @@ async function bootstrap(): Promise<void> {
         swaggerUiEnabled: environment.DEV,
     });
 
-    await app.listen(3000);
+    await app.listen(3000, '0.0.0.0');
     logger.debug('Listening on port 3000');
 
     logger.debug('Save endpoints as JSON');

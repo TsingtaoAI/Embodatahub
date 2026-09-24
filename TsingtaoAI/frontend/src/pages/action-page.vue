@@ -1,5 +1,5 @@
 <template>
-    <title-section title="Kleinkram Actions">
+    <title-section title="执行管理">
         <template #tabs>
             <q-tabs
                 :model-value="selectedTab"
@@ -9,19 +9,19 @@
                 class="text-grey"
                 @update:model-value="onTabChange"
             >
-                <q-tab name="store" label="Templates" style="color: #222" />
+                <q-tab name="store" label="模板" style="color: #222" />
                 <q-tab
                     name="executions"
-                    label="Executions"
+                    label="执行记录"
                     style="color: #222"
                 />
                 <q-tab name="triggers" style="color: #222">
                     <div class="row items-center no-wrap">
-                        <span>Triggers</span>
+                        <span>触发器</span>
                         <q-badge
                             color="orange-7"
                             text-color="white"
-                            label="BETA"
+                            label="测试版"
                             class="text-weight-bold cursor-help q-ml-xs"
                             style="
                                 font-size: 9px;
@@ -30,7 +30,7 @@
                             "
                         >
                             <q-tooltip>
-                                Trigger system is currently in beta.
+                                触发器系统目前处于测试阶段。
                             </q-tooltip>
                         </q-badge>
                     </div>
@@ -86,8 +86,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ActionTemplateDto } from '@kleinkram/api-dto/types/actions/action-template.dto';
-import type { ActionTemplatesDto } from '@kleinkram/api-dto/types/actions/action-templates.dto';
+import type { ActionTemplateDto } from '@rslstudio/api-dto/types/actions/action-template.dto';
+import type { ActionTemplatesDto } from '@rslstudio/api-dto/types/actions/action-templates.dto';
 
 import { computed, ref, watch } from 'vue';
 
@@ -260,7 +260,7 @@ const handleRouteUpdate = async () => {
         } catch (error) {
             console.error('Failed to load template', error);
             Notify.create({
-                message: 'Failed to load template',
+                message: '加载模板失败',
                 color: 'negative',
             });
             return;
@@ -286,7 +286,7 @@ const handleRouteUpdate = async () => {
                 isHistoryOpen.value = true;
             } catch {
                 Notify.create({
-                    message: 'Failed to load version history',
+                    message: '加载版本历史失败',
                     color: 'negative',
                 });
             }

@@ -1,4 +1,4 @@
-import { AccessGroupRights } from '@kleinkram/shared';
+import { AccessGroupRights } from '@rslstudio/shared';
 import axios from 'src/api/axios';
 
 export const createProject = async (

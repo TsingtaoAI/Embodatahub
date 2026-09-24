@@ -4,7 +4,7 @@ import { IsNumber, ValidateNested } from 'class-validator';
 
 import { AccessGroupDto } from '@api-dto/access-control/access-group.dto';
 import { Paginated } from '@api-dto/pagination';
-import { IsSkip, IsTake } from '@kleinkram/validation';
+import { IsSkip, IsTake } from '@rslstudio/validation';
 
 export class AccessGroupsDto implements Paginated<AccessGroupDto> {
     @ApiProperty()

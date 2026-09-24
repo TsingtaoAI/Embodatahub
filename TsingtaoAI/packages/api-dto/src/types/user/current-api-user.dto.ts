@@ -1,6 +1,6 @@
 import { GroupMembershipDto } from '@api-dto/access-control/group-membership.dto';
 import { UserDto } from '@api-dto/user/user.dto';
-import { UserRole } from '@kleinkram/shared';
+import { UserRole } from '@rslstudio/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsEnum, ValidateNested } from 'class-validator';

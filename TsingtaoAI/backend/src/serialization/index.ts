@@ -1,12 +1,12 @@
-import { AccessGroupEntity, ApiKeyEntity } from '@kleinkram/backend-common';
-import { GroupMembershipEntity } from '@kleinkram/backend-common/entities/auth/group-membership.entity';
-import { ProjectAccessEntity } from '@kleinkram/backend-common/entities/auth/project-access.entity';
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { MetadataEntity } from '@kleinkram/backend-common/entities/metadata/metadata.entity';
-import { MissionEntity } from '@kleinkram/backend-common/entities/mission/mission.entity';
-import { ProjectEntity } from '@kleinkram/backend-common/entities/project/project.entity';
-import { TagTypeEntity } from '@kleinkram/backend-common/entities/tagType/tag-type.entity';
-import { TopicEntity } from '@kleinkram/backend-common/entities/topic/topic.entity';
+import { AccessGroupEntity, ApiKeyEntity } from '@rslstudio/backend-common';
+import { GroupMembershipEntity } from '@rslstudio/backend-common/entities/auth/group-membership.entity';
+import { ProjectAccessEntity } from '@rslstudio/backend-common/entities/auth/project-access.entity';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { MetadataEntity } from '@rslstudio/backend-common/entities/metadata/metadata.entity';
+import { MissionEntity } from '@rslstudio/backend-common/entities/mission/mission.entity';
+import { ProjectEntity } from '@rslstudio/backend-common/entities/project/project.entity';
+import { TagTypeEntity } from '@rslstudio/backend-common/entities/tagType/tag-type.entity';
+import { TopicEntity } from '@rslstudio/backend-common/entities/topic/topic.entity';
 
 import {
     AccessGroupDto,
@@ -27,13 +27,13 @@ import {
     TagTypeDto,
     TopicDto,
     UserDto,
-} from '@kleinkram/api-dto';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
+} from '@rslstudio/api-dto';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
 import {
     AccessGroupRights,
     AccessGroupType,
     UserRole,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 
 export const userEntityToDto = (
     user: UserEntity,

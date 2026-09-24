@@ -1,5 +1,5 @@
 import { UserDto } from '@api-dto/user/user.dto';
-import { FileEventType } from '@kleinkram/shared';
+import { FileEventType } from '@rslstudio/shared';
 import { Type } from 'class-transformer';
 import {
     IsArray,

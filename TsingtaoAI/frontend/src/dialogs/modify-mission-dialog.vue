@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Edit Mission </template>
+        <template #title> 编辑任务 </template>
 
         <template #content>
             <q-input
@@ -11,15 +11,15 @@
                 autofocus
                 style="padding-bottom: 30px"
                 :error="!isNameValid"
-                :error-message="'Please enter a valid mission name'"
-                placeholder="Name..."
+                :error-message="'请输入有效的任务名称'"
+                placeholder="名称..."
             />
         </template>
 
         <template #actions>
             <q-btn
                 flat
-                label="Save Mission"
+                label="保存任务"
                 class="bg-button-primary"
                 @click="saveMissionName"
             />
@@ -27,7 +27,7 @@
     </base-dialog>
 </template>
 <script setup lang="ts">
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission-with-files.dto';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission-with-files.dto';
 import { useQueryClient } from '@tanstack/vue-query';
 import { QInput, useDialogPluginComponent, useQuasar } from 'quasar';
 import BaseDialog from 'src/dialogs/base-dialog.vue';
@@ -49,7 +49,7 @@ const saveMissionName = async () => {
     await updateMissionName(properties.mission.uuid, missionName.value)
         .then(async () => {
             $q.notify({
-                message: 'Mission name updated',
+                message: '任务名称已更新',
                 color: 'positive',
             });
 

@@ -358,13 +358,13 @@
 </template>
 
 <script setup lang="ts">
-import type { ActionDto } from '@kleinkram/api-dto/types/actions/action.dto';
+import type { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
 import {
     ActionState,
     ActionTriggerSource,
     ArtifactState,
     ImageSource,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import ActionRuntime from 'components/actions/action-runtime.vue';
 import ArtifactFileTree from 'components/actions/artifact-file-tree.vue';
 import AppInput from 'components/common/app-input.vue';

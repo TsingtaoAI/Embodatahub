@@ -1,6 +1,6 @@
 import { BaseEntity } from '@backend-common/entities/base-entity.entity';
 import { UserEntity } from '@backend-common/entities/user/user.entity';
-import { AccessGroupRights } from '@kleinkram/shared';
+import { AccessGroupRights } from '@rslstudio/shared';
 import { Column, Entity, Index, ManyToOne, OneToMany } from 'typeorm';
 import { ActionEntity } from './action.entity';
 

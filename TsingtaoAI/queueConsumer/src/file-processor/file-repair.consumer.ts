@@ -1,5 +1,5 @@
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { IStorageBucket } from '@kleinkram/backend-common/modules/storage/types';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { IStorageBucket } from '@rslstudio/backend-common/modules/storage/types';
 import { Process, Processor } from '@nestjs/bull';
 import { Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';

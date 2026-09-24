@@ -15,7 +15,7 @@
                 </q-avatar>
                 <div class="column q-ml-sm">
                     <h1 class="text-h5 text-md-h3 q-ma-none ellipsis">
-                        {{ accessGroup?.name ?? 'Loading...' }}
+                        {{ accessGroup?.name ?? '加载中...' }}
                     </h1>
                     <q-chip
                         v-if="
@@ -37,7 +37,7 @@
                                 class="text-weight-regular"
                                 style="font-size: 13px"
                             >
-                                Email:
+                                邮箱：
                                 <span class="text-weight-bold"
                                     >*@{{ accessGroup.emailPattern }}</span
                                 >
@@ -66,10 +66,10 @@
                 <q-tab
                     v-if="!personal"
                     name="members"
-                    label="Members"
+                    label="成员"
                     style="color: #222"
                 />
-                <q-tab name="projects" label="Projects" style="color: #222" />
+                <q-tab name="projects" label="项目" style="color: #222" />
             </q-tabs>
         </template>
     </title-section>
@@ -81,12 +81,12 @@
                 <button-group>
                     <app-search-bar
                         v-model="search"
-                        placeholder="Search"
+                        placeholder="搜索"
                         class="q-mr-sm"
                     />
                     <app-refresh-button @click="refetchOnClick" />
                     <app-create-button
-                        label="Add Project"
+                        label="添加项目"
                         @click="openAddProject"
                     />
                 </button-group>
@@ -115,12 +115,11 @@
                                 color="grey-4"
                             />
                             <div class="text-h6 q-mt-md">
-                                This group doesn't have access to any projects
-                                yet.
+                                该组尚未获得任何项目的访问权限。
                             </div>
                             <app-create-button
                                 class="q-mt-md"
-                                label="Assign Project"
+                                label="分配项目"
                                 @click="openAddProject"
                             />
                         </div>
@@ -154,7 +153,7 @@
                                         @click="() => rowClick(props.row.uuid)"
                                     >
                                         <q-item-section>
-                                            View Project Details
+                                            查看项目详情
                                         </q-item-section>
                                     </q-item>
 
@@ -166,7 +165,7 @@
                                     >
                                         <q-item v-ripple clickable>
                                             <q-item-section>
-                                                Change rights
+                                                更改权限
                                             </q-item-section>
                                         </q-item>
                                     </change-project-rights-dialog-opener>
@@ -177,7 +176,7 @@
                                     >
                                         <q-item v-ripple clickable>
                                             <q-item-section>
-                                                Remove
+                                                移除
                                             </q-item-section>
                                         </q-item>
                                     </RemoveProjectDialogOpener>
@@ -197,7 +196,7 @@
                 <button-group>
                     <app-search-bar
                         v-model="search"
-                        placeholder="Search"
+                        placeholder="搜索"
                         class="q-mr-sm"
                     />
                     <app-refresh-button @click="refetchOnClick" />
@@ -206,7 +205,7 @@
                         v-if="accessGroup"
                         :access-group="accessGroup"
                     >
-                        <app-create-button label="Add User" />
+                        <app-create-button label="添加用户" />
                     </DialogOpenerAddUser>
                 </button-group>
             </div>
@@ -215,8 +214,7 @@
                     <template #start>
                         <div style="margin: 0; font-size: 14pt; color: white">
                             {{ selectedUsers.length }}
-                            {{ selectedUsers.length === 1 ? 'user' : 'users' }}
-                            selected
+                            个用户已选中
                         </div>
                     </template>
                     <template #end>
@@ -229,9 +227,9 @@
                             :disable="!currentUserCanEdit"
                             @click="deleteSelectedUsers"
                         >
-                            Delete
+                            删除
                             <q-tooltip v-if="!currentUserCanEdit">
-                                You cannot edit this group
+                                您无法编辑此组
                             </q-tooltip>
                         </q-btn>
                         <q-btn
@@ -266,7 +264,7 @@
                                 color="grey-4"
                             />
                             <div class="text-h6 q-mt-md">
-                                There are no members in this group yet.
+                                该组还没有成员。
                             </div>
                             <DialogOpenerAddUser
                                 v-if="accessGroup"
@@ -274,7 +272,7 @@
                             >
                                 <app-create-button
                                     class="q-mt-md"
-                                    label="Add User"
+                                    label="添加用户"
                                 />
                             </DialogOpenerAddUser>
                         </div>
@@ -333,7 +331,7 @@
                                                 ? new Date(
                                                       props.row.expirationDate,
                                                   ).toDateString()
-                                                : 'Never'
+                                                : '永不'
                                         }}
                                     </span>
                                 </div>
@@ -362,17 +360,17 @@
                                         disable
                                     >
                                         <q-item-section>
-                                            View Details
+                                            查看详情
                                         </q-item-section>
                                         <q-tooltip>
-                                            You can't view details of a user!
+                                            无法查看用户的详细信息！
                                         </q-tooltip>
                                     </q-item>
 
                                     <q-item v-ripple clickable disabled>
-                                        <q-item-section>Edit</q-item-section>
+                                        <q-item-section>编辑</q-item-section>
                                         <q-tooltip>
-                                            You can't edit a user!
+                                            无法编辑用户！
                                         </q-tooltip>
                                     </q-item>
                                     <q-item
@@ -386,7 +384,7 @@
                                                 )
                                         "
                                     >
-                                        <q-item-section>Remove</q-item-section>
+                                        <q-item-section>移除</q-item-section>
                                     </q-item>
                                 </q-list>
                             </q-menu>
@@ -398,8 +396,8 @@
     </q-tab-panels>
 </template>
 <script setup lang="ts">
-import type { GroupMembershipDto } from '@kleinkram/api-dto/types/access-control/group-membership.dto';
-import { AccessGroupRights, AccessGroupType } from '@kleinkram/shared';
+import type { GroupMembershipDto } from '@rslstudio/api-dto/types/access-control/group-membership.dto';
+import { AccessGroupRights, AccessGroupType } from '@rslstudio/shared';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import DialogOpenerAddUser from 'components/button-wrapper/dialog-opener-add-user.vue';
 import ChangeProjectRightsDialogOpener from 'components/button-wrapper/dialog-opener-change-project-rights.vue';
@@ -466,14 +464,14 @@ const { mutate: removeUsers } = useMutation({
             queryKey: ['AccessGroup', uuid.value],
         });
         Notify.create({
-            message: 'User(s) removed successfully',
+            message: '用户已成功移除',
             color: 'positive',
             position: 'bottom',
         });
     },
     onError: () => {
         Notify.create({
-            message: 'Error removing user(s) from access group',
+            message: '从权限组移除用户时出错',
             color: 'negative',
             position: 'bottom',
         });
@@ -562,14 +560,14 @@ const { mutate: setAccessGroup } = useMutation({
             },
         });
         Notify.create({
-            message: 'Expiration date set',
+            message: '过期日期已设置',
             color: 'positive',
             position: 'bottom',
         });
     },
     onError: () => {
         Notify.create({
-            message: 'Error setting expiration date',
+            message: '设置过期日期时出错',
             color: 'negative',
             position: 'bottom',
         });
@@ -594,8 +592,8 @@ const openSetExpirationDialog = (agu: GroupMembershipDto): void => {
 const projectCols = computed(() => {
     {
         let defaultCols = [...projectAccessColumns];
-        renameColumns(defaultCols, 'Creator', 'Project Creator');
-        renameColumns(defaultCols, 'Description', 'Project Description');
+        renameColumns(defaultCols, 'Creator', '项目创建者');
+        renameColumns(defaultCols, 'Description', '项目描述');
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         defaultCols = dropColumns(defaultCols, 'Created');
 
@@ -603,7 +601,7 @@ const projectCols = computed(() => {
         defaultCols.splice(-2, 1, {
             name: 'rights',
             required: true,
-            label: 'Group Rights',
+            label: '组权限',
             style: 'max-width: 100px',
             align: 'left',
             // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
@@ -625,7 +623,7 @@ const userCols = [
     {
         name: 'name',
         required: true,
-        label: 'Name',
+        label: '名称',
         align: 'left',
         field: (row: GroupMembershipDto): string => row.user.name,
         format: (value: string): string => value,
@@ -634,7 +632,7 @@ const userCols = [
     {
         name: 'email',
         required: false,
-        label: 'Email',
+        label: '邮箱',
         align: 'left',
         field: (row: GroupMembershipDto): string => row.user.email ?? 'N/A',
         format: (value: string): string => value,
@@ -643,22 +641,22 @@ const userCols = [
     {
         name: 'status',
         required: true,
-        label: 'Status',
+        label: '状态',
         align: 'left',
     },
     {
         name: 'accessValidUntil',
         required: true,
-        label: 'Access Valid Until',
+        label: '权限有效期至',
         align: 'left',
     },
     {
         name: 'role',
         required: true,
-        label: 'Role',
+        label: '角色',
         align: 'left',
         field: (row: GroupMembershipDto): string =>
-            row.canEditGroup ? 'Owner' : 'Member',
+            row.canEditGroup ? '所有者' : '成员',
     },
     {
         name: 'actions',

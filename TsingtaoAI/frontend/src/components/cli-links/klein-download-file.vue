@@ -9,7 +9,7 @@
             "
             class="q-pa-sm"
         >
-            Kleinkram CLI:
+            RSL Studio CLI:
         </p>
         <div class="button-border">
             <div class="q-ml-sm row items-center no-wrap">
@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
 
 const { file } = defineProps<{
     file: FileWithTopicDto;

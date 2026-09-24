@@ -9,9 +9,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
-import type { CategoryDto } from '@kleinkram/api-dto/types/category.dto';
+import type { CategoryDto } from '@rslstudio/api-dto/types/category.dto';
 
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
 import CategoryCreator from 'components/category-creator.vue';
 import CategorySelector from 'components/category-selector.vue';
 

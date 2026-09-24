@@ -1,6 +1,6 @@
 import { MissionGuardService } from '@/endpoints/auth/mission-guard.service';
 import { ProjectGuardService } from '@/services/project-guard.service';
-import { AccessGroupRights, UserRole } from '@kleinkram/shared';
+import { AccessGroupRights, UserRole } from '@rslstudio/shared';
 import {
     BadRequestException,
     ExecutionContext,

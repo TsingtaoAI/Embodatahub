@@ -1,4 +1,4 @@
-FROM kleinkram-base AS development
+FROM tsintaorsl-base AS development
 
 USER root
 RUN apt-get update && apt-get install -y curl && \
@@ -27,12 +27,12 @@ RUN pnpm fetch
 COPY . .
 RUN pnpm install -r
 
-RUN pnpm --filter @kleinkram/shared build
-RUN pnpm --filter @kleinkram/validation build
-RUN pnpm --filter @kleinkram/api-dto build
-RUN pnpm --filter @kleinkram/backend-common build
-RUN NODE_ENV=production pnpm --filter kleinkram-queue-consumer build
-RUN pnpm deploy --filter=kleinkram-queue-consumer --prod --legacy /prod/queueConsumer
+RUN pnpm --filter @tsintaorsl/shared build
+RUN pnpm --filter @tsintaorsl/validation build
+RUN pnpm --filter @tsintaorsl/api-dto build
+RUN pnpm --filter @tsintaorsl/backend-common build
+RUN NODE_ENV=production pnpm --filter tsintaorsl-queue-consumer build
+RUN pnpm deploy --filter=tsintaorsl-queue-consumer --prod --legacy /prod/queueConsumer
 
 FROM node:22-slim AS production
 

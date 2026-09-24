@@ -5,8 +5,8 @@ import {
     ProjectEntity,
     TagTypeEntity,
     UserEntity,
-} from '@kleinkram/backend-common';
-import { AccessGroupRights, DataType } from '@kleinkram/shared';
+} from '@rslstudio/backend-common';
+import { AccessGroupRights, DataType } from '@rslstudio/shared';
 import {
     createMetadataUsingPost,
     createProjectUsingPost,

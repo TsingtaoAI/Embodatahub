@@ -3,7 +3,7 @@ import {
     ActionTemplatesDto,
     CreateTemplateDto,
     UpdateTemplateDto,
-} from '@kleinkram/api-dto';
+} from '@rslstudio/api-dto';
 import {
     Body,
     Controller,
@@ -20,7 +20,7 @@ import { ApiOkResponse, OutputDto } from '@/decorators';
 import { TemplateService } from '@/services/template.service';
 import { ParameterUuid } from '@/validation/parameter-decorators';
 import { QuerySkip, QueryTake } from '@/validation/query-decorators';
-import { ActionTemplateAvailabilityDto } from '@kleinkram/api-dto';
+import { ActionTemplateAvailabilityDto } from '@rslstudio/api-dto';
 import { AddUser, AuthHeader } from '../auth/parameter-decorator';
 import { CanCreate, LoggedIn } from '../auth/roles.decorator';
 

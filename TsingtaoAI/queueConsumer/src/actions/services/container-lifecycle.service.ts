@@ -1,6 +1,6 @@
-import { ActionEntity, environment } from '@kleinkram/backend-common';
-import { ActionRunnerEntity } from '@kleinkram/backend-common/entities/action/action-runner.entity';
-import { ActionState, ImageSource } from '@kleinkram/shared';
+import { ActionEntity, environment } from '@rslstudio/backend-common';
+import { ActionRunnerEntity } from '@rslstudio/backend-common/entities/action/action-runner.entity';
+import { ActionState, ImageSource } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import Dockerode from 'dockerode';
@@ -15,7 +15,7 @@ import {
 } from './docker-daemon.service';
 
 // Label keys for container metadata
-export const LABEL_PREFIX = 'kleinkram';
+export const LABEL_PREFIX = 'rslstudio';
 export const LABEL_RUNNER_ID = `${LABEL_PREFIX}.runner_id`;
 export const LABEL_ACTION_UUID = `${LABEL_PREFIX}.action_uuid`;
 export const LABEL_CREATED_AT = `${LABEL_PREFIX}.created_at`;
@@ -143,7 +143,7 @@ export class ContainerLifecycleService {
         });
 
         if (containers.length === 0) {
-            logger.debug('No kleinkram containers found.');
+            logger.debug('No rslstudio containers found.');
             return;
         }
 

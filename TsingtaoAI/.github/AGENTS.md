@@ -1,6 +1,6 @@
 # AI Agent Instructions
 
-This document provides a quick reference for AI agents working on the Kleinkram project. For detailed information, always refer to the official documentation in the `../docs/` directory.
+This document provides a quick reference for AI agents working on the RslStudio project. For detailed information, always refer to the official documentation in the `../docs/` directory.
 
 ## 🚀 Quick Start (Launch)
 
@@ -24,11 +24,11 @@ docker compose up --build --watch -d
 
 ### API Interaction
 
-**IMPORTANT**: All API calls to the backend must include the `kleinkram-client-version` header matching the current app version (e.g., `0.56.0`).
+**IMPORTANT**: All API calls to the backend must include the `rslstudio-client-version` header matching the current app version (e.g., `0.56.0`).
 
 ```typescript
 headers: {
-    'kleinkram-client-version': '0.58.0', // Replace with actual version from package.json
+    'rslstudio-client-version': '0.58.0', // Replace with actual version from package.json
     ...
 }
 ```

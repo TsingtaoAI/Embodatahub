@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Add Categories </template>
+        <template #title> 添加分类 </template>
         <template #tabs>
             <q-tabs
                 v-model="tab"
@@ -9,10 +9,10 @@
                 align="left"
                 active-color="primary"
             >
-                <q-tab name="add" label="Add" style="color: #222" />
+                <q-tab name="add" label="添加" style="color: #222" />
                 <q-tab
                     name="create"
-                    label="Create Categories"
+                    label="创建分类"
                     style="color: #222"
                 />
             </q-tabs>
@@ -20,7 +20,7 @@
         <template #content>
             <q-tab-panels v-model="tab">
                 <q-tab-panel name="add" style="min-height: 180px">
-                    <label for="categoryName">Select Categories</label>
+                    <label for="categoryName">选择分类</label>
                     <category-selector
                         :selected="selected"
                         :project-uuid="projectUuid"
@@ -34,7 +34,7 @@
         </template>
         <template #actions>
             <q-btn
-                label="Save"
+                label="保存"
                 class="bg-button-primary"
                 :disable="selected.length === 0"
                 @click="addCategories"
@@ -43,14 +43,14 @@
     </base-dialog>
 </template>
 <script setup lang="ts">
-import type { CategoryDto } from '@kleinkram/api-dto/types/category.dto';
+import type { CategoryDto } from '@rslstudio/api-dto/types/category.dto';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { Notify, useDialogPluginComponent } from 'quasar';
 import BaseDialog from 'src/dialogs/base-dialog.vue';
 import { addManyCategories } from 'src/services/mutations/categories';
 import { Ref, ref } from 'vue';
 
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
 import CategoryCreator from 'components/category-creator.vue';
 import CategorySelector from 'components/category-selector.vue';
 
@@ -81,7 +81,7 @@ const { mutate } = useMutation({
     },
     onSuccess: async () => {
         Notify.create({
-            message: 'Categories added',
+            message: '分类已添加',
             color: 'positive',
             position: 'bottom',
         });

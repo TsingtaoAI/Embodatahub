@@ -1,4 +1,4 @@
-import { FileEventsDto } from '@kleinkram/api-dto/types/file/file-event.dto';
+import { FileEventsDto } from '@rslstudio/api-dto/types/file/file-event.dto';
 import {
     ActionEntity,
     ActionTemplateEntity,
@@ -6,11 +6,11 @@ import {
     FileEntity,
     MissionEntity,
     UserEntity,
-} from '@kleinkram/backend-common';
+} from '@rslstudio/backend-common';
 
 import { appVersion } from '@/app-version';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import environment from '@kleinkram/backend-common/environment';
+import environment from '@rslstudio/backend-common/environment';
 import { DEFAULT_URL, generateAndFetchDatabaseUser } from '../auth/utilities';
 import {
     createActionUsingPost,
@@ -28,7 +28,7 @@ import {
     FileState,
     FileType,
     KeyTypes,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { database } from '../utils/database-utilities';
 import { setupDatabaseHooks } from '../utils/test-helpers';
 
@@ -183,7 +183,7 @@ describe('Action File Events', () => {
                 headers: {
                     cookie: `${CookieNames.CLI_KEY}=${actionKey}`,
                     // eslint-disable-next-line @typescript-eslint/naming-convention
-                    'kleinkram-client-version': appVersion,
+                    'rslstudio-client-version': appVersion,
                 },
             },
         );

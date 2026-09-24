@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { FileEventType } from '@kleinkram/shared';
+import { FileEventType } from '@rslstudio/shared';
 import { getEventColor, getEventIcon } from './utilities';
 
 defineProps<{

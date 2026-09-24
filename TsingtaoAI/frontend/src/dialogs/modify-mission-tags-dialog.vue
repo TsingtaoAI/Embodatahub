@@ -1,6 +1,6 @@
 <template>
     <base-dialog ref="dialogRef">
-        <template #title> Modify Metadata</template>
+        <template #title> 修改元数据</template>
         <template #content>
             <select-mission-tags
                 v-if="mission?.project?.uuid"
@@ -12,7 +12,7 @@
         <template #actions>
             <q-btn
                 class="bg-button-primary"
-                label="Save"
+                label="保存"
                 :disable="tagValues === undefined"
                 @click="modifyTags"
             />
@@ -20,8 +20,8 @@
     </base-dialog>
 </template>
 <script setup lang="ts">
-import type { MissionWithFilesDto } from '@kleinkram/api-dto/types/mission/mission-with-files.dto';
-import { DataType } from '@kleinkram/shared';
+import type { MissionWithFilesDto } from '@rslstudio/api-dto/types/mission/mission-with-files.dto';
+import { DataType } from '@rslstudio/shared';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import SelectMissionTags from 'components/select-mission-tags.vue';
 import { Notify, useDialogPluginComponent } from 'quasar';
@@ -66,7 +66,7 @@ const { mutate: _updateMissionTags } = useMutation({
     },
     onSuccess: async () => {
         Notify.create({
-            message: 'Tags updated',
+            message: '标签已更新',
             color: 'positive',
             position: 'bottom',
         });

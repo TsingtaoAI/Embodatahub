@@ -5,7 +5,7 @@ from pathlib import Path
 from argparse import ArgumentParser
 import configparser
 
-VERSION_FILE_PATH = Path() / "cli" / "kleinkram" / "_version.py"
+VERSION_FILE_PATH = Path() / "cli" / "rslstudio" / "_version.py"
 CFG_FILE_PATH = Path() / "cli" / "setup.cfg"
 
 VERSION_FILE = """\
@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from importlib.metadata import version
 
-__version__ = version("kleinkram")
+__version__ = version("rslstudio")
 __local__ = False
 """
 

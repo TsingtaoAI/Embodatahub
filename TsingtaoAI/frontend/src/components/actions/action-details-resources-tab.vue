@@ -121,8 +121,8 @@
 </template>
 
 <script setup lang="ts">
-import { ActionDto } from '@kleinkram/api-dto';
-import { ResourceUsage } from '@kleinkram/shared';
+import { ActionDto } from '@rslstudio/api-dto';
+import { ResourceUsage } from '@rslstudio/shared';
 // @ts-ignore
 import { LineChart } from 'echarts/charts';
 import {

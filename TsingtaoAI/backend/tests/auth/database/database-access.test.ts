@@ -1,5 +1,5 @@
-import { UserEntity } from '@kleinkram/backend-common';
-import { UserRole } from '@kleinkram/shared';
+import { UserEntity } from '@rslstudio/backend-common';
+import { UserRole } from '@rslstudio/shared';
 import { database, mockDatabaseUser } from '../../utils/database-utilities';
 import { setupDatabaseHooks } from '../../utils/test-helpers';
 
@@ -11,7 +11,7 @@ describe('Verify Database User Persistence', () => {
     setupDatabaseHooks();
 
     test('if user is correctly stored and retrievable after creation', async () => {
-        const email = 'db-access-test@kleinkram.dev';
+        const email = 'db-access-test@rslstudio.dev';
         const username = 'DB Access User';
         const userId = await mockDatabaseUser(email, username, UserRole.USER);
 

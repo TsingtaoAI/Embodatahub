@@ -1,5 +1,5 @@
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { FileState } from '@kleinkram/shared';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { FileState } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

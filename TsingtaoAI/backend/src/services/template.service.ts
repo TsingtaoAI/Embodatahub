@@ -6,10 +6,10 @@ import {
     CreateTemplateDto,
     DeleteTemplateResponseDto,
     UpdateTemplateDto,
-} from '@kleinkram/api-dto';
-import { ActionTemplateEntity } from '@kleinkram/backend-common/entities/action/action-template.entity';
-import { ActionEntity } from '@kleinkram/backend-common/entities/action/action.entity';
-import { validateDockerImageName } from '@kleinkram/validation';
+} from '@rslstudio/api-dto';
+import { ActionTemplateEntity } from '@rslstudio/backend-common/entities/action/action-template.entity';
+import { ActionEntity } from '@rslstudio/backend-common/entities/action/action.entity';
+import { validateDockerImageName } from '@rslstudio/validation';
 import {
     ConflictException,
     Injectable,

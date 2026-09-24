@@ -6,16 +6,16 @@ import path from 'node:path';
 import { pipeline } from 'node:stream/promises';
 import { Repository } from 'typeorm';
 
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { IngestionJobEntity } from '@kleinkram/backend-common/entities/file/ingestion-job.entity';
-import { IStorageBucket } from '@kleinkram/backend-common/modules/storage/types';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { IngestionJobEntity } from '@rslstudio/backend-common/entities/file/ingestion-job.entity';
+import { IStorageBucket } from '@rslstudio/backend-common/modules/storage/types';
 import {
     FileLocation,
     FileOrigin,
     FileState,
     FileType,
     QueueState,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import logger from '../logger';
 import {
     FILE_HANDLER,

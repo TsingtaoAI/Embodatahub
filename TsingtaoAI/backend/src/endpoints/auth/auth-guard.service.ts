@@ -1,7 +1,7 @@
-import { AccessGroupEntity } from '@kleinkram/backend-common';
-import { GroupMembershipEntity } from '@kleinkram/backend-common/entities/auth/group-membership.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import { UserRole } from '@kleinkram/shared';
+import { AccessGroupEntity } from '@rslstudio/backend-common';
+import { GroupMembershipEntity } from '@rslstudio/backend-common/entities/auth/group-membership.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import { UserRole } from '@rslstudio/shared';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

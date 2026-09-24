@@ -1,6 +1,6 @@
 <template>
     <BaseDialog ref="dialogRef">
-        <template #title> New Project</template>
+        <template #title> 新建项目</template>
 
         <template #tabs>
             <q-tabs
@@ -12,18 +12,18 @@
             >
                 <q-tab
                     name="meta_data"
-                    label="Project Details*"
+                    label="项目详情*"
                     style="color: #222"
                 />
                 <q-tab
                     name="tags"
-                    label="Mission Metadata"
+                    label="任务元数据"
                     style="color: #222"
                     :disable="!formIsValid"
                 />
                 <q-tab
                     name="manage_access"
-                    label="Manage Access"
+                    label="管理权限"
                     style="color: #222"
                     :disable="!formIsValid"
                 />
@@ -33,7 +33,7 @@
         <template #content>
             <q-tab-panels v-model="tab">
                 <q-tab-panel name="meta_data" style="min-height: 280px">
-                    <label for="projectName">Project Name *</label>
+                    <label for="projectName">项目名称 *</label>
                     <q-input
                         ref="projectNameInput"
                         v-model="newProjectName"
@@ -41,27 +41,27 @@
                         outlined
                         autofocus
                         dense
-                        placeholder="Name...."
+                        placeholder="名称..."
                         style="padding-bottom: 30px"
                         :error-message="errorMessagesProjectName"
                         :error="isInErrorStateProjectName"
                         :rules="[
-                            (val) => !!val || 'Field is required',
+                            (val) => !!val || '此项必填',
                             (val) =>
                                 val.length >= 3 ||
-                                'Name must be at least 3 characters',
+                                '名称至少3个字符',
                             (val) =>
                                 val.length <= 20 ||
-                                'Name must be at most 20 characters',
+                                '名称最多20个字符',
                             (val) =>
                                 /^[\w\-_]+$/g.test(val) ||
-                                'Name must be alphanumeric and contain only - and _',
+                                '名称只能包含字母、数字、- 和 _',
                         ]"
                         @update:model-value="verifyInput"
                     />
 
                     <label for="projectDescription"
-                        >Project Description *</label
+                        >项目描述 *</label
                     >
                     <q-input
                         v-model="newProjectDescription"
@@ -69,8 +69,8 @@
                         type="textarea"
                         outlined
                         dense
-                        placeholder="Description...."
-                        aria-placeholder="Project Name"
+                        placeholder="描述..."
+                        aria-placeholder="项目名称"
                         style="padding-bottom: 10px"
                         :error-message="errorMessagesProjectDescr"
                         :error="isInErrorStateProjectDescr"
@@ -94,7 +94,7 @@
         <template v-if="tab === 'manage_access'" #actions>
             <q-btn
                 flat
-                label="Create Project"
+                label="创建项目"
                 class="bg-button-primary"
                 :disable="!formIsValid"
                 @click="submitNewProject"
@@ -103,7 +103,7 @@
         <template v-else #actions>
             <q-btn
                 flat
-                label="Next"
+                label="下一步"
                 class="bg-button-primary"
                 :disable="!formIsValid"
                 @click="nextTab"
@@ -115,9 +115,9 @@
 <script setup lang="ts">
 import BaseDialog from 'src/dialogs/base-dialog.vue';
 
-import type { DefaultRightDto } from '@kleinkram/api-dto/types/access-control/default-right.dto';
-import type { TagTypeDto } from '@kleinkram/api-dto/types/tags/tags.dto';
-import { AccessGroupType } from '@kleinkram/shared';
+import type { DefaultRightDto } from '@rslstudio/api-dto/types/access-control/default-right.dto';
+import type { TagTypeDto } from '@rslstudio/api-dto/types/tags/tags.dto';
+import { AccessGroupType } from '@rslstudio/shared';
 import { useQueryClient } from '@tanstack/vue-query';
 import AccessRightsManager from 'components/configure-access-rights/access-rights-manager.vue';
 import ConfigureMetadata from 'components/configure-metadata.vue';
@@ -174,7 +174,7 @@ const verifyInput = () => {
         invalidProjectNames.value.includes(newProjectName.value)
     ) {
         isInErrorStateProjectName.value = true;
-        errorMessagesProjectName.value = 'Project name is required';
+        errorMessagesProjectName.value = '项目名称不能为空';
     } else {
         isInErrorStateProjectName.value = false;
         errorMessagesProjectName.value = '';
@@ -185,7 +185,7 @@ const verifyInput = () => {
         errorMessagesProjectDescr.value = '';
     } else {
         isInErrorStateProjectDescr.value = true;
-        errorMessagesProjectDescr.value = 'Project description is required';
+        errorMessagesProjectDescr.value = '项目描述不能为空';
     }
 };
 
@@ -217,7 +217,7 @@ const submitNewProject = async () => {
             await queryClient.invalidateQueries({ queryKey: ['permissions'] });
 
             $q.notify({
-                message: 'Project created successfully',
+                message: '项目创建成功',
                 color: 'positive',
                 position: 'bottom',
                 timeout: 2000,

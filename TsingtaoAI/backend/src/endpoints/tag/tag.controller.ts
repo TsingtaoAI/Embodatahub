@@ -11,9 +11,9 @@ import {
     DeleteTagDto,
     TagTypeDto,
     TagTypesDto,
-} from '@kleinkram/api-dto';
-import { DataType } from '@kleinkram/shared';
-import { BodyNotNull, BodyUUID } from '@kleinkram/validation';
+} from '@rslstudio/api-dto';
+import { DataType } from '@rslstudio/shared';
+import { BodyNotNull, BodyUUID } from '@rslstudio/validation';
 import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { ParameterUuid as ParameterUID } from '../../validation/parameter-decorators';
 import {

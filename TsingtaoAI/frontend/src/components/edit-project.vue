@@ -54,7 +54,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import type { ProjectWithRequiredTagsDto } from '@kleinkram/api-dto/types/project/project-with-required-tags.dto';
+import type { ProjectWithRequiredTagsDto } from '@rslstudio/api-dto/types/project/project-with-required-tags.dto';
 import { useQueryClient } from '@tanstack/vue-query';
 import { Notify, QInput } from 'quasar';
 import { useProjectQuery } from 'src/hooks/query-hooks';

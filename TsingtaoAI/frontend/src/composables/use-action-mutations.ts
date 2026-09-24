@@ -1,7 +1,7 @@
-import type { ActionTemplateDto } from '@kleinkram/api-dto/types/actions/action-template.dto';
-import type { CreateTemplateDto } from '@kleinkram/api-dto/types/actions/create-template.dto';
-import type { UpdateTemplateDto } from '@kleinkram/api-dto/types/actions/update-template.dto';
-import type { ActionSubmitResponseDto } from '@kleinkram/api-dto/types/submit-action-response.dto';
+import type { ActionTemplateDto } from '@rslstudio/api-dto/types/actions/action-template.dto';
+import type { CreateTemplateDto } from '@rslstudio/api-dto/types/actions/create-template.dto';
+import type { UpdateTemplateDto } from '@rslstudio/api-dto/types/actions/update-template.dto';
+import type { ActionSubmitResponseDto } from '@rslstudio/api-dto/types/submit-action-response.dto';
 import {
     useMutation,
     UseMutationReturnType,

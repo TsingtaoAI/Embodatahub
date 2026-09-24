@@ -17,7 +17,7 @@ const FORBIDDEN_RANGES = ['<0.58.0'];
 /**
  * Enforces client version compatibility by inspecting the request headers.
  *
- * This middleware extracts the `kleinkram-client-version`, sanitizes it,
+ * This middleware extracts the `rslstudio-client-version`, sanitizes it,
  * and validates it against a defined blocklist (`FORBIDDEN_RANGES`).
  *
  * If the version is missing, invalid, or forbidden, the request is rejected
@@ -26,7 +26,7 @@ const FORBIDDEN_RANGES = ['<0.58.0'];
 @Injectable()
 export class VersionCheckerMiddlewareService implements NestMiddleware {
     use(request: Request, response: Response, next: NextFunction): void {
-        let clientVersion = request.headers['kleinkram-client-version'] as
+        let clientVersion = request.headers['rslstudio-client-version'] as
             | string
             | undefined;
 
@@ -66,19 +66,19 @@ export class VersionCheckerMiddlewareService implements NestMiddleware {
      * Terminates the request with a 426 Upgrade Required error.
      *
      * Side Effect:
-     * - Sets the `kleinkram-version` header to the current `appVersion`
+     * - Sets the `rslstudio-version` header to the current `appVersion`
      * so the client knows which version the server is running.
      *
      * @throws HttpException (426)
      */
     private rejectRequest(response: Response, clientVersion: string): void {
         // Set the version header to inform the client about the required version
-        response.header('kleinkram-version', appVersion);
+        response.header('rslstudio-version', appVersion);
 
         throw new HttpException(
             {
                 statusCode: 426,
-                message: `Client version ${clientVersion} is not supported. Please upgrade to at least version ${appVersion}.`,
+                message: `客户端版本 ${clientVersion} 不受支持。请升级至 ${appVersion} 或更高版本。`,
                 error: 'Upgrade Required',
             },
             426, // HTTP 426 Upgrade Required

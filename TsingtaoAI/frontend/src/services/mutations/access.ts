@@ -6,8 +6,8 @@ import type {
     ProjectAccessListDto,
     ProjectDto,
     RemoveAccessGroupFromProjectResponseDto,
-} from '@kleinkram/api-dto';
-import { AccessGroupRights } from '@kleinkram/shared';
+} from '@rslstudio/api-dto';
+import { AccessGroupRights } from '@rslstudio/shared';
 import axios from 'src/api/axios';
 
 export const addUsersToProject = async (

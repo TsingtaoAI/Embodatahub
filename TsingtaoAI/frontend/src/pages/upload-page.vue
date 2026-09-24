@@ -1,5 +1,5 @@
 <template>
-    <title-section title="Pending Uploads" />
+    <title-section title="待上传文件" />
     <QueueItems />
 </template>
 <script setup lang="ts">

@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import pytest
 
-from kleinkram import list_files
-from kleinkram import list_missions
-from kleinkram import list_projects
+from rslstudio import list_files
+from rslstudio import list_missions
+from rslstudio import list_projects
 from tests.backend_fixtures import DATA_FILES
 from tests.backend_fixtures import PROJECT_DESCRIPTION
 

@@ -6,18 +6,18 @@ from tempfile import TemporaryDirectory
 import httpx
 import pytest
 
-import kleinkram.errors
-from kleinkram._version import __version__
-from kleinkram.api.client import CLI_VERSION_HEADER
-from kleinkram.api.client import AuthenticatedClient
-from kleinkram.api.client import _convert_list_data_query_params_values
-from kleinkram.api.client import _convert_nested_data_query_params_values
-from kleinkram.api.client import _convert_query_params_to_httpx_format
-from kleinkram.config import Config
-from kleinkram.config import Credentials
-from kleinkram.config import save_config
+import rslstudio.errors
+from rslstudio._version import __version__
+from rslstudio.api.client import CLI_VERSION_HEADER
+from rslstudio.api.client import AuthenticatedClient
+from rslstudio.api.client import _convert_list_data_query_params_values
+from rslstudio.api.client import _convert_nested_data_query_params_values
+from rslstudio.api.client import _convert_query_params_to_httpx_format
+from rslstudio.config import Config
+from rslstudio.config import Credentials
+from rslstudio.config import save_config
 
-CONFIG_FILENAME = ".kleinkram.json"
+CONFIG_FILENAME = ".rslstudio.json"
 
 
 @pytest.fixture
@@ -40,13 +40,13 @@ def mock_transport(request: httpx.Request) -> httpx.Response:
     return httpx.Response(200)
 
 
-def test_client_sending_kleinkram_version_header(empty_config):
+def test_client_sending_rslstudio_version_header(empty_config):
     with AuthenticatedClient(config_path=empty_config, transport=httpx.MockTransport(mock_transport)) as client:
         resp = client.get("/example")
         assert resp.status_code == 200
 
 
-def test_client_sending_kleinkram_version_header_with_custom_headers(empty_config):
+def test_client_sending_rslstudio_version_header_with_custom_headers(empty_config):
     with AuthenticatedClient(config_path=empty_config, transport=httpx.MockTransport(mock_transport)) as client:
         resp = client.get("/example", headers={"foo": "bar"})
         assert resp.status_code == 200
@@ -58,7 +58,7 @@ def test_client_response_on_426_status_code(empty_config):
         return httpx.Response(426)
 
     with AuthenticatedClient(config_path=empty_config, transport=httpx.MockTransport(return_426_response)) as client:
-        with pytest.raises(kleinkram.errors.UpdateCLIVersion):
+        with pytest.raises(rslstudio.errors.UpdateCLIVersion):
             client.get("/example")
 
 

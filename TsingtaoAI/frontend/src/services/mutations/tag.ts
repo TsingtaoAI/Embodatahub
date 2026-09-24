@@ -1,4 +1,4 @@
-import { DataType } from '@kleinkram/shared';
+import { DataType } from '@rslstudio/shared';
 import axios from 'src/api/axios';
 
 export const removeTag = async (tagUUID: string) => {

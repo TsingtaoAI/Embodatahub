@@ -1,10 +1,10 @@
 import { database } from '../../utils/database-utilities';
 import { setupDatabaseHooks } from '../../utils/test-helpers';
 
-import { AccessGroupEntity, ProjectEntity } from '@kleinkram/backend-common';
-import { MissionEntity } from '@kleinkram/backend-common/entities/mission/mission.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import { AccessGroupRights } from '@kleinkram/shared';
+import { AccessGroupEntity, ProjectEntity } from '@rslstudio/backend-common';
+import { MissionEntity } from '@rslstudio/backend-common/entities/mission/mission.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import { AccessGroupRights } from '@rslstudio/shared';
 import {
     createMissionUsingPost,
     createProjectUsingPost,

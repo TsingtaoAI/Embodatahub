@@ -4,7 +4,7 @@ import {
     ActionTriggerDto,
     CreateActionTriggerDto,
     UpdateActionTriggerDto,
-} from '@kleinkram/api-dto';
+} from '@rslstudio/api-dto';
 import {
     Body,
     Controller,

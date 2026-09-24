@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from uuid import uuid4
 
-from kleinkram.api.query import FileQuery
-from kleinkram.api.query import MissionQuery
-from kleinkram.api.query import ProjectQuery
-from kleinkram.wrappers import _args_to_file_query
-from kleinkram.wrappers import _args_to_mission_query
-from kleinkram.wrappers import _args_to_project_query
+from rslstudio.api.query import FileQuery
+from rslstudio.api.query import MissionQuery
+from rslstudio.api.query import ProjectQuery
+from rslstudio.wrappers import _args_to_file_query
+from rslstudio.wrappers import _args_to_mission_query
+from rslstudio.wrappers import _args_to_project_query
 
 
 def test_args_to_project_query() -> None:

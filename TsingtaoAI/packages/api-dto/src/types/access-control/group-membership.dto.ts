@@ -1,6 +1,6 @@
 import { AccessGroupDto } from '@api-dto/access-control/access-group.dto';
 import { UserDto } from '@api-dto/user/user.dto';
-import { IsNotUndefined } from '@kleinkram/validation';
+import { IsNotUndefined } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {

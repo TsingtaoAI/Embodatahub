@@ -1,4 +1,4 @@
-import { FileType } from '@kleinkram/shared';
+import { FileType } from '@rslstudio/shared';
 import { useQuery } from '@tanstack/vue-query';
 import {
     useAllTags,

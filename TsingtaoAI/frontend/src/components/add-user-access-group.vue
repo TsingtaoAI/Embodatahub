@@ -10,7 +10,7 @@
             :options="foundUsers?.users ?? []"
             option-label="name"
             class="full-width q-mb-md"
-            label="Search by name or email"
+            label="按姓名或邮箱搜索"
             @input-value="onInputUpdate"
             @update:model-value="onSelectionChange"
         >
@@ -109,7 +109,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import type { UserDto } from '@kleinkram/api-dto/types/user/user.dto';
+import type { UserDto } from '@rslstudio/api-dto/types/user/user.dto';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { Notify } from 'quasar';
 import { useUserSearch } from 'src/hooks/query-hooks';
@@ -130,20 +130,20 @@ const { data: foundUsers } = useUserSearch(search);
 
 const selectedRole = ref(false);
 const roleOptions = [
-    { label: 'Member', value: false },
-    { label: 'Owner', value: true },
+    { label: '成员', value: false },
+    { label: '所有者', value: true },
 ];
 
 const expirationShortcutState = ref<string>('never');
 const customExpirationDate = ref<string | undefined>(undefined);
 
 const expirationOptions = [
-    { label: 'Never', value: 'never' },
-    { label: '1 Week', value: '1week' },
-    { label: '1 Month', value: '1month' },
-    { label: '6 Months', value: '6months' },
-    { label: '1 Year', value: '1year' },
-    { label: 'Custom', value: 'custom', icon: 'sym_o_date_range' },
+    { label: '永不', value: 'never' },
+    { label: '1 周', value: '1week' },
+    { label: '1 个月', value: '1month' },
+    { label: '6 个月', value: '6months' },
+    { label: '1 年', value: '1year' },
+    { label: '自定义', value: 'custom', icon: 'sym_o_date_range' },
 ];
 
 function applyShortcut(type: '1week' | '1month' | '6months' | '1year') {

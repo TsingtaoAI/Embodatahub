@@ -8,17 +8,17 @@ import {
     StorageOverviewDto,
     TemporaryFileAccessesDto,
     UpdateFile,
-} from '@kleinkram/api-dto';
-import { FileAuditService } from '@kleinkram/backend-common/audit/file-audit.service';
-import { redis } from '@kleinkram/backend-common/consts';
-import { ActionEntity } from '@kleinkram/backend-common/entities/action/action.entity';
-import { CategoryEntity } from '@kleinkram/backend-common/entities/category/category.entity';
-import { FileEventEntity } from '@kleinkram/backend-common/entities/file/file-event.entity';
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { IngestionJobEntity } from '@kleinkram/backend-common/entities/file/ingestion-job.entity';
-import { MissionEntity } from '@kleinkram/backend-common/entities/mission/mission.entity';
-import { ProjectEntity } from '@kleinkram/backend-common/entities/project/project.entity';
-import env from '@kleinkram/backend-common/environment';
+} from '@rslstudio/api-dto';
+import { FileAuditService } from '@rslstudio/backend-common/audit/file-audit.service';
+import { redis } from '@rslstudio/backend-common/consts';
+import { ActionEntity } from '@rslstudio/backend-common/entities/action/action.entity';
+import { CategoryEntity } from '@rslstudio/backend-common/entities/category/category.entity';
+import { FileEventEntity } from '@rslstudio/backend-common/entities/file/file-event.entity';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { IngestionJobEntity } from '@rslstudio/backend-common/entities/file/ingestion-job.entity';
+import { MissionEntity } from '@rslstudio/backend-common/entities/mission/mission.entity';
+import { ProjectEntity } from '@rslstudio/backend-common/entities/project/project.entity';
+import env from '@rslstudio/backend-common/environment';
 import {
     DataType,
     FileEventType,
@@ -28,7 +28,7 @@ import {
     HealthStatus,
     TriggerEvent,
     UserRole,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import {
     BadRequestException,
     ConflictException,
@@ -64,13 +64,13 @@ import {
     addAccessConstraintsToMissionQuery,
     addAccessConstraintsToProjectQuery,
 } from '@/endpoints/auth/auth-helper';
-import { TagTypeEntity } from '@kleinkram/backend-common/entities/tagType/tag-type.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
+import { TagTypeEntity } from '@rslstudio/backend-common/entities/tagType/tag-type.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
 import {
     IStorageBucket,
     StorageCredentials,
     StorageItem,
-} from '@kleinkram/backend-common/modules/storage/types';
+} from '@rslstudio/backend-common/modules/storage/types';
 import Queue from 'bull';
 import logger from '../logger';
 
@@ -1242,17 +1242,138 @@ export class FileService implements OnModuleInit {
     }
 
     async getStorage(): Promise<StorageOverviewDto> {
-        const metrics = await this.dataStorage.getSystemMetrics?.();
-        if (!metrics) {
-            return {
-                usedBytes: 0,
-                totalBytes: 0,
-                usedInodes: 0,
-                totalInodes: 0,
-            };
+        // ── 1. 从数据库计算文件存储（按数据来源分类）──
+        let fileCategories: Array<{
+            key: string;
+            name: string;
+            usedBytes: number;
+            fileCount: number;
+            color: string;
+        }> = [];
+        let usedBytes = 0;
+        let totalFiles = 0;
+
+        try {
+            fileCategories = await this.calculateFileStorageFromDb();
+            // ── 2. 从数据库计算制品存储 ──
+            const artifactSize = await this.calculateArtifactStorageFromDb();
+            if (artifactSize > 0) {
+                fileCategories.push({
+                    key: 'artifacts',
+                    name: '制品',
+                    usedBytes: artifactSize,
+                    fileCount: 0,
+                    color: '#8A3FFC',
+                });
+            }
+            usedBytes = fileCategories.reduce((sum, c) => sum + c.usedBytes, 0);
+            totalFiles = fileCategories.reduce(
+                (sum, c) => sum + c.fileCount,
+                0,
+            );
+            logger.log(
+                `Storage from DB: ${usedBytes} bytes across ${fileCategories.length} categories`,
+                'FileService',
+            );
+        } catch (err) {
+            logger.error(
+                `Failed to calculate storage from DB: ${(err as Error).message}`,
+                (err as Error).stack,
+                'FileService',
+            );
         }
 
-        return metrics;
+        // ── 4. 获取总容量 ──
+        let totalBytes = 0;
+        try {
+            const metrics = await this.dataStorage.getSystemMetrics?.();
+            if (metrics && metrics.totalBytes > 0) {
+                totalBytes = metrics.totalBytes;
+            }
+        } catch {
+            // metrics pipeline failed; fall back to env
+        }
+
+        if (totalBytes === 0) {
+            totalBytes =
+                parseInt(
+                    process.env.S3_TOTAL_CAPACITY_BYTES ?? '0',
+                    10,
+                ) || 53_687_091_200; // 默认 50GB
+        }
+
+        return {
+            usedBytes,
+            totalBytes,
+            usedInodes: totalFiles,
+            totalInodes: 0,
+            categories: fileCategories,
+        };
+    }
+
+    /**
+     * 使用原始 SQL 从 file_entity 表按文件来源分组计算存储用量。
+     */
+    private async calculateFileStorageFromDb(): Promise<
+        Array<{
+            key: string;
+            name: string;
+            usedBytes: number;
+            fileCount: number;
+            color: string;
+        }>
+    > {
+        const originColors: Record<string, string> = {
+            UPLOAD: '#0F62FE',
+            GOOGLE_DRIVE: '#24A148',
+            CONVERTED: '#F1C21B',
+            UNKNOWN: '#8D8D8D',
+        };
+        const originNames: Record<string, string> = {
+            UPLOAD: '用户上传',
+            GOOGLE_DRIVE: '谷歌云盘',
+            CONVERTED: '格式转换',
+            UNKNOWN: '其他来源',
+        };
+
+        // 使用原始 SQL 确保跨 TypeORM 版本可靠
+        const rows: Array<{
+            origin: string;
+            total_size: string;
+            file_count: string;
+        }> = await this.dataSource.query(`
+            SELECT
+                COALESCE("origin"::text, 'UNKNOWN') AS origin,
+                COALESCE(SUM("size"), 0)::bigint AS total_size,
+                COUNT("uuid")::int AS file_count
+            FROM "file_entity"
+            WHERE "deletedAt" IS NULL
+              AND "state" != 'LOST'
+            GROUP BY COALESCE("origin"::text, 'UNKNOWN')
+            ORDER BY total_size DESC
+        `);
+
+        return rows.map((row) => ({
+            key: (row.origin || 'UNKNOWN').toLowerCase(),
+            name: originNames[row.origin] ?? row.origin ?? '其他来源',
+            usedBytes: parseInt(row.total_size, 10) || 0,
+            fileCount: parseInt(row.file_count, 10) || 0,
+            color: originColors[row.origin] ?? '#8D8D8D',
+        }));
+    }
+
+    /**
+     * 使用原始 SQL 从 action 表计算制品存储用量。
+     */
+    private async calculateArtifactStorageFromDb(): Promise<number> {
+        const rows: Array<{ total_size: string }> =
+            await this.dataSource.query(`
+                SELECT COALESCE(SUM("artifact_size"), 0)::bigint AS total_size
+                FROM "action"
+                WHERE "deletedAt" IS NULL
+            `);
+
+        return parseInt(rows[0]?.total_size ?? '0', 10) || 0;
     }
 
     async isUploading(userUUID: string): Promise<boolean> {

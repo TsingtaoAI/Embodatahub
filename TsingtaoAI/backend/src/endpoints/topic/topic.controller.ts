@@ -1,7 +1,7 @@
 import { ApiOkResponse } from '@/decorators';
 import { TopicService } from '@/services/topic.service';
 import { QuerySkip, QueryTake } from '@/validation/query-decorators';
-import { TopicNamesDto, TopicsDto, TopicTypesDto } from '@kleinkram/api-dto';
+import { TopicNamesDto, TopicsDto, TopicTypesDto } from '@rslstudio/api-dto';
 import { Controller, Get } from '@nestjs/common';
 import { AddUser, AuthHeader } from '../auth/parameter-decorator';
 import { LoggedIn } from '../auth/roles.decorator';

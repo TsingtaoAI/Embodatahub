@@ -4,10 +4,10 @@ import {
     DataType,
     FileState,
     QueueState,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import { downloadFile } from 'src/services/queries/file';
 
-import type { FileWithTopicDto } from '@kleinkram/api-dto/types/file/file.dto';
+import type { FileWithTopicDto } from '@rslstudio/api-dto/types/file/file.dto';
 
 export const icon = (type: DataType) => {
     switch (type) {

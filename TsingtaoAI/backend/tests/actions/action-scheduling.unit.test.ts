@@ -1,9 +1,9 @@
-import { ActionEntity, WorkerEntity } from '@kleinkram/backend-common';
+import { ActionEntity, WorkerEntity } from '@rslstudio/backend-common';
 import {
     addActionQueue,
     findWorkerForAction,
-} from '@kleinkram/backend-common/scheduling-logic';
-import { ActionState } from '@kleinkram/shared';
+} from '@rslstudio/backend-common/scheduling-logic';
+import { ActionState } from '@rslstudio/shared';
 import { MoreThanOrEqual, Repository } from 'typeorm';
 
 describe('Action Scheduling Logic Unit Tests', () => {

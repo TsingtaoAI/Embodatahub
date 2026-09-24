@@ -1,6 +1,6 @@
 import { Paginated } from '@api-dto/pagination';
-import { AccessGroupRights, AccessGroupType } from '@kleinkram/shared';
-import { IsSkip, IsTake } from '@kleinkram/validation';
+import { AccessGroupRights, AccessGroupType } from '@rslstudio/shared';
+import { IsSkip, IsTake } from '@rslstudio/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsEnum, IsNumber, IsString, ValidateNested } from 'class-validator';

@@ -1,9 +1,9 @@
-import { AccessGroupRights } from '@kleinkram/shared';
+import { AccessGroupRights } from '@rslstudio/shared';
 import { database } from '../utils/database-utilities';
 
 import { createActionUsingPost, getAuthHeaders } from '../utils/api-calls';
 
-import { ActionTemplateEntity } from '@kleinkram/backend-common';
+import { ActionTemplateEntity } from '@rslstudio/backend-common';
 import { DEFAULT_URL } from '../auth/utilities';
 import {
     createMockWorker,
@@ -16,7 +16,7 @@ describe('Action Management Tests', () => {
 
     test('should create and archive an action template', async () => {
         const { user } = await setupTestEnvironment(
-            'test-action@kleinkram.dev',
+            'test-action@rslstudio.dev',
             'Action User',
         );
 
@@ -64,7 +64,7 @@ describe('Action Management Tests', () => {
 
     test('should submit an action run', async () => {
         const { user, missionUuid } = await setupTestEnvironment(
-            'test-run@kleinkram.io',
+            'test-run@rslstudio.io',
             'Run User',
         );
 

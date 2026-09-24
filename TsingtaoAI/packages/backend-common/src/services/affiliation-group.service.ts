@@ -1,4 +1,4 @@
-import { AccessGroupConfig, AccessGroupType } from '@kleinkram/shared';
+import { AccessGroupConfig, AccessGroupType } from '@rslstudio/shared';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

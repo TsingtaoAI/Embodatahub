@@ -1,5 +1,5 @@
 import { WorkerService } from '@/services/worker.service';
-import { WorkerEntity } from '@kleinkram/backend-common/entities/worker/worker.entity';
+import { WorkerEntity } from '@rslstudio/backend-common/entities/worker/worker.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { WorkerController } from './worker.controller';

@@ -104,8 +104,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ActionDto } from '@kleinkram/api-dto/types/actions/action.dto';
-import { ActionState } from '@kleinkram/shared';
+import type { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
+import { ActionState } from '@rslstudio/shared';
 import ActionBadge from 'components/action-badge.vue';
 import { QTable } from 'quasar';
 import { useActionList } from 'src/composables/use-actions-queries';
@@ -193,7 +193,7 @@ watch(
 const columns = [
     {
         name: 'state',
-        label: 'Status',
+        label: '状态',
         align: 'left',
         field: 'state',
         sortable: true,
@@ -201,7 +201,7 @@ const columns = [
     },
     {
         name: 'template.image_name',
-        label: 'Docker Image',
+        label: '镜像',
         align: 'left',
         sortable: true,
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -209,14 +209,14 @@ const columns = [
     },
     {
         name: 'mission.name',
-        label: 'Mission',
+        label: '任务',
         align: 'left',
         sortable: true,
         field: (row: ActionDto) => row.mission.name || 'N/A',
     },
     {
         name: 'template.name',
-        label: 'Action Name',
+        label: '执行名称',
         align: 'left',
         sortable: true,
         field: (row: ActionDto) =>
@@ -226,7 +226,7 @@ const columns = [
     },
     {
         name: 'state_cause',
-        label: 'State Reason',
+        label: '状态原因',
         align: 'left',
         sortable: true,
         style:
@@ -239,7 +239,7 @@ const columns = [
     },
     {
         name: 'updatedAt',
-        label: 'Last Update',
+        label: '最后更新',
         align: 'left',
         sortable: true,
         field: (row: ActionDto) =>
@@ -248,7 +248,7 @@ const columns = [
     },
     {
         name: 'runtime',
-        label: 'Duration',
+        label: '持续时间',
         align: 'left',
         sortable: true,
         field: (row: ActionDto) =>
@@ -256,7 +256,7 @@ const columns = [
     },
     {
         name: 'createdAt',
-        label: 'Creation Date',
+        label: '创建日期',
         align: 'left',
         sortable: true,
         field: (row: ActionDto) =>
@@ -265,7 +265,7 @@ const columns = [
     },
     {
         name: 'creator.name',
-        label: 'Submitted By',
+        label: '提交人',
         align: 'left',
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         field: (row: ActionDto) => row.creator.name ?? 'N/A',

@@ -1,10 +1,10 @@
-import type { ActionLogsDto } from '@kleinkram/api-dto/types/actions/action-logs.dto';
-import type { ActionTemplatesDto } from '@kleinkram/api-dto/types/actions/action-templates.dto';
-import type { ActionDto } from '@kleinkram/api-dto/types/actions/action.dto';
-import type { ActionsDto } from '@kleinkram/api-dto/types/actions/actions.dto';
-import type { FileEventsDto } from '@kleinkram/api-dto/types/file/file-event.dto';
-import type { ActionQuery } from '@kleinkram/api-dto/types/submit-action.dto';
-import { ActionState } from '@kleinkram/shared';
+import type { ActionLogsDto } from '@rslstudio/api-dto/types/actions/action-logs.dto';
+import type { ActionTemplatesDto } from '@rslstudio/api-dto/types/actions/action-templates.dto';
+import type { ActionDto } from '@rslstudio/api-dto/types/actions/action.dto';
+import type { ActionsDto } from '@rslstudio/api-dto/types/actions/actions.dto';
+import type { FileEventsDto } from '@rslstudio/api-dto/types/file/file-event.dto';
+import type { ActionQuery } from '@rslstudio/api-dto/types/submit-action.dto';
+import { ActionState } from '@rslstudio/shared';
 import { useQuery, UseQueryReturnType } from '@tanstack/vue-query';
 import { actionKeys } from 'src/api/keys/action-keys';
 import { ActionService } from 'src/api/services/action.service';

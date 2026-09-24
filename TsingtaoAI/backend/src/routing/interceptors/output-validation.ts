@@ -57,7 +57,7 @@ function validateResponseJSON<T extends object>(dto: ClassConstructor<T>) {
                     `\n${errors.map((error) => error.toString()).join('\n')}`,
                 );
                 throw new InternalServerErrorException(
-                    `Validation failed: ${errors.length.toString()} errors. Check backend logs for details.`,
+                    `验证失败，共 ${errors.length.toString()} 个错误。请查看后端日志了解详情。`,
                 );
             }
         }
@@ -95,7 +95,7 @@ export class GlobalResponseValidationInterceptor implements NestInterceptor {
         // enforce that a DTO must be defined uns
         if (dto === undefined)
             throw new InternalServerErrorException(
-                `No output DTO defined for route ${target.name}.`,
+                `路由 ${target.name} 未定义输出 DTO。`,
             );
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

@@ -2,21 +2,21 @@ import {
     ActionTriggerDto,
     CreateActionTriggerDto,
     UpdateActionTriggerDto,
-} from '@kleinkram/api-dto';
+} from '@rslstudio/api-dto';
 import {
     ActionTemplateEntity,
     ActionTriggerEntity,
     MissionEntity,
     UserEntity,
-} from '@kleinkram/backend-common';
-import { redis } from '@kleinkram/backend-common/consts';
-import { ActionDispatcherService } from '@kleinkram/backend-common/modules/action-dispatcher/action-dispatcher.service';
+} from '@rslstudio/backend-common';
+import { redis } from '@rslstudio/backend-common/consts';
+import { ActionDispatcherService } from '@rslstudio/backend-common/modules/action-dispatcher/action-dispatcher.service';
 import {
     ActionTriggerSource,
     isValidCron,
     TriggerEvent,
     TriggerType,
-} from '@kleinkram/shared';
+} from '@rslstudio/shared';
 import {
     BadRequestException,
     Injectable,

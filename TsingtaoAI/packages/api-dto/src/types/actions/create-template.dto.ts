@@ -1,5 +1,5 @@
-import { AccessGroupRights } from '@kleinkram/shared';
-import { IsDockerImage } from '@kleinkram/validation';
+import { AccessGroupRights } from '@rslstudio/shared';
+import { IsDockerImage } from '@rslstudio/validation';
 import {
     IsEnum,
     IsNotEmpty,

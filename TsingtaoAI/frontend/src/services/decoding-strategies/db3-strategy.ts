@@ -1,7 +1,7 @@
 import { parse as parseMessageDefer } from '@foxglove/rosmsg';
 import { MessageReader as Ros1Reader } from '@foxglove/rosmsg-serialization';
 import { MessageReader as CdrReader } from '@foxglove/rosmsg2-serialization';
-import { UniversalHttpReader } from '@kleinkram/shared';
+import { UniversalHttpReader } from '@rslstudio/shared';
 import * as fzstd from 'fzstd';
 import lz4js from 'lz4js';
 import initSqlJs, { Database } from 'sql.js';

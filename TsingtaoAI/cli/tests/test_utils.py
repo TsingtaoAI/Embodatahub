@@ -6,18 +6,18 @@ from uuid import uuid4
 
 import pytest
 
-from kleinkram.errors import FileTypeNotSupported
-from kleinkram.utils import b64_md5
-from kleinkram.utils import check_file_paths
-from kleinkram.utils import check_filename_is_sanatized
-from kleinkram.utils import get_filename
-from kleinkram.utils import get_filename_map
-from kleinkram.utils import is_valid_uuid4
-from kleinkram.utils import parse_path_like
-from kleinkram.utils import parse_uuid_like
-from kleinkram.utils import singleton_list
-from kleinkram.utils import split_args
-from kleinkram.utils import upper_camel_case_to_words
+from rslstudio.errors import FileTypeNotSupported
+from rslstudio.utils import b64_md5
+from rslstudio.utils import check_file_paths
+from rslstudio.utils import check_filename_is_sanatized
+from rslstudio.utils import get_filename
+from rslstudio.utils import get_filename_map
+from rslstudio.utils import is_valid_uuid4
+from rslstudio.utils import parse_path_like
+from rslstudio.utils import parse_uuid_like
+from rslstudio.utils import singleton_list
+from rslstudio.utils import split_args
+from rslstudio.utils import upper_camel_case_to_words
 
 
 def test_split_args():

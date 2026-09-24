@@ -1,4 +1,4 @@
-FROM kleinkram-base AS development
+FROM tsintaorsl-base AS development
 
 WORKDIR /app/frontend
 
@@ -35,10 +35,10 @@ WORKDIR /app/frontend
 RUN sh ./create_build_info.sh
 WORKDIR /app
 
-RUN pnpm --filter @kleinkram/shared build
-RUN pnpm --filter @kleinkram/validation build
-RUN pnpm --filter @kleinkram/api-dto build
-RUN pnpm --filter kleinkram-frontend build
+RUN pnpm --filter @tsintaorsl/shared build
+RUN pnpm --filter @tsintaorsl/validation build
+RUN pnpm --filter @tsintaorsl/api-dto build
+RUN pnpm --filter tsintaorsl-frontend build
 
 FROM debian:bookworm-slim AS nginx-base
 RUN apt-get update && \
@@ -57,7 +57,7 @@ RUN sed -i 's/user www-data;//g' /etc/nginx/nginx.conf && \
     chmod -R 777 /var/lib/nginx /var/log/nginx
 
 
-FROM gcr.io/distroless/base-debian12 AS production
+FROM mirror.baidubce.com/gcr/distroless/base-debian12 AS production
 
 # Copy nginx binary and config
 COPY --from=nginx-base /usr/sbin/nginx /usr/sbin/nginx

@@ -93,8 +93,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ActionTemplateDto } from '@kleinkram/api-dto/types/actions/action-template.dto';
-import { AccessGroupRights } from '@kleinkram/shared';
+import type { ActionTemplateDto } from '@rslstudio/api-dto/types/actions/action-template.dto';
+import { AccessGroupRights } from '@rslstudio/shared';
 import ComputeResourcesFieldset from 'components/actions/compute-resources-fieldset.vue';
 import AppInput from 'components/common/app-input.vue';
 import { accessGroupRightsMap } from 'src/services/generic';

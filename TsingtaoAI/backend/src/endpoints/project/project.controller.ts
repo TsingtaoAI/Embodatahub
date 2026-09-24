@@ -19,8 +19,8 @@ import {
     RemoveTagTypeDto,
     ResentProjectsDto,
     UpdateTagTypesDto,
-} from '@kleinkram/api-dto';
-import { BodyUUIDArray } from '@kleinkram/validation';
+} from '@rslstudio/api-dto';
+import { BodyUUIDArray } from '@rslstudio/validation';
 import {
     Body,
     Controller,

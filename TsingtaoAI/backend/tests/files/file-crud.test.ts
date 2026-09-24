@@ -1,5 +1,5 @@
-import { FileEntity } from '@kleinkram/backend-common';
-import { FileState, UserRole } from '@kleinkram/shared';
+import { FileEntity } from '@rslstudio/backend-common';
+import { FileState, UserRole } from '@rslstudio/shared';
 import { DEFAULT_URL } from '../auth/utilities';
 import {
     createMissionUsingPost,
@@ -17,7 +17,7 @@ describe('File Management Tests', () => {
 
     test('should upload and download a file', async () => {
         const { user, missionUuid } = await setupTestEnvironment(
-            'test-file@kleinkram.dev',
+            'test-file@rslstudio.dev',
             'File User',
             UserRole.ADMIN,
         );
@@ -51,7 +51,7 @@ describe('File Management Tests', () => {
 
     test('should delete a file', async () => {
         const { user, missionUuid } = await setupTestEnvironment(
-            'test-delete@kleinkram.dev',
+            'test-delete@rslstudio.dev',
             'Delete User',
             UserRole.ADMIN,
         );
@@ -79,7 +79,7 @@ describe('File Management Tests', () => {
 
     test('should delete multiple files', async () => {
         const { user, missionUuid } = await setupTestEnvironment(
-            'test-multi-delete@kleinkram.dev',
+            'test-multi-delete@rslstudio.dev',
             'Multi Delete User',
             UserRole.ADMIN,
         );
@@ -124,7 +124,7 @@ describe('File Management Tests', () => {
 
     test('should move file to another mission', async () => {
         const { user, missionUuid, projectUuid } = await setupTestEnvironment(
-            'test-move@kleinkram.dev',
+            'test-move@rslstudio.dev',
             'Move User',
             UserRole.ADMIN,
         );

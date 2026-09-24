@@ -1,8 +1,8 @@
-import { FileEventEntity } from '@kleinkram/backend-common/entities/file/file-event.entity';
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { TopicEntity } from '@kleinkram/backend-common/entities/topic/topic.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import { FileEventType, FileState } from '@kleinkram/shared';
+import { FileEventEntity } from '@rslstudio/backend-common/entities/file/file-event.entity';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { TopicEntity } from '@rslstudio/backend-common/entities/topic/topic.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import { FileEventType, FileState } from '@rslstudio/shared';
 import { Repository } from 'typeorm';
 import logger from '../../logger';
 import { ExtractedTopicInfo } from './file-handler.interface';

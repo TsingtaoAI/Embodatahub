@@ -21,7 +21,7 @@
                     class="q-pa-md flex flex-center column q-gutter-md"
                     style="min-height: 200px"
                 >
-                    <span class="text-subtitle1"> No API Tokens Found </span>
+                    <span class="text-subtitle1"> 未找到 API 令牌 </span>
                 </div>
             </div>
         </template>
@@ -69,7 +69,7 @@
             <q-td :props="props">
                 <q-badge
                     :color="props.row.expired ? 'negative' : 'positive'"
-                    :label="props.row.expired ? 'Expired' : 'Active'"
+                    :label="props.row.expired ? '已过期' : '活跃'"
                 />
             </q-td>
         </template>
@@ -80,8 +80,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ApiKeyMetadataDto } from '@kleinkram/api-dto/types/user/api-key-metadata.dto';
-import { AccessGroupRights } from '@kleinkram/shared';
+import type { ApiKeyMetadataDto } from '@rslstudio/api-dto/types/user/api-key-metadata.dto';
+import { AccessGroupRights } from '@rslstudio/shared';
 import type { QTableColumn } from 'quasar';
 import { useMyApiKeys } from 'src/hooks/query-hooks';
 import ROUTES from 'src/router/routes';
@@ -143,16 +143,16 @@ function onRequest(props: unknown) {
 const rightsLabel = (rights: AccessGroupRights): string => {
     switch (rights) {
         case AccessGroupRights.READ: {
-            return 'Read';
+            return '读取';
         }
         case AccessGroupRights.CREATE: {
-            return 'Create';
+            return '创建';
         }
         case AccessGroupRights.WRITE: {
-            return 'Write';
+            return '写入';
         }
         case AccessGroupRights.DELETE: {
-            return 'Delete';
+            return '删除';
         }
         default: {
             return String(rights);
@@ -164,7 +164,7 @@ const columns: QTableColumn<ApiKeyMetadataDto>[] = [
     {
         name: 'key_type',
         required: true,
-        label: 'Type',
+        label: '类型',
         align: 'left',
         field: (row) => row.keyType,
         format: (value: string) => value,
@@ -174,7 +174,7 @@ const columns: QTableColumn<ApiKeyMetadataDto>[] = [
     {
         name: 'rights',
         required: true,
-        label: 'Rights',
+        label: '权限',
         align: 'left',
         field: (row) => row.rights,
         format: (value: AccessGroupRights) => rightsLabel(value),
@@ -184,7 +184,7 @@ const columns: QTableColumn<ApiKeyMetadataDto>[] = [
     {
         name: 'missionName',
         required: true,
-        label: 'Mission',
+        label: '任务',
         align: 'left',
         field: (row) => row.missionName ?? '—',
         format: (value: string) => value,
@@ -192,7 +192,7 @@ const columns: QTableColumn<ApiKeyMetadataDto>[] = [
     {
         name: 'actionTemplateName',
         required: true,
-        label: 'Action',
+        label: '操作',
         align: 'left',
         field: (row) => row.actionTemplateName,
         format: (value: string) => value || '—',
@@ -200,7 +200,7 @@ const columns: QTableColumn<ApiKeyMetadataDto>[] = [
     {
         name: 'deletedAt',
         required: true,
-        label: 'Status',
+        label: '状态',
         align: 'center',
         field: (row) => row.expired,
         sortable: true,
@@ -209,7 +209,7 @@ const columns: QTableColumn<ApiKeyMetadataDto>[] = [
     {
         name: 'createdAt',
         required: true,
-        label: 'Created',
+        label: '创建时间',
         align: 'left',
         field: (row) => row.createdAt,
         format: (value: string) => formatDate(new Date(value)),

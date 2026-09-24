@@ -3,15 +3,15 @@ import {
     CancelProcessingResponseDto,
     DeleteMissionResponseDto,
     DriveCreate,
-} from '@kleinkram/api-dto';
-import { FileAuditService } from '@kleinkram/backend-common/audit/file-audit.service';
-import { redis } from '@kleinkram/backend-common/consts';
-import { FileEntity } from '@kleinkram/backend-common/entities/file/file.entity';
-import { IngestionJobEntity } from '@kleinkram/backend-common/entities/file/ingestion-job.entity';
-import { MissionEntity } from '@kleinkram/backend-common/entities/mission/mission.entity';
-import { UserEntity } from '@kleinkram/backend-common/entities/user/user.entity';
-import env from '@kleinkram/backend-common/environment';
-import { IStorageBucket } from '@kleinkram/backend-common/modules/storage/types';
+} from '@rslstudio/api-dto';
+import { FileAuditService } from '@rslstudio/backend-common/audit/file-audit.service';
+import { redis } from '@rslstudio/backend-common/consts';
+import { FileEntity } from '@rslstudio/backend-common/entities/file/file.entity';
+import { IngestionJobEntity } from '@rslstudio/backend-common/entities/file/ingestion-job.entity';
+import { MissionEntity } from '@rslstudio/backend-common/entities/mission/mission.entity';
+import { UserEntity } from '@rslstudio/backend-common/entities/user/user.entity';
+import env from '@rslstudio/backend-common/environment';
+import { IStorageBucket } from '@rslstudio/backend-common/modules/storage/types';
 import {
     FileEventType,
     FileLocation,
@@ -22,8 +22,8 @@ import {
     QueueState,
     TriggerEvent,
     UserRole,
-} from '@kleinkram/shared';
-import { getGoogleDriveInfo } from '@kleinkram/validation';
+} from '@rslstudio/shared';
+import { getGoogleDriveInfo } from '@rslstudio/validation';
 import {
     BadRequestException,
     ConflictException,

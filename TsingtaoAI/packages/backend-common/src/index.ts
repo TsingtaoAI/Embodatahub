@@ -18,6 +18,10 @@ export * from './entities/file/ingestion-job.entity';
 export * from './entities/metadata/metadata.entity';
 export * from './entities/mission/mission.entity';
 export * from './entities/project/project.entity';
+export * from './entities/rds/rds-cleaning-result.entity';
+export * from './entities/rds/rds-dataset.entity';
+export * from './entities/rds/rds-episode.entity';
+export * from './entities/rds/rds-filter-result.entity';
 export * from './entities/tagType/tag-type.entity';
 export * from './entities/topic/topic.entity';
 export * from './entities/user/user.entity';
@@ -55,6 +59,10 @@ import { IngestionJobEntity } from './entities/file/ingestion-job.entity';
 import { MetadataEntity } from './entities/metadata/metadata.entity';
 import { MissionEntity } from './entities/mission/mission.entity';
 import { ProjectEntity } from './entities/project/project.entity';
+import { RdsCleaningResultEntity } from './entities/rds/rds-cleaning-result.entity';
+import { RdsDatasetEntity } from './entities/rds/rds-dataset.entity';
+import { RdsEpisodeEntity } from './entities/rds/rds-episode.entity';
+import { RdsFilterResultEntity } from './entities/rds/rds-filter-result.entity';
 import { TagTypeEntity } from './entities/tagType/tag-type.entity';
 import { TopicEntity } from './entities/topic/topic.entity';
 import { UserEntity } from './entities/user/user.entity';
@@ -79,6 +87,10 @@ export const ALL_ENTITIES = [
     MetadataEntity,
     MissionEntity,
     ProjectEntity,
+    RdsCleaningResultEntity,
+    RdsDatasetEntity,
+    RdsEpisodeEntity,
+    RdsFilterResultEntity,
     TagTypeEntity,
     TopicEntity,
     UserEntity,

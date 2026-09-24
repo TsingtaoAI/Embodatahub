@@ -1,5 +1,5 @@
 {
-    "name": "kleinkram-queue-consumer",
+    "name": "rslstudio-queue-consumer",
     "version": "0.59.0",
     "license": "MIT",
     "scripts": {
@@ -17,10 +17,10 @@
         "@aws-sdk/client-s3": "3.967.0",
         "@aws-sdk/s3-request-presigner": "3.967.0",
         "@foxglove/rosbag": "^0.4.1",
-        "@kleinkram/api-dto": "workspace:*",
-        "@kleinkram/backend-common": "workspace:*",
-        "@kleinkram/shared": "workspace:*",
-        "@kleinkram/validation": "workspace:*",
+        "@rslstudio/api-dto": "workspace:*",
+        "@rslstudio/backend-common": "workspace:*",
+        "@rslstudio/shared": "workspace:*",
+        "@rslstudio/validation": "workspace:*",
         "@kubernetes/client-node": "^1.0.0",
         "@mcap/core": "^2.2.0",
         "@mcap/nodejs": "^1.0.2",
